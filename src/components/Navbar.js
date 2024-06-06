@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef } from "react";
+import tarakiLogo from '../components/imgs/taraki-black.svg'
 
 function Navbar() {
   const menuButtonRef = useRef(null);
@@ -27,11 +28,11 @@ function Navbar() {
       <nav className="bg-white border-gray-200 fixed w-full z-50 top-0 start-0">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <a
-            href="https://flowbite.com/"
+            href="#home"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
-              src="./imgs/taraki-black.svg"
+              src={tarakiLogo}
               className="w-28"
               alt="TARAKI LOGO HERE"
             />
