@@ -1,3 +1,4 @@
+
 function tarakiTeam() {
   return (
     <div>
@@ -13,7 +14,7 @@ function tarakiTeam() {
             </p>
           </section>
           <section>
-            <div className="mx-auto mt-5 bg-gray-500 w-72 h-60"></div>
+                      <div className="mx-auto mt-5 bg-gray-500 w-72 h-60">{}</div>
             <p className="text-sm text-center font-light mt-5 px-16">
               John Doe
             </p>
