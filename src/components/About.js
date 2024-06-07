@@ -1,12 +1,14 @@
-import animation from '../components/imgs/taraki-animation.mp4'
+import animation from "../components/imgs/taraki-animation.mp4";
 function about() {
   return (
     <div>
       <div className="font-satoshi overflow-x-hidden">
-        <div className="cont">
-          <section className="text-center mt-16">
-            <h1 className="font-semibold text-md">About Us</h1>
-            <p className="font-light text-sm px-10 mt-5">
+        <div className="cont tablet:flex tablet:justify-between tablet:items-center tablet:mt-8 tablet:px-10">
+          <section className="text-center tablet:text-left mt-16 tablet:mt-0">
+            <h1 className="font-semibold text-md tablet:text-lg tablet:px-0">
+              About Us
+            </h1>
+            <p className="font-light text-sm tablet:text-md px-10 tablet:px-0 mt-5 tablet:mt-0 tablet:leading-6">
               <span className="font-semibold text-orange-600">TARAKI</span>{" "}
               envisions to be the country’s leading technological consortium in
               building and transforming the Cordilleran Startup Ecosystem. We
@@ -19,7 +21,7 @@ function about() {
               src={animation}
               autoPlay
               className="m-auto
-              w-72"
+              w-72 tablet:w-[95%]"
             ></video>
           </section>
         </div>

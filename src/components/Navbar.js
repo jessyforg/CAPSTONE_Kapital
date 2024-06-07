@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef } from "react";
-import tarakiLogo from '../components/imgs/taraki-black.svg'
+import tarakiLogo from "../components/imgs/taraki-black.svg";
 
 function Navbar() {
   const menuButtonRef = useRef(null);
@@ -25,23 +25,19 @@ function Navbar() {
 
   return (
     <header className="font-satoshi overflow-x-hidden">
-      <nav className="bg-white border-gray-200 fixed w-full z-50 top-0 start-0">
+      <nav className="bg-white border-gray-200 shadow-md fixed w-full z-50 top-0 start-0">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="#home"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src={tarakiLogo}
-              className="w-28"
-              alt="TARAKI LOGO HERE"
-            />
+            <img src={tarakiLogo} className="w-28" alt="TARAKI LOGO HERE" />
           </a>
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <div className="flex laptop:order-2 space-x-3 laptop:space-x-0 rtl:space-x-reverse">
             <button
               data-collapse-toggle="navbar-cta"
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-800 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-800 rounded-lg laptop:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
               aria-controls="navbar-cta"
               aria-expanded="false"
               id="mobile-menu-button"
@@ -66,15 +62,15 @@ function Navbar() {
             </button>
           </div>
           <div
-            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+            className="items-center justify-between hidden w-full laptop:flex laptop:w-auto laptop:order-1"
             id="navbar-cta"
             ref={navbarStickyRef}
           >
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0">
+            <ul className="flex flex-col font-medium p-4 laptop:p-0 mt-4 border rounded-lg laptop:space-x-8 rtl:space-x-reverse laptop:flex-row laptop:mt-0">
               <li>
                 <a
                   href="#home"
-                  className="block py-2 px-3 md:p-0 text-white bg-orange-600 rounded"
+                  className="block py-2 px-3 laptop:p-0 text-white bg-orange-600 rounded"
                 >
                   Home
                 </a>
@@ -82,7 +78,7 @@ function Navbar() {
               <li>
                 <a
                   href="#about"
-                  className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-orange-600 hover:text-gray-50"
+                  className="block py-2 px-3 laptop:p-0 text-gray-900 rounded hover:bg-orange-600 hover:text-gray-50"
                 >
                   About
                 </a>
@@ -90,7 +86,7 @@ function Navbar() {
               <li>
                 <a
                   href="#services"
-                  className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-orange-600 hover:text-gray-50"
+                  className="block py-2 px-3 laptop:p-0 text-gray-900 rounded hover:bg-orange-600 hover:text-gray-50"
                 >
                   Services
                 </a>
@@ -98,7 +94,7 @@ function Navbar() {
               <li>
                 <a
                   href="#contact"
-                  className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-orange-600 hover:text-gray-50"
+                  className="block py-2 px-3 laptop:p-0 text-gray-900 rounded hover:bg-orange-600 hover:text-gray-50"
                 >
                   Contact
                 </a>

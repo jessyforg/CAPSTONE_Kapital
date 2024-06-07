@@ -3,14 +3,14 @@ function faqs() {
     <div>
       <div>
         <div className="cont">
-          <section className="flex flex-col justify-center items-center mt-5 bg-trkblack pt-5 pb-8">
+          <section className="flex flex-col justify-start mt-5 bg-trkblack pt-5 pb-8">
             <section className="text-center">
               <h1 className="font-semibold text-md text-white">FAQs</h1>
             </section>
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-slate-400 font-light rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-slate-400 font-light rounded-lg text-sm px-5 py-2.5 mx-5 text-center flex justify-between items-center"
               type="button"
             >
               How can I get involved with TARAKI?{" "}
@@ -75,10 +75,10 @@ function faqs() {
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
             >
-              How can I get involved with TARAKI?{" "}
+              Who can join TARAKI's programs and initiatives?{" "}
               <svg
                 className="h-3 w-3 ms-3"
                 xmlns="http://www.w3.org/2000/svg"
@@ -140,10 +140,10 @@ function faqs() {
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
             >
-              How can I get involved with TARAKI?{" "}
+              Does TARAKI offer resources for startups?{" "}
               <svg
                 className="h-3 w-3 ms-3"
                 xmlns="http://www.w3.org/2000/svg"
@@ -205,10 +205,10 @@ function faqs() {
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
             >
-              How can I get involved with TARAKI?{" "}
+              How can TARAKI support my startup?{" "}
               <svg
                 className="h-3 w-3 ms-3"
                 xmlns="http://www.w3.org/2000/svg"
