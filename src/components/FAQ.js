@@ -5,12 +5,17 @@ function faqs() {
         <div className="cont">
           <section className="flex flex-col justify-start mt-5 tablet:mt-12 bg-trkblack pt-5 pb-8 tablet:px-20">
             <section className="text-center">
-              <h1 className="font-semibold text-md text-white">FAQs</h1>
+              <h1 className="tablet-m:hidden font-semibold text-md tablet-m:text-xl text-white">
+                FAQs
+              </h1>
+              <h1 className="phone:hidden tablet-m:block font-semibold text-md tablet-m:text-2xl text-white">
+                Frequently Asked Questions
+              </h1>
             </section>
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-slate-400 font-light rounded-lg text-sm tablet:text-[1rem] px-5 py-2.5 mx-5 text-center flex justify-between items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-slate-400 font-light rounded-lg text-sm tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5 mx-5 text-center flex justify-between items-center"
               type="button"
             >
               How can I get involved with TARAKI?{" "}
@@ -75,7 +80,7 @@ function faqs() {
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] px-5 py-2.5  mx-5 text-center flex justify-between items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
             >
               Who can join TARAKI's programs and initiatives?{" "}
@@ -140,7 +145,7 @@ function faqs() {
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] px-5 py-2.5  mx-5 text-center flex justify-between items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] tablet:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
             >
               Does TARAKI offer resources for startups?{" "}
@@ -205,7 +210,7 @@ function faqs() {
             <button
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm tablet:text-[1rem] px-5 py-2.5  mx-5 text-center flex justify-between items-center"
+              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
             >
               How can TARAKI support my startup?{" "}

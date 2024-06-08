@@ -9,7 +9,7 @@ function program() {
       <div>
         <div className="cont">
           <section className="mt-16 tablet:mt-12 text-center">
-            <h1 className="font-semibold text-md tablet:text-lg px-20 tablet:px-52">
+            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl px-20 tablet:px-52 tablet-m:px-72">
               We&apos;re covering a lot of developments in our news updates.
             </h1>
           </section>{" "}
@@ -18,7 +18,7 @@ function program() {
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8"
           >
             <div
-              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[115rem] tablet:h-[14rem]"
+              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[115rem] tablet-m:w-[130rem] tablet:h-[14rem]"
               style={{ backgroundImage: `url(${aware})` }}
             ></div>
 
@@ -26,10 +26,10 @@ function program() {
               id="sectionTextCont"
               className="tablet:flex tablet:flex-col tablet:px-5"
             >
-              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] font-semibold mt-5 px-8 tablet:px-0">
+              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl font-semibold mt-5 px-8 tablet:px-0">
                 AWARENESS PROGRAM
               </h1>
-              <p className="text-sm tablet:text-[0.9rem] tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:px-0">
+              <p className="text-sm tablet:text-[0.9rem] tablet-m:text-lg tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:px-0">
                 Our Awareness Programs are designed to educate and inform
                 participants about the latest trends, challenges, and
                 opportunities in technology and innovation. These programs aim
@@ -43,17 +43,17 @@ function program() {
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8 tablet:mt-5"
           >
             <div
-              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[100rem] tablet:h-[14rem] tablet:order-2"
+              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[100rem] tablet-m:w-[130rem] tablet:h-[14rem] tablet:order-2"
               style={{ backgroundImage: `url(${ready})` }}
             ></div>
             <div
               id="sectionTextCont"
               className="tablet:flex tablet:flex-col tablet:px-0"
             >
-              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] font-semibold mt-5 px-8 tablet:px-0">
+              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl font-semibold mt-5 px-8 tablet:px-0">
                 READINESS PROGRAM
               </h1>
-              <p className="text-sm tablet:text-[0.9rem] tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5">
+              <p className="text-sm tablet:text-[0.9rem] tablet-m:text-lg tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5">
                 The Readiness Programs focus on preparing individuals and
                 organizations for the future of work and technological
                 advancements. These programs provide the necessary skills and
@@ -66,17 +66,17 @@ function program() {
             className="tablet:flex tablet:justify-between tablet:items-center tablet:mt-5 tablet:px-8"
           >
             <div
-              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[110rem] tablet:h-[14rem]"
+              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[110rem] tablet-m:w-[125rem] tablet:h-[14rem]"
               style={{ backgroundImage: `url(${know})` }}
             ></div>
             <div
               id="sectionTextCont"
               className="tablet:flex tablet:flex-col tablet:px-5"
             >
-              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] font-semibold mt-5 px-8 tablet:px-0">
+              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl font-semibold mt-5 px-8 tablet:px-0">
                 KNOWLEDGE ADVANCEMENT INITIVATIVES
               </h1>
-              <p className="text-sm tablet:text-[0.9rem] tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:px-0">
+              <p className="text-sm tablet:text-[0.9rem] tablet-m:text-lg tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:px-0">
                 Our Knowledge Advancement Initiatives aim to push the boundaries
                 of what is known in the field of technology and innovation. We
                 support research and development projects that contribute to the
@@ -90,17 +90,17 @@ function program() {
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8 tablet:mt-5"
           >
             <div
-              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[85rem] tablet:h-[14rem] tablet:order-2"
+              className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[85rem] tablet-m:w-[110rem] tablet:h-[14rem] tablet:order-2"
               style={{ backgroundImage: `url(${inno})` }}
             ></div>
             <div
               id="sectionTextCont"
               className="tablet:flex tablet:flex-col tablet:px-0"
             >
-              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] font-semibold mt-5 px-8 tablet:px-0">
+              <h1 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl font-semibold mt-5 px-8 tablet:px-0">
                 INNOVATION PROJECT
               </h1>
-              <p className="text-sm tablet:text-[0.9rem] tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5">
+              <p className="text-sm tablet:text-[0.9rem] tablet-m:text-lg tablet:font-normal tablet:leading-6 text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5">
                 TARAKI&apos;s Innovation Projects are practical applications of
                 our research and knowledge. These projects are designed to
                 address real-world challenges and demonstrate the potential of

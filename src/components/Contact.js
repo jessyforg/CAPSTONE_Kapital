@@ -8,9 +8,9 @@ function contacts() {
           <section className="flex justify-center items-center mt-14 tablet:mt-12">
             <img src={logo} className="h-14" alt="TARAKI LOGO HERE" />
           </section>
-          <section className="flex justify-evenly items-center px-14 tablet:px-56 tablet:mt-5 mt-3">
+          <section className="flex justify-evenly items-center px-14 tablet:px-56 tablet-m:px-[22rem] tablet:my-8 my-8">
             <svg
-              className="tablet:w-10 tablet:h-10"
+              className="tablet:w-8 tablet:h-8"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"
@@ -31,7 +31,7 @@ function contacts() {
             </svg>
 
             <svg
-              className="tablet:w-10 tablet:h-10"
+              className="tablet:w-8 tablet:h-8"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"
@@ -56,7 +56,7 @@ function contacts() {
             </svg>
 
             <svg
-              className="tablet:w-10 tablet:h-10"
+              className="tablet:w-8 tablet:h-8"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"
@@ -76,7 +76,7 @@ function contacts() {
               </defs>
             </svg>
             <svg
-              className="tablet:w-10 tablet:h-10"
+              className="tablet:w-8 tablet:h-8"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"

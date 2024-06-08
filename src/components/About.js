@@ -5,15 +5,16 @@ function about() {
       <div className="font-satoshi overflow-x-hidden">
         <div className="cont tablet:flex tablet:justify-between tablet:items-center tablet:mt-10 tablet:px-8">
           <section className="text-center tablet:text-left mt-16 tablet:mt-0">
-            <h1 className="font-semibold text-md tablet:text-lg tablet:px-0">
+            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl tablet:px-0">
               About Us
             </h1>
-            <p className="font-light text-sm tablet:text-md px-10 tablet:px-0 mt-5 tablet:mt-0 tablet:leading-6">
+            <p className="font-light text-sm tablet:text-md tablet-m:text-xl px-10 tablet:px-0 mt-5 tablet:mt-0 tablet-m:mr-5 tablet-m:mt-4 tablet:leading-6 tablet-m:leading-8">
               <span className="font-semibold text-orange-600">TARAKI</span>{" "}
-              envisions to be the country’s leading technological consortium in
-              building and transforming the Cordilleran Startup Ecosystem. We
-              cultivate ingenuity for innovators by fostering collaboration and
-              community-driven initiatives, aiming to become globally renowned.
+              envisions to be the country&apos;s leading technological
+              consortium in building and transforming the Cordilleran Startup
+              Ecosystem. We cultivate ingenuity for innovators by fostering
+              collaboration and community-driven initiatives, aiming to become
+              globally renowned.
             </p>
           </section>
           <section className="mt-5">
@@ -21,7 +22,7 @@ function about() {
               src={animation}
               autoPlay
               className="m-auto
-              w-72 tablet:w-[95%]"
+              w-72 tablet:w-[95%] tablet-m:w-[100%]"
             ></video>
           </section>
         </div>

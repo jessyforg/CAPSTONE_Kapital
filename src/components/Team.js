@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ateJez from "../components/imgs/team/ate-jez.png";
 import maamT from "../components/imgs/team/thelma.png";
+import sirjade from "../components/imgs/team/jade.png";
 import "./styles.css";
 
 function TarakiTeam() {
@@ -31,10 +32,10 @@ function TarakiTeam() {
       <div className="font-satoshi overflow-x-hidden">
         <div className="cont tablet:px-8">
           <section className="mt-16 tablet:mt-12 text-center">
-            <h1 className="font-semibold text-md tablet:text-lg">
+            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl">
               Taraki's Team
             </h1>
-            <p className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet:px-20 px-10 mt-5 tablet:mt-2">
+            <p className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2">
               At TARAKI, our team is dedicated to driving technological
               innovation and fostering a collaborative environment for growth
               and advancement. Our experts bring diverse backgrounds and a
@@ -44,24 +45,24 @@ function TarakiTeam() {
           <section className="mx-auto mt-5">
             <div className="swiper mySwiper">
               <div className="swiper-wrapper">
-                <div className="swiper-slide shadow-lg bg-white flex justify-between items-center w-full tablet:w-full tablet:my-4  tablet:h-64 h-40 my-2">
+                <div className="swiper-slide shadow-lg bg-white flex justify-between items-center w-full tablet:w-full tablet:my-4  tablet:h-64 tablet-m:h-80 h-40 my-2">
                   <div
                     className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                     style={{ backgroundImage: `url(${ateJez})` }}
                   ></div>
                   <div className="flex flex-col justify-center mx-3 tablet:px-5">
-                    <h1 className="text-[1.3rem] tablet:text-[1.5rem] font-semibold text-orange-700">
+                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] font-semibold text-orange-700">
                       Jezelle Q. Oliva
                     </h1>
-                    <h1 className="text-[0.8rem] tablet:text-lg">
+                    <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl">
                       Startup Community Enabler
                     </h1>
-                    <p className="bg-white font-extralight text-[1rem] tablet:mt-2 tablet:text-[1rem] leading-relaxed">
+                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
                       Jezelle brings over 20 years of experience in technology
                       and innovation. Her visionary leadership has been
                       instrumental in shaping TARAKI's strategic direction.
                     </p>
-                    <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2">
+                    <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                       <svg
                         className="tablet:w-8 h-8"
                         xmlns="http://www.w3.org/2000/svg"
@@ -131,24 +132,24 @@ function TarakiTeam() {
                     </section>
                   </div>
                 </div>
-                <div className="swiper-slide shadow-lg bg-white flex justify-between items-center w-full tablet:w-full tablet:my-4  tablet:h-64 h-40 my-2">
+                <div className="swiper-slide shadow-lg bg-white flex justify-between items-center w-full tablet:w-full tablet:my-4 tablet:h-64 tablet-m:h-80 h-40 my-2">
                   <div
                     className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                     style={{ backgroundImage: `url(${maamT})` }}
                   ></div>
                   <div className="flex flex-col justify-center mx-3 tablet:px-3">
-                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] font-semibold text-orange-700">
+                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] font-semibold text-orange-700">
                       Dr. Thelma D. Palaoag
                     </h1>
-                    <h1 className="text-[0.8rem] tablet:text-lg">
+                    <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl">
                       Project Leader
                     </h1>
-                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet:text-[1rem] leading-relaxed">
+                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
                       Dr. Thelma brings over 20 years of experience in
                       technology and innovation. Her visionary leadership has
                       been instrumental in shaping TARAKI's strategic direction.
                     </p>
-                    <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2">
+                    <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                       <svg
                         className="tablet:w-8 h-8"
                         xmlns="http://www.w3.org/2000/svg"
@@ -218,25 +219,25 @@ function TarakiTeam() {
                     </section>
                   </div>
                 </div>
-                <div className="swiper-slide shadow-lg bg-white flex justify-between items-center w-full tablet:w-full tablet:my-4  tablet:h-64 h-40 my-2">
+                <div className="swiper-slide shadow-lg bg-white flex justify-between items-center w-full tablet:w-full tablet:my-4 tablet:h-64 tablet-m:h-80 h-40 my-2">
                   <div
                     className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
-                    style={{ backgroundImage: `url(${ateJez})` }}
+                    style={{ backgroundImage: `url(${sirjade})` }}
                   ></div>
                   <div className="flex flex-col justify-center mx-3 tablet:px-3">
-                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] font-semibold text-orange-700">
+                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] font-semibold text-orange-700">
                       Jade P. Jimenez
                     </h1>
-                    <h1 className="text-[0.8rem] tablet:text-lg">
+                    <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl">
                       Project Assistant
                     </h1>
-                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet:text-[1rem] leading-relaxed">
+                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
                       Jade is a seasoned technologist with a passion for
                       cutting-edge innovations. He oversees all technology
                       initiatives, ensuring TARAKI remains at the forefront of
                       industry advancements.
                     </p>
-                    <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2">
+                    <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                       <svg
                         className="tablet:w-8 h-8"
                         xmlns="http://www.w3.org/2000/svg"
