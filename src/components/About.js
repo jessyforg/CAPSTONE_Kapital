@@ -3,7 +3,7 @@ function about() {
   return (
     <div>
       <div className="font-satoshi overflow-x-hidden">
-        <div className="cont tablet:flex tablet:justify-between tablet:items-center tablet:mt-8 tablet:px-10">
+        <div className="cont tablet:flex tablet:justify-between tablet:items-center tablet:mt-10 tablet:px-8">
           <section className="text-center tablet:text-left mt-16 tablet:mt-0">
             <h1 className="font-semibold text-md tablet:text-lg tablet:px-0">
               About Us

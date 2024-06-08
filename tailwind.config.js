@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        marquee: "marquee 25s linear infinite",
-        marquee2: "marquee2 25s linear infinite",
+        marquee: "marquee 8s linear infinite",
+        marquee2: "marquee2 8s linear infinite",
       },
       keyframes: {
         marquee: {
@@ -21,7 +21,7 @@ module.exports = {
       screens: {
         phone: "360px",
         tablet: "768px",
-        laptop: "1024px",
+        "tablet-m": "1024px",
         "laptop-s": "1280px",
         "laptop-m": "1440px",
         "desktop-s": "1600px",

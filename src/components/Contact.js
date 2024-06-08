@@ -1,22 +1,19 @@
-import logo from '../components/imgs/taraki-black.svg'
+import logo from "../components/imgs/taraki-black.svg";
 
 function contacts() {
   return (
     <div>
       <div>
         <div className="cont">
-          <section className="flex justify-center items-center mt-14">
-            <img
-              src={logo}
-              className="h-14"
-              alt="TARAKI LOGO HERE"
-            />
+          <section className="flex justify-center items-center mt-14 tablet:mt-12">
+            <img src={logo} className="h-14" alt="TARAKI LOGO HERE" />
           </section>
-          <section className="flex justify-evenly items-center px-20 mt-3">
+          <section className="flex justify-evenly items-center px-14 tablet:px-56 tablet:mt-5 mt-3">
             <svg
+              className="tablet:w-10 tablet:h-10"
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              width="28"
+              height="28"
               fill="none"
               viewBox="0 0 48 48"
             >
@@ -34,9 +31,10 @@ function contacts() {
             </svg>
 
             <svg
+              className="tablet:w-10 tablet:h-10"
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              width="28"
+              height="28"
               fill="none"
               viewBox="0 0 48 48"
             >
@@ -58,9 +56,10 @@ function contacts() {
             </svg>
 
             <svg
+              className="tablet:w-10 tablet:h-10"
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              width="28"
+              height="28"
               fill="none"
               viewBox="0 0 48 48"
             >
@@ -75,6 +74,19 @@ function contacts() {
                   <path fill="#F04F06" d="M0 0h48v48H0z" />
                 </clipPath>
               </defs>
+            </svg>
+            <svg
+              className="tablet:w-10 tablet:h-10"
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              fill="none"
+              viewBox="0 0 32 23"
+            >
+              <path
+                fill="#F04F06"
+                d="M4.038.787h24.666a3.083 3.083 0 0 1 3.084 3.083v15.417a3.083 3.083 0 0 1-3.084 3.083H4.038a3.083 3.083 0 0 1-3.084-3.083V3.87A3.083 3.083 0 0 1 4.038.787ZM8.663 13.12a1.542 1.542 0 1 0 0 3.084h9.25a1.542 1.542 0 1 0 0-3.084h-9.25Zm15.416-7.708v3.083h3.084V5.412h-3.084Z"
+              />
             </svg>
           </section>
         </div>

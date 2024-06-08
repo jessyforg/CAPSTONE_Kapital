@@ -1,19 +1,19 @@
-import icon1 from '../components/imgs/2.png'
-import icon2 from '../components/imgs/3.png'
-import icon3 from '../components/imgs/5.png'
-import icon4 from '../components/imgs/6.png'
-import icon5 from '../components/imgs/7.png'
-import icon6 from '../components/imgs/8.png'
+import icon1 from "../components/imgs/2.png";
+import icon2 from "../components/imgs/3.png";
+import icon3 from "../components/imgs/5.png";
+import icon4 from "../components/imgs/6.png";
+import icon5 from "../components/imgs/7.png";
+import icon6 from "../components/imgs/8.png";
 
 function objective() {
   return (
     <div>
       <div className="font-satoshi overflow-x-hidden">
         <div className="cont">
-          <section className="mt-16 text-center">
-            <h1 className="font-semibold text-md">Objectives</h1>
+          <section className="mt-16 tablet:mt-12 text-center">
+            <h1 className="font-semibold text-md tablet:text-lg">Objectives</h1>
           </section>
-          <section>
+          <section className="tablet:grid tablet:grid-cols-2 tablet:px-10">
             <div className="mt-5">
               <img src={icon1} alt="1st-ico" className="w-52 mx-auto" />
               <p className="text-sm text-center font-regular mt-1 px-16">
