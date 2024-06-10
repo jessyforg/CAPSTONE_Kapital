@@ -41,5 +41,14 @@ module.exports = {
       satoshi: ["Satoshi", "sans-serif"],
     },
   },
+  variants: {
+    extend: {
+      transform: ["hover", "focus"],
+      scale: ["hover", "focus"],
+      translate: ["hover", "focus"],
+      width: ["hover", "focus"],
+      height: ["hover", "focus"],
+    },
+  },
   plugins: [],
 };

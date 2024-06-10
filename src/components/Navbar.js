@@ -62,7 +62,7 @@ function Navbar() {
             </button>
           </div>
           <div
-            className="items-center justify-between hidden w-full tablet-m:flex tablet-m:w-auto"
+            className="items-center justify-between hidden w-full tablet-m:flex tablet-m:w-auto mx-auto"
             id="navbar-cta"
             ref={navbarStickyRef}
           >
@@ -109,7 +109,7 @@ function Navbar() {
               </li>
             </ul>
           </div>
-          <button className=" phone:hidden tablet-m:block bg-white tablet-m:px-3 tablet-m:py-2 text-[0.8rem] border border-trkblack rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600">
+          <button className="phone:hidden tablet-m:block bg-white tablet-m:px-3 tablet-m:py-2 text-[0.8rem] border border-trkblack rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600">
             Contact
           </button>
         </div>
