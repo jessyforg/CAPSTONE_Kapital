@@ -13,7 +13,7 @@ function faqs() {
               </h1>
             </section>
             <button
-              id="dropdownDefaultButton"
+              id="dropdown1"
               data-dropdown-toggle="dropdown"
               className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-slate-400 font-light rounded-lg text-sm tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5 mx-5 text-center flex justify-between items-center"
               type="button"
@@ -36,7 +36,7 @@ function faqs() {
             </button>
 
             <div
-              id="dropdown"
+              id="dropdown1.0"
               className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
             >
               <ul
@@ -78,7 +78,7 @@ function faqs() {
               </ul>
             </div>
             <button
-              id="dropdownDefaultButton"
+              id="dropdown2"
               data-dropdown-toggle="dropdown"
               className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
@@ -101,7 +101,7 @@ function faqs() {
             </button>
 
             <div
-              id="dropdown"
+              id="dropdown2.0"
               className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
             >
               <ul
@@ -143,7 +143,7 @@ function faqs() {
               </ul>
             </div>
             <button
-              id="dropdownDefaultButton"
+              id="dropdown3"
               data-dropdown-toggle="dropdown"
               className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] tablet:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
@@ -166,7 +166,7 @@ function faqs() {
             </button>
 
             <div
-              id="dropdown"
+              id="dropdown3.0"
               className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
             >
               <ul
@@ -208,7 +208,7 @@ function faqs() {
               </ul>
             </div>
             <button
-              id="dropdownDefaultButton"
+              id="dropdown4"
               data-dropdown-toggle="dropdown"
               className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
               type="button"
@@ -231,7 +231,7 @@ function faqs() {
             </button>
 
             <div
-              id="dropdown"
+              id="dropdown4.0"
               className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
             >
               <ul
