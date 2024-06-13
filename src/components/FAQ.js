@@ -48,7 +48,7 @@ function faqs() {
                     href="#1"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
-                    ANO
+                    ANO ba kasi yon
                   </a>
                 </li>
                 <li>
