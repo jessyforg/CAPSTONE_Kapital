@@ -680,12 +680,12 @@ function TarakiTeam() {
                     Jezelle Q. Oliva
                   </h1>
                   <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl">
-                    Project Leader
+                    Startup Community Enabler
                   </h1>
                   <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
-                    Dr. Thelma brings over 20 years of experience in technology
-                    and innovation. Her visionary leadership has been
-                    instrumental in shaping TARAKI's strategic direction.
+                    Jezelle brings over 20 years of experience in technology and
+                    innovation. Her visionary leadership has been instrumental
+                    in shaping TARAKI's strategic direction.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg
@@ -767,12 +767,13 @@ function TarakiTeam() {
                     Jade P. Jimenez
                   </h1>
                   <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl">
-                    Project Leader
+                    Project Assistant
                   </h1>
                   <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
-                    Dr. Thelma brings over 20 years of experience in technology
-                    and innovation. Her visionary leadership has been
-                    instrumental in shaping TARAKI's strategic direction.
+                    Jade is a seasoned technologist with a passion for
+                    cutting-edge innovations. He oversees all technology
+                    initiatives, ensuring TARAKI remains at the forefront of
+                    industry advancements.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg
