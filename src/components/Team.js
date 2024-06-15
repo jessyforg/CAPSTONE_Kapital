@@ -31,10 +31,10 @@ function TarakiTeam() {
       <div className="font-satoshi overflow-x-hidden">
         <div className="cont tablet:px-8">
           <section className="mt-16 tablet:mt-12 text-center">
-            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl">
-              Taraki's Team
+            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] desktop-m:mb-7">
+              TARAKIs
             </h1>
-            <p className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2">
+            <p className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2 laptop-s:text-xl laptop-m:text-[1.4rem] desktop-m:text-[1.6rem] laptop-s:mx-40 laptop-m:mx-80">
               At TARAKI, our team is dedicated to driving technological
               innovation and fostering a collaborative environment for growth
               and advancement. Our experts bring diverse backgrounds and a
@@ -319,13 +319,13 @@ function TarakiTeam() {
                 ></div>
                 <div className="absolute top-0 left-0 h-full px-3 flex items-center justify-center bg-white transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:left-1/3">
                   <div className="flex flex-col justify-center  tablet:px-3">
-                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] font-semibold text-orange-700">
+                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] laptop-m:text-[2rem] font-semibold text-orange-700">
                       Dr. Thelma D. Palaoag
                     </h1>
-                    <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl">
+                    <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
                       Project Leader
                     </h1>
-                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
+                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
                       Dr. Thelma brings over 20 years of experience in
                       technology and innovation. Her visionary leadership has
                       been instrumental in shaping TARAKI's strategic direction.
@@ -408,13 +408,13 @@ function TarakiTeam() {
                 ></div>
                 <div className="absolute top-0 left-0 h-full px-3 flex items-center justify-center bg-white transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:left-1/3">
                   <div className="flex flex-col justify-center  tablet:px-3">
-                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] font-semibold text-orange-700">
+                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] laptop-m:text-[2rem] font-semibold text-orange-700">
                       Jezelle Q. Oliva
                     </h1>
-                    <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl">
+                    <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
                       Startup Community Enabler
                     </h1>
-                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
+                    <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
                       Jezelle brings over 20 years of experience in technology
                       and innovation. Her visionary leadership has been
                       instrumental in shaping TARAKI's strategic direction.
@@ -497,7 +497,7 @@ function TarakiTeam() {
                 ></div>
                 <div className="absolute top-0 left-0 h-full px-3 flex items-center justify-center bg-white transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:left-1/3">
                   <div className="flex flex-col justify-center  tablet:px-3">
-                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] font-semibold text-orange-700">
+                    <h1 className="text-[0.9rem] tablet:text-[1.5rem] tablet-m:text-[1.7rem] laptop-m:text-[2rem] font-semibold text-orange-700">
                       Jade p. Jimenez
                     </h1>
                     <h1 className="text-[0.8rem] tablet:text-lg tablet-m:text-xl">
@@ -589,13 +589,13 @@ function TarakiTeam() {
                   style={{ backgroundImage: `url(${maamT})` }}
                 ></div>
                 <div className="flex flex-col justify-center px-2 py-2 tablet:px-3">
-                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] font-semibold text-orange-700">
+                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] laptop-m:text-[2rem] font-semibold text-orange-700">
                     Dr. Thelma D. Palaoag
                   </h1>
-                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl">
+                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
                     Project Leader
                   </h1>
-                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
+                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
                     Dr. Thelma brings over 20 years of experience in technology
                     and innovation. Her visionary leadership has been
                     instrumental in shaping TARAKI's strategic direction.
@@ -676,16 +676,17 @@ function TarakiTeam() {
                   style={{ backgroundImage: `url(${ateJez})` }}
                 ></div>
                 <div className="flex flex-col justify-center px-2 py-2 tablet:px-3">
-                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] font-semibold text-orange-700">
+                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] laptop-m:text-[2rem] font-semibold text-orange-700">
                     Jezelle Q. Oliva
                   </h1>
-                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl">
+                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
                     Startup Community Enabler
                   </h1>
-                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
-                    Jezelle brings over 20 years of experience in technology and
-                    innovation. Her visionary leadership has been instrumental
-                    in shaping TARAKI's strategic direction.
+                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
+                    Jezze is a seasoned technologist with a passion for
+                    cutting-edge innovations. He oversees all technology
+                    initiatives, ensuring TARAKI remains at the forefront of
+                    industry advancements.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg
@@ -763,13 +764,13 @@ function TarakiTeam() {
                   style={{ backgroundImage: `url(${sirjade})` }}
                 ></div>
                 <div className="flex flex-col justify-center px-2 py-2 tablet:px-3">
-                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] font-semibold text-orange-700">
+                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] laptop-m:text-[2rem] font-semibold text-orange-700">
                     Jade P. Jimenez
                   </h1>
-                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl">
+                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
                     Project Assistant
                   </h1>
-                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
+                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
                     Jade is a seasoned technologist with a passion for
                     cutting-edge innovations. He oversees all technology
                     initiatives, ensuring TARAKI remains at the forefront of

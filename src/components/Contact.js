@@ -6,11 +6,59 @@ function contacts() {
       <div>
         <div className="cont">
           <section className="flex justify-center items-center mt-14 tablet:mt-12">
-            <img src={logo} className="h-14" alt="TARAKI LOGO HERE" />
+            <img src={logo} className="h-14 laptop-m:h-20" alt="TARAKI LOGO HERE" />
           </section>
-          <section className="flex justify-evenly items-center px-14 tablet:px-56 tablet-m:px-[22rem] tablet:my-8 my-8">
+          
+          <div
+            className="items-center justify-between tablet-m:hidden phone:hidden tablet:hidden laptop-s:block pt-5"
+          >
+            <ul className="flex flex-col font-medium text-center p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1.25rem] justify-center">
+              <li>
+                <a
+                  href="#home"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                >
+                  Programs
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                >
+                  Framework
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                >
+                  Events
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                >
+                  FAQ
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <section className="flex justify-evenly items-center px-14 tablet:px-56 tablet-m:px-[22rem] tablet:my-8 my-8 laptop-s:px-[30rem] laptop-m:px-[34rem] desktop-m:px-[48rem]">
             <svg
-              className="tablet:w-8 tablet:h-8"
+              className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"
@@ -31,7 +79,7 @@ function contacts() {
             </svg>
 
             <svg
-              className="tablet:w-8 tablet:h-8"
+              className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"
@@ -56,7 +104,7 @@ function contacts() {
             </svg>
 
             <svg
-              className="tablet:w-8 tablet:h-8"
+              className="tablet:w-8 tablet:h-8  laptop-m:w-10 laptop-m:h-10"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"
@@ -76,7 +124,7 @@ function contacts() {
               </defs>
             </svg>
             <svg
-              className="tablet:w-8 tablet:h-8"
+              className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10"
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"

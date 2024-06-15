@@ -1,4 +1,7 @@
-function faqs() {
+import arrow from "./imgs/arrow-down.svg"
+
+function FAQs() {
+
   return (
     <div>
       <div>
@@ -8,270 +11,100 @@ function faqs() {
               <h1 className="tablet-m:hidden font-semibold text-md tablet-m:text-xl text-white">
                 FAQs
               </h1>
-              <h1 className="phone:hidden tablet-m:block font-semibold text-md tablet-m:text-2xl text-white">
+              <h1 className="phone:hidden tablet-m:block font-semibold text-md tablet-m:text-2xl text-white laptop-m:text-3xl desktop-m:text-4xl desktop-s:text-[2rem]">
                 Frequently Asked Questions
               </h1>
             </section>
-            <button
-              id="dropdown1"
-              data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-slate-400 font-light rounded-lg text-sm tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5 mx-5 text-center flex justify-between items-center"
-              type="button"
-            >
-              How can I get involved with TARAKI?{" "}
-              <svg
-                className="h-3 w-3 ms-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 8h14m-7 7V1"
-                />
-              </svg>
-            </button>
+            <div className="laptop-s:mx-40 laptop-m:mx-44 desktop-s:mx-48 desktop-m:px-72">
+              <div className="m-2 space-y-2 laptop-s:my-5">
+                <div
+                  className="group flex flex-col gap-2 rounded-lg bg-white p-3 text-black"
+                  tabIndex="1"
+                >
+                  <div className="flex cursor-pointer items-center justify-between laptop-s:text-xl laptop-m:text-2xl desktop-m:text-3xl font-bold">
+                    <span> How can I get involved with TARAKI? </span>
+                    <img
+                      src={arrow}
+                      className="h-5 w-5 transition-all duration-500 group-focus:-rotate-180"
+                      alt=""
+                    />
+                  </div>
+                  
+                  <div
+                    className="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-screen group-focus:opacity-100 group-focus:duration-1000 laptop-s:text-[1.3rem] desktop-m:text-[1.5rem]"
+                  ><hr className="h-px my-3 bg-gray-300 border-0"></hr>
+                    Stay connected with us through our vibrant community on 
+                    Facebook and Instagram. Explore tailored events and initiatives 
+                    designed just for you.
+                  </div>
+                </div>
 
-            <div
-              id="dropdown1.0"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-            >
-              <ul
-                className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownDefaultButton"
-              >
-                <li>
-                  <a
-                    href="#1"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO ba kasi yon
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#2"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#3"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#4"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <button
-              id="dropdown2"
-              data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
-              type="button"
-            >
-              Who can join TARAKI's programs and initiatives?{" "}
-              <svg
-                className="h-3 w-3 ms-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 8h14m-7 7V1"
-                />
-              </svg>
-            </button>
+                <div
+                  className="group flex flex-col gap-2 rounded-lg bg-white p-3 text-black"
+                  tabIndex="2"
+                >
+                  <div className="flex cursor-pointer items-center justify-between laptop-s:text-xl laptop-m:text-2xl desktop-m:text-3xl font-bold">
+                    <span> Who can join TARAKI's programs and initiatives? </span>
+                    <img
+                      src={arrow}
+                      className="h-5 w-5 transition-all duration-500 group-focus:-rotate-180"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    className="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-screen group-focus:opacity-100 group-focus:duration-1000 laptop-s:text-[1.3rem] desktop-m:text-[1.5rem]"
+                  ><hr className="h-px my-3 bg-gray-300 border-0"></hr>
+                    Everyone with a spark of innovation is invited! Whether 
+                    you're a startup founder, an enthusiast, or simply curious 
+                    about the startup ecosystem, TARAKI welcomes you with open 
+                    arms.
+                  </div>
+                </div>
 
-            <div
-              id="dropdown2.0"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-            >
-              <ul
-                className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownDefaultButton"
-              >
-                <li>
-                  <a
-                    href="#5"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#6"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#7"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#7"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <button
-              id="dropdown3"
-              data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-xs tablet:text-[1rem] tablet:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
-              type="button"
-            >
-              Does TARAKI offer resources for startups?{" "}
-              <svg
-                className="h-3 w-3 ms-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 8h14m-7 7V1"
-                />
-              </svg>
-            </button>
+                <div
+                  className="group flex flex-col gap-2 rounded-lg bg-white p-3 text-black"
+                  tabIndex="3"
+                >
+                  <div className="flex cursor-pointer items-center justify-between laptop-s:text-xl laptop-m:text-2xl desktop-m:text-3xl font-bold">
+                    <span> Does TARAKI offer resources for startups? </span>
+                    <img
+                      src={arrow}
+                      className="h-5 w-5 transition-all duration-500 group-focus:-rotate-180"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    className="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-screen group-focus:opacity-100 group-focus:duration-1000 laptop-s:text-[1.3rem] desktop-m:text-[1.5rem]"
+                  ><hr className="h-px my-3 bg-gray-300 border-0"></hr>
+                    Absolutely! Dive into a wealth of resources tailored for startups: 
+                    from personalized mentorship sessions to enlightening seminars, 
+                    workshops, and engaging talks by industry experts at our 
+                    innovation-driven events.
+                  </div>
+                </div>
 
-            <div
-              id="dropdown3.0"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-            >
-              <ul
-                className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownDefaultButton"
-              >
-                <li>
-                  <a
-                    href="#9"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#10"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#11"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#12"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <button
-              id="dropdown4"
-              data-dropdown-toggle="dropdown"
-              className="text-gray-700 mt-2 border border-gray-700 bg-gray-100 hover:bg-gray-300 font-light rounded-lg text-sm tablet:text-[1rem] tablet-m:text-xl px-5 py-2.5  mx-5 text-center flex justify-between items-center"
-              type="button"
-            >
-              How can TARAKI support my startup?{" "}
-              <svg
-                className="h-3 w-3 ms-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 8h14m-7 7V1"
-                />
-              </svg>
-            </button>
-
-            <div
-              id="dropdown4.0"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-            >
-              <ul
-                className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownDefaultButton"
-              >
-                <li>
-                  <a
-                    href="#13"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#14"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#15"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#16"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    ANO
-                  </a>
-                </li>
-              </ul>
-            </div>
+                <div
+                  className="group flex flex-col gap-2 rounded-lg bg-white p-3 text-black"
+                  tabIndex="3"
+                >
+                  <div className="flex cursor-pointer items-center justify-between laptop-s:text-xl laptop-m:text-2xl desktop-m:text-3xl font-bold">
+                    <span> How can TARAKI support my startup? </span>
+                    <img
+                      src={arrow}
+                      className="h-5 w-5 transition-all duration-500 group-focus:-rotate-180"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    className="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-screen group-focus:opacity-100 group-focus:duration-1000 laptop-s:text-[1.3rem] desktop-m:text-[1.5rem]"
+                  ><hr className="h-px my-3 bg-gray-300 border-0"></hr>
+                    Let TARAKI fuel your startup journey with our acceleration program 
+                    and a plethora of events specially curated for Cordilleran startups. 
+                    Stay informed by following our dynamic updates on our Facebook Page.
+                  </div>
+                </div>
+              </div>
+          </div>
           </section>
         </div>
       </div>
@@ -279,4 +112,4 @@ function faqs() {
   );
 }
 
-export default faqs;
+export default FAQs;
