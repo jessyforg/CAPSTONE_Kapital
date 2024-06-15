@@ -3,12 +3,12 @@ function about() {
   return (
     <div>
       <div className="font-satoshi overflow-x-hidden">
-        <div className="cont tablet:flex tablet:justify-between tablet:items-center tablet:mt-10 tablet:px-8">
+        <div className="cont tablet:flex tablet:justify-between tablet:items-center laptop-s:items-center tablet:mt-10 tablet:px-8">
           <section className="text-center tablet:text-left mt-16 tablet:mt-0">
-            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl tablet:px-0 laptop-s:text-3xl laptop-m:text-[2.4rem] desktop-m:text-[3rem]">
+            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl tablet:px-0 laptop-s:text-3xl laptop-m:text-[2.2rem] desktop-m:text-[2.6rem]">
               About Us
             </h1>
-            <p className="font-light text-sm tablet:text-md tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[1.7rem] desktop-m:text-[2.1rem] px-10 tablet:px-0 mt-5 tablet:mt-0 tablet-m:mr-5 tablet-m:mt-4 tablet:leading-6 tablet-m:leading-8">
+            <p className="font-light text-sm tablet:text-md tablet-m:text-xl laptop-s:text-xl laptop-m:text-[1.5rem] desktop-m:text-[1.8rem] px-10 tablet:px-0 mt-5 tablet:mt-0 tablet-m:mr-5 tablet-m:mt-4 tablet:leading-6 tablet-m:leading-8 laptop-s:leading-loose">
               <span className="font-semibold text-orange-600">TARAKI</span>{" "}
               envisions to be the country&apos;s leading technological
               consortium in building and transforming the Cordilleran Startup
@@ -18,9 +18,15 @@ function about() {
             </p>
           </section>
           <section className="mt-5">
-          <video autoPlay loop muted playsInline className="header-video m-auto w-72 tablet:w-[95%] tablet-m:w-[100%] desktop-s:w-[195rem] laptop-s:w-[165rem] laptop-m:w-[185rem] desktop-m:w-[235rem]">
-            <source src={animation} type="video/mp4" />
-            Your browser does not support the video tag.
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="header-video m-auto w-72 tablet:w-[95%] tablet-m:w-[100%] desktop-s:w-[195rem] laptop-s:w-[165rem] laptop-m:w-[185rem] desktop-m:w-[235rem]"
+            >
+              <source src={animation} type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
           </section>
         </div>

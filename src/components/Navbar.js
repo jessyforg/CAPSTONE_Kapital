@@ -26,12 +26,16 @@ function Navbar() {
   return (
     <header className="font-satoshi overflow-x-hidden">
       <nav className="bg-white border-gray-200 shadow-md fixed w-full z-50 top-0 start-0">
-        <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8">
+        <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8 laptop-s:p-7 desktop-m:p-10">
           <a
             href="#home"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img src={tarakiLogo} className="w-28 laptop-s:absolute laptop-s:left-2/4 laptop-s:-translate-x-1/2 laptop-m:w-32 desktop-m:w-40" alt="TARAKI LOGO HERE" />
+            <img
+              src={tarakiLogo}
+              className="w-28 laptop-s:absolute laptop-s:left-2/4 laptop-s:-translate-x-1/2 laptop-m:w-32 desktop-m:w-40"
+              alt="TARAKI LOGO HERE"
+            />
           </a>
           <div className="flex space-x-3 tablet-m:space-x-0 rtl:space-x-reverse">
             <button
@@ -109,7 +113,7 @@ function Navbar() {
               </li>
             </ul>
           </div>
-          <button className="phone:hidden tablet-m:block bg-white tablet-m:px-3 tablet-m:py-2 text-[0.8rem] border border-trkblack rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 laptop-m:text-lg">
+          <button className="phone:hidden tablet-m:block bg-white tablet-m:px-3 tablet-m:py-2 laptop-s:px-8 laptop-s:py-3 text-[0.8rem] laptop-s:text-sm border border-trkblack rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 laptop-m:text-lg">
             Contact
           </button>
         </div>

@@ -34,7 +34,7 @@ function TarakiTeam() {
             <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] desktop-m:mb-7">
               TARAKIs
             </h1>
-            <p className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2 laptop-s:text-xl laptop-m:text-[1.4rem] desktop-m:text-[1.6rem] laptop-s:mx-40 laptop-m:mx-80">
+            <p className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2 laptop-s:text-lg laptop-m:text-[1.4rem] desktop-m:text-[1.6rem] laptop-s:mx-40 laptop-m:mx-80">
               At TARAKI, our team is dedicated to driving technological
               innovation and fostering a collaborative environment for growth
               and advancement. Our experts bring diverse backgrounds and a
