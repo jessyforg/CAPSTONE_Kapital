@@ -38,21 +38,21 @@ function Home() {
             <div className="relative z-10 tablet:pt-[6.5rem] laptop-s:pt-32 laptop-m:pt-56 desktop-m:pt-48">
               <h1
                 className="text-white text-3xl tablet:text-4xl laptop-s:text-5xl desktop-s:text-[3.6rem] desktop-m:text-[3.8rem] font-bold px-8 tablet:px-52"
-                data-aos="zoom-in-down" // AOS attribute
+                data-aos="fade-right" // AOS attribute
               >
                 Wherever we <span className="text-orange-600">GO, </span>
                 we <span className="text-orange-600">EXCEED!</span>
               </h1>
               <p
                 className="text-white font-extralight text-[0.9rem] laptop-s:text-[1rem] laptop-m:text-xl desktop-m:text-2xl desktop-m:mx-60 leading-relaxed mt-5 px-8 tablet:px-52 tablet-m:px-[23rem]"
-                data-aos="zoom-in-down" // AOS attribute
+                data-aos="fade-left" // AOS attribute
               >
                 A Technological Consortium for Awareness, Readiness, and
                 Advancement of Knowledge in Innovation
               </p>
               <button
                 className=" bg-white py-1 px-4 mt-5 mb-7 tablet-m:mt-5 tablet:mb-12 tablet-m:mb-0 text-[0.8rem] laptop-s:text-sm laptop-s:px-8 laptop-s:py-3 desktop-m:px-10 desktop-m:py-5 laptop-m:text-lg desktop-s:text-[1.4rem] desktop-m:text-[1.7rem] border border-white rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600"
-                data-aos="zoom-in-down" // AOS attribute
+                data-aos="fade-up" // AOS attribute
               >
                 Learn More
               </button>
