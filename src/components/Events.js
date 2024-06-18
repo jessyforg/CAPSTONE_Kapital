@@ -162,14 +162,14 @@ function Events() {
           <div className="">
             <img
               src={next}
-              className="swiper-button-next phone:hidden tablet:hidden tablet-m:hidden laptop-s:block w-16 h-16"
+              className="swiper-button-next phone:hidden tablet:hidden tablet-m:hidden laptop-s:block w-12 h-12"
               alt=""
             />
           </div>
           <div className="">
             <img
               src={prev}
-              className="swiper-button-prev phone:hidden tablet:hidden tablet-m:hidden laptop-s:block w-16 h-16"
+              className="swiper-button-prev phone:hidden tablet:hidden tablet-m:hidden laptop-s:block w-12 h-12"
               alt=""
             />
           </div>
