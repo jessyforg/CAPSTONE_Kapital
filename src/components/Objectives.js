@@ -8,7 +8,7 @@ import icon6 from "../components/imgs/8.png";
 function objective() {
   return (
     <div>
-      <div className="font-satoshi overflow-x-hidden">
+      <div className="font-satoshi overflow-hidden">
         <div className="cont">
           <section className="mt-16 tablet:mt-12 text-center">
             <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-5">
