@@ -583,19 +583,19 @@ function TarakiTeam() {
             </div>
 
             <div className="laptopCont px-0 hidden tablet-m:flex justify-between items-center">
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] h-[26rem] my-5">
+              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5">
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${maamT})` }}
                 ></div>
                 <div className="flex flex-col justify-center px-2 py-2 tablet:px-3">
-                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] laptop-m:text-[2rem] font-semibold text-orange-700">
+                  <h1 className="laptop-s:text-[1.2rem] laptop-m:text-2xl desktop-m:text-3xl font-semibold text-orange-700">
                     Dr. Thelma D. Palaoag
                   </h1>
-                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
+                  <h1 className="laptop-s:text-xl desktop-m:text-2xl">
                     Project Leader
                   </h1>
-                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed">
                     Dr. Thelma brings over 20 years of experience in technology
                     and innovation. Her visionary leadership has been
                     instrumental in shaping TARAKI's strategic direction.
@@ -670,21 +670,21 @@ function TarakiTeam() {
                   </section>
                 </div>
               </div>
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] h-[26rem] my-5">
+              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5">
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${ateJez})` }}
                 ></div>
                 <div className="flex flex-col justify-center px-2 py-2 tablet:px-3">
-                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] laptop-m:text-[2rem] font-semibold text-orange-700">
+                  <h1 className="laptop-s:text-[1.2rem] laptop-m:text-2xl desktop-m:text-3xl font-semibold text-orange-700">
                     Jezelle Q. Oliva
                   </h1>
-                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
+                  <h1 className="laptop-s:text-lg laptop-m:text-xl desktop-m:text-2xl">
                     Startup Community Enabler
                   </h1>
-                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
-                    Jezze is a seasoned technologist with a passion for
-                    cutting-edge innovations. He oversees all technology
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed">
+                    Jeze is a seasoned technologist with a passion for
+                    cutting-edge innovations. She oversees all technology
                     initiatives, ensuring TARAKI remains at the forefront of
                     industry advancements.
                   </p>
@@ -758,19 +758,19 @@ function TarakiTeam() {
                   </section>
                 </div>
               </div>
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] h-[26rem] my-5">
+              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5">
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${sirjade})` }}
                 ></div>
                 <div className="flex flex-col justify-center px-2 py-2 tablet:px-3">
-                  <h1 className="text-[1.1rem] tablet:text-[1.5rem] tablet-m:text-[1.5rem] laptop-m:text-[2rem] font-semibold text-orange-700">
+                  <h1 className="laptop-s:text-[1.2rem] laptop-m:text-2xl desktop-m:text-3xl font-semibold text-orange-700">
                     Jade P. Jimenez
                   </h1>
-                  <h1 className="text-[0.9rem] tablet:text-lg tablet-m:text-xl laptop-m:text-2xl">
+                  <h1 className="laptop-s:text-lg  laptop-m:text-xl desktop-m:text-2xl">
                     Project Assistant
                   </h1>
-                  <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed">
                     Jade is a seasoned technologist with a passion for
                     cutting-edge innovations. He oversees all technology
                     initiatives, ensuring TARAKI remains at the forefront of

@@ -47,7 +47,7 @@ function FAQs() {
               Frequently Asked Questions
             </h1>
           </section>
-          <div className="laptop-s:mx-40 laptop-m:mx-44 desktop-s:mx-48 desktop-m:px-72">
+          <div className="laptop-s:mx-40 laptop-m:mx-40 desktop-s:mx-40 desktop-m:mx-40">
             <div className="m-2 space-y-2 laptop-s:my-5">
               {faqItems.map((item, index) => (
                 <div
@@ -55,7 +55,7 @@ function FAQs() {
                   className="group flex flex-col gap-2 rounded-lg bg-white p-3 text-black"
                 >
                   <div
-                    className="flex cursor-pointer items-center justify-between laptop-s:text-xl laptop-m:text-2xl desktop-m:text-3xl font-bold"
+                    className="flex cursor-pointer items-center justify-between laptop-s:text-xl laptop-m:text-2xl desktop-m:text-3xl font-regular"
                     onClick={() => toggleFAQ(index)}
                   >
                     <span>{item.question}</span>
@@ -70,7 +70,7 @@ function FAQs() {
                   <div
                     className={`overflow-hidden transition-all duration-500 ${
                       activeIndex === index
-                        ? "max-h-screen opacity-100"
+                        ? "max-h-screen opacity-100 phone:text-[1rem] laptop-s:text-lg desktop-s:text-xl text-gray-500"
                         : "max-h-0 opacity-0"
                     }`}
                   >
