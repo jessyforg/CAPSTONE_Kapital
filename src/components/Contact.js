@@ -1,22 +1,40 @@
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import logo from "../components/imgs/taraki-black.svg";
 
-function contacts() {
+function Contacts() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration
+      easing: "ease-in-out", // Easing function
+      once: false,
+    });
+  }, []);
   return (
     <div>
       <div>
         <div className="cont">
-          <section className="flex justify-center items-center mt-14 tablet:mt-12">
-            <img src={logo} className="h-14 laptop-m:h-20" alt="TARAKI LOGO HERE" />
-          </section>
-          
-          <div
-            className="items-center justify-between tablet-m:hidden phone:hidden tablet:hidden laptop-s:block pt-5"
+          <section
+            className="flex justify-center items-center mt-14 tablet:mt-12"
+            data-aos="fade-right"
+            data-aos-delay="200"
           >
+            <img
+              src={logo}
+              className="h-14 laptop-m:h-20"
+              alt="TARAKI LOGO HERE"
+            />
+          </section>
+
+          <div className="items-center justify-between tablet-m:hidden phone:hidden tablet:hidden laptop-s:block pt-5">
             <ul className="flex flex-col font-medium text-center p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1.25rem] justify-center">
               <li>
                 <a
                   href="#home"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
+                  data-aos="fade-down"
+                  data-aos-delay="400"
                 >
                   About
                 </a>
@@ -25,6 +43,8 @@ function contacts() {
                 <a
                   href="#about"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  data-aos="fade-down"
+                  data-aos-delay="600"
                 >
                   Programs
                 </a>
@@ -33,6 +53,8 @@ function contacts() {
                 <a
                   href="#services"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  data-aos="fade-down"
+                  data-aos-delay="800"
                 >
                   Framework
                 </a>
@@ -41,6 +63,8 @@ function contacts() {
                 <a
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  data-aos="fade-down"
+                  data-aos-delay="1000"
                 >
                   Events
                 </a>
@@ -49,6 +73,8 @@ function contacts() {
                 <a
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  data-aos="fade-down"
+                  data-aos-delay="1200"
                 >
                   FAQ
                 </a>
@@ -64,6 +90,9 @@ function contacts() {
               height="28"
               fill="none"
               viewBox="0 0 48 48"
+              data-aos="zoom-in"
+              data-aos-delay="1400"
+              data-aos-duration="600"
             >
               <g clipPath="url(#a)">
                 <path
@@ -85,6 +114,9 @@ function contacts() {
               height="28"
               fill="none"
               viewBox="0 0 48 48"
+              data-aos="zoom-in"
+              data-aos-delay="1600"
+              data-aos-duration="600"
             >
               <g clipPath="url(#a)">
                 <path
@@ -110,6 +142,9 @@ function contacts() {
               height="28"
               fill="none"
               viewBox="0 0 48 48"
+              data-aos="zoom-in"
+              data-aos-delay="1800"
+              data-aos-duration="600"
             >
               <g clipPath="url(#a)">
                 <path
@@ -130,6 +165,9 @@ function contacts() {
               height="28"
               fill="none"
               viewBox="0 0 32 23"
+              data-aos="zoom-in"
+              data-aos-delay="2000"
+              data-aos-duration="600"
             >
               <path
                 fill="#F04F06"
@@ -142,4 +180,4 @@ function contacts() {
     </div>
   );
 }
-export default contacts;
+export default Contacts;

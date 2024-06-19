@@ -1,3 +1,6 @@
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import icon1 from "../components/imgs/2.png";
 import icon2 from "../components/imgs/3.png";
 import icon3 from "../components/imgs/5.png";
@@ -5,18 +8,31 @@ import icon4 from "../components/imgs/6.png";
 import icon5 from "../components/imgs/7.png";
 import icon6 from "../components/imgs/8.png";
 
-function objective() {
+function Objective() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration
+      easing: "ease-in-out", // Easing function
+      once: false,
+    });
+  }, []);
   return (
     <div>
       <div className="font-satoshi overflow-hidden">
         <div className="cont">
           <section className="mt-16 tablet:mt-12 text-center">
-            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-5">
+            <h1
+              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-5"
+              data-aos="fade-up"
+            >
               Objectives
             </h1>
           </section>
           <section className="tablet:grid tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-10 laptop-s:py-10">
-            <div className="mt-5 transition-all duration-300 hover:scale-110">
+            <div
+              className="mt-5 transition-all duration-300 hover:scale-110"
+              data-aos="fade-right"
+            >
               <img
                 src={icon1}
                 alt="1st-ico"
@@ -27,7 +43,10 @@ function objective() {
                 Roadmaps
               </p>
             </div>
-            <div className="mt-5 transition-all duration-300 hover:scale-110">
+            <div
+              className="mt-5 transition-all duration-300 hover:scale-110"
+              data-aos="fade-down"
+            >
               <img
                 src={icon2}
                 alt="2nd-ico"
@@ -37,7 +56,10 @@ function objective() {
                 Increasing Awareness about the Consortium
               </p>
             </div>
-            <div className="mt-5 transition-all duration-300 hover:scale-110">
+            <div
+              className="mt-5 transition-all duration-300 hover:scale-110"
+              data-aos="fade-left"
+            >
               <img
                 src={icon3}
                 alt="3rd-ico"
@@ -47,7 +69,10 @@ function objective() {
                 Upskilling and Upscaling Activities
               </p>
             </div>
-            <div className="mt-5 transition-all duration-300 hover:scale-110">
+            <div
+              className="mt-5 transition-all duration-300 hover:scale-110"
+              data-aos="fade-right"
+            >
               <img
                 src={icon4}
                 alt="4th-ico"
@@ -57,7 +82,10 @@ function objective() {
                 Establishment of Local Investor Network
               </p>
             </div>
-            <div className="mt-5 transition-all duration-300 hover:scale-110">
+            <div
+              className="mt-5 transition-all duration-300 hover:scale-110"
+              data-aos="fade-up"
+            >
               <img
                 src={icon5}
                 alt="5th-ico"
@@ -67,7 +95,10 @@ function objective() {
                 Cross Pollination Undertakings Among Stakeholders
               </p>
             </div>
-            <div className="mt-5 transition-all duration-300 hover:scale-110">
+            <div
+              className="mt-5 transition-all duration-300 hover:scale-110"
+              data-aos="fade-left"
+            >
               <img
                 src={icon6}
                 alt="6th-ico"
@@ -85,4 +116,4 @@ function objective() {
   );
 }
 
-export default objective;
+export default Objective;

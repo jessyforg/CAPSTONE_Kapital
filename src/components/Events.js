@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import rc1 from "../components/imgs/rc1.JPG";
 import rc2 from "../components/imgs/rc2.jpg";
 import rc3 from "../components/imgs/rc3.JPG";
@@ -7,8 +9,6 @@ import rc5 from "../components/imgs/rc5.JPG";
 import rc6 from "../components/imgs/rc6.JPG";
 import next from "../components/imgs/next-new.svg";
 import prev from "../components/imgs/prev-new.svg";
-
-import "./styles.css";
 
 function Events() {
   useEffect(() => {
@@ -92,17 +92,31 @@ function Events() {
     swiper.on("slideChange", () => {
       console.log("Slide changed");
     });
+    AOS.init({
+      duration: 1000, // Animation duration
+      easing: "ease-in-out", // Easing function
+      once: false,
+    });
   }, []);
 
   return (
     <div>
-      <div className="cont px-8">
+      <div className="px-8">
         <section className="mt-16 tablet:mt-12">
-          <h1 className="font-semibold text-md text-center laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem]">
+          <h1
+            className="font-semibold text-md text-center laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem]"
+            data-aos="fade-right"
+            data-aos-delay="200"
+          >
             Highlights
           </h1>
         </section>
-        <div className="swiper mySwiperEvent mt-2">
+        <div
+          className="swiper mySwiperEvent mt-2"
+          data-aos="zoom-in"
+          data-aos-delay="400"
+          data-aos-duration="1000"
+        >
           <div className="swiper-wrapper tablet:h-[17rem] tablet-m:h-[20rem] tablet:w-full laptop-s:h-[25rem] desktop-m:h-[28rem]">
             <div className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center w-full tablet:h-[15rem] tablet-m:h-[18rem] h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]">
               <div
@@ -122,7 +136,11 @@ function Events() {
                 Regional Caravan 1.2
               </h1>
             </div>
-            <div className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center tablet:h-[15rem] tablet-m:h-[18rem] w-full h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]">
+            <div
+              className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center tablet:h-[15rem] tablet-m:h-[18rem] w-full h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]"
+              data-aos="flip-left"
+              data-aos-delay="900"
+            >
               <div
                 className="bg-cover bg-center w-full h-full tablet:h-[15rem] tablet-m:h-[18rem] laptop-s:h-[25rem]"
                 style={{ backgroundImage: `url(${rc3})` }}

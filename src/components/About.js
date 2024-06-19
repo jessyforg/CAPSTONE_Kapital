@@ -33,14 +33,13 @@ function About() {
               globally renowned.
             </p>
           </section>
-          <section className="mt-5">
+          <section className="mt-5" data-aos="fade-left">
             <video
               autoPlay
               loop
               muted
               playsInline
               className="header-video m-auto w-72 tablet:w-[95%] tablet-m:w-[100%] desktop-s:w-[195rem] laptop-s:w-[165rem] laptop-m:w-[185rem] desktop-m:w-[235rem]"
-              data-aos="fade-left"
             >
               <source src={animation} type="video/mp4" />
               Your browser does not support the video tag.

@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import ateJez from "../components/imgs/team/ate-jez.png";
 import maamT from "../components/imgs/team/thelma.png";
 import sirjade from "../components/imgs/team/jade.png";
@@ -24,6 +26,11 @@ function TarakiTeam() {
         },
       },
     });
+    AOS.init({
+      duration: 1000, // Animation duration
+      easing: "ease-in-out", // Easing function
+      once: false,
+    });
   }, []);
 
   return (
@@ -31,10 +38,18 @@ function TarakiTeam() {
       <div className="font-satoshi overflow-x-hidden">
         <div className="cont tablet:px-8">
           <section className="mt-16 tablet:mt-12 text-center">
-            <h1 className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] desktop-m:mb-7">
+            <h1
+              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] desktop-m:mb-7"
+              data-aos="fade-down"
+              data-aos-delay="200"
+            >
               TARAKIs
             </h1>
-            <p className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2 laptop-s:text-lg laptop-m:text-[1.4rem] desktop-m:text-[1.6rem] laptop-s:mx-40 laptop-m:mx-80">
+            <p
+              className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2 laptop-s:text-lg laptop-m:text-[1.4rem] desktop-m:text-[1.6rem] laptop-s:mx-40 laptop-m:mx-80"
+              data-aos="fade-up"
+              data-aos-delay="600"
+            >
               At TARAKI, our team is dedicated to driving technological
               innovation and fostering a collaborative environment for growth
               and advancement. Our experts bring diverse backgrounds and a
@@ -43,7 +58,7 @@ function TarakiTeam() {
           </section>
           <section className="mx-auto mt-5">
             <div className="swiper mySwiper px-10 tablet:hidden">
-              <div className="swiper-wrapper">
+              <div className="swiper-wrapper" data-aos="flip-right">
                 <div className="swiper-slide shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:h-80 h-[26rem] my-5">
                   <div
                     className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
@@ -312,7 +327,11 @@ function TarakiTeam() {
             </div>
 
             <div className="tabletCont phone:hidden tablet-m:hidden tablet:flex justify-between items-center">
-              <div className="relative overflow-hidden shadow-md m-2 w-56 h-72 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]">
+              <div
+                className="relative overflow-hidden shadow-md m-2 w-56 h-72 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]"
+                data-aos="flip-left"
+                data-aos-delay="200"
+              >
                 <div
                   className="bg-cover bg-center h-full w-full transition-all duration-500 group-hover:w-1/3"
                   style={{ backgroundImage: `url(${maamT})` }}
@@ -401,7 +420,11 @@ function TarakiTeam() {
                   </div>
                 </div>
               </div>
-              <div className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]">
+              <div
+                className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]"
+                data-aos="flip-left"
+                data-aos-delay="400"
+              >
                 <div
                   className="bg-cover bg-center h-full w-full transition-all duration-500 group-hover:w-1/3"
                   style={{ backgroundImage: `url(${ateJez})` }}
@@ -490,7 +513,11 @@ function TarakiTeam() {
                   </div>
                 </div>
               </div>
-              <div className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]">
+              <div
+                className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]"
+                data-aos="flip-left"
+                data-aos-delay="600"
+              >
                 <div
                   className="bg-cover bg-center h-full w-full transition-all duration-500 group-hover:w-1/3"
                   style={{ backgroundImage: `url(${sirjade})` }}
@@ -583,7 +610,11 @@ function TarakiTeam() {
             </div>
 
             <div className="laptopCont px-0 hidden tablet-m:flex justify-between items-center">
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10">
+              <div
+                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
+                data-aos="flip-right"
+                data-aos-delay="300"
+              >
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${maamT})` }}
@@ -670,7 +701,11 @@ function TarakiTeam() {
                   </section>
                 </div>
               </div>
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10">
+              <div
+                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
+                data-aos="flip-right"
+                data-aos-delay="600"
+              >
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${ateJez})` }}
@@ -758,7 +793,11 @@ function TarakiTeam() {
                   </section>
                 </div>
               </div>
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10">
+              <div
+                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
+                data-aos="flip-right"
+                data-aos-delay="900"
+              >
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${sirjade})` }}
