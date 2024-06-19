@@ -583,7 +583,7 @@ function TarakiTeam() {
             </div>
 
             <div className="laptopCont px-0 hidden tablet-m:flex justify-between items-center">
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5">
+              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10">
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${maamT})` }}
@@ -670,7 +670,7 @@ function TarakiTeam() {
                   </section>
                 </div>
               </div>
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5">
+              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10">
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${ateJez})` }}
@@ -758,7 +758,7 @@ function TarakiTeam() {
                   </section>
                 </div>
               </div>
-              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5">
+              <div className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10">
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
                   style={{ backgroundImage: `url(${sirjade})` }}
