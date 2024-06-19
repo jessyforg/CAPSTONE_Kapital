@@ -30,12 +30,12 @@ function Home() {
               loop
               muted
               playsInline
-              className=" phone:hidden tablet:block absolute laptop-s:top-24 laptop-m:top-28 left-0 m-auto w-full"
+              className=" phone:hidden tablet:block absolute tablet:top-16 laptop-s:top-24 laptop-m:top-28 left-0 m-auto w-full"
             >
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="relative z-10 tablet:pt-[6.5rem] laptop-s:pt-32 laptop-m:pt-56 desktop-m:pt-48">
+            <div className="relative z-10 tablet:pt-[3rem] tablet-m:pt-[7rem] laptop-s:pt-32 laptop-m:pt-56 desktop-m:pt-48">
               <h1
                 className="text-white text-3xl tablet:text-4xl laptop-s:text-5xl desktop-s:text-[3.6rem] desktop-m:text-[3.8rem] font-bold px-8 tablet:px-52"
                 data-aos="fade-right" // AOS attribute
@@ -59,7 +59,7 @@ function Home() {
             </div>
           </div>
         </section>
-        <div className="relative flex flex-col justify-center overflow-hidden bg-gray-50 border border-b-gray-400 tablet:mt-5 laptop-s:mt-32 laptop-m:mt-56 desktop-s:mt-64 desktop-m:pt-0">
+        <div className="relative flex flex-col justify-center overflow-hidden bg-gray-50 border border-b-gray-400 tablet:mt-10 tablet-m:mt-20 laptop-s:mt-32 laptop-m:mt-56 desktop-s:mt-64 desktop-m:pt-0">
           <div className="pointer-events-none flex overflow-hidden">
             <div className="animate-marquee flex min-w-full shrink-0 items-center gap-10 tablet:gap-14 tablet-m:gap-24 laptop-s:gap-32 laptop-m:gap-32 desktop-s:gap-36 desktop-m:gap-48 p-3">
               <img
