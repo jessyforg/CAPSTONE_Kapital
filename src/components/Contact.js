@@ -55,7 +55,7 @@ function Contacts() {
               </li>
               <li>
                 <Link
-                  to="about"
+                  to="program"
                   spy={true}
                   smooth={true}
                   duration={2000}
