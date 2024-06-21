@@ -113,17 +113,29 @@ function Navbar() {
             id="navbar-cta"
             ref={navbarStickyRef}
           >
-            <ul className="flex flex-col font-medium text-center p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1.26rem]">
+            <ul className="flex flex-col font-medium text-center p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1rem]">
               <li>
                 <Link
                   to="about"
                   spy={true}
                   smooth={true}
                   duration={1600}
-                  offset={-220}
+                  offset={-410}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="team"
+                  spy={true}
+                  smooth={true}
+                  duration={1600}
+                  offset={-280}
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
+                >
+                  TARAKIs
                 </Link>
               </li>
               <li>

@@ -56,7 +56,7 @@ function TarakiTeam() {
               shared commitment to our mission.
             </p>
           </section>
-          <section className="mx-auto mt-5">
+          <section id="team" className="mx-auto mt-5">
             <div className="swiper mySwiper px-10 tablet:hidden">
               <div className="swiper-wrapper" data-aos="flip-right">
                 <div className="swiper-slide shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:h-80 h-[26rem] my-5">
