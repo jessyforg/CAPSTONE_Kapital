@@ -48,9 +48,24 @@ function Contacts() {
                   href="#home"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
                   data-aos="fade-down"
-                  data-aos-delay="400"
+                  data-aos-delay="200"
                 >
                   About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="team"
+                  spy={true}
+                  smooth={true}
+                  duration={2000}
+                  offset={-200}
+                  href="#home"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
+                  data-aos="fade-down"
+                  data-aos-delay="400"
+                >
+                  TARAKIs
                 </Link>
               </li>
               <li>
