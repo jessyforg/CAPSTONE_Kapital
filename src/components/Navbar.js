@@ -80,6 +80,7 @@ function Navbar() {
                   spy={true}
                   smooth={true}
                   duration={2000}
+                  offset={-200}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   About
@@ -91,6 +92,7 @@ function Navbar() {
                   spy={true}
                   smooth={true}
                   duration={2000}
+                  offset={-100}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   Programs
@@ -102,6 +104,7 @@ function Navbar() {
                   spy={true}
                   smooth={true}
                   duration={2000}
+                  offset={-120}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   Framework
@@ -113,6 +116,7 @@ function Navbar() {
                   spy={true}
                   smooth={true}
                   duration={2000}
+                  offset={-120}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   Events
@@ -124,6 +128,7 @@ function Navbar() {
                   spy={true}
                   smooth={true}
                   duration={2000}
+                  offset={-100}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   FAQ

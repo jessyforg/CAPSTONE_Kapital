@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-scroll";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import logo from "../components/imgs/taraki-black.svg";
@@ -20,64 +21,97 @@ function Contacts() {
             data-aos="fade-right"
             data-aos-delay="200"
           >
+            <Link
+            to="home"
+            spy={true}
+            smooth={true}
+            duration={2000}
+            className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
+          >
             <img
               src={logo}
               className="h-14 laptop-m:h-20"
               alt="TARAKI LOGO HERE"
             />
+           </Link> 
           </section>
 
           <div className="items-center justify-between tablet-m:hidden phone:hidden tablet:hidden laptop-s:block pt-5">
             <ul className="flex flex-col font-medium text-center p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1.25rem] justify-center">
               <li>
-                <a
+                <Link
+                to="about"
+                spy={true}
+                smooth={true}
+                duration={2000}
+                offset={-200}
                   href="#home"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
                   data-aos="fade-down"
                   data-aos-delay="400"
                 >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#about"
+                <Link
+                to="about"
+                spy={true}
+                smooth={true}
+                duration={2000}
+                offset={-100}
+                  href="#program"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
                   data-aos-delay="600"
                 >
                   Programs
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                to="framework"
+                spy={true}
+                smooth={true}
+                duration={2000}
+                offset={-120}
                   href="#services"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
                   data-aos-delay="800"
                 >
                   Framework
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                to="events"
+                spy={true}
+                smooth={true}
+                duration={2000}
+                offset={-120}
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
                   data-aos-delay="1000"
                 >
                   Events
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                to="faq"
+                spy={true}
+                smooth={true}
+                duration={2000}
+                offset={-100}
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
                   data-aos-delay="1200"
                 >
                   FAQ
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
