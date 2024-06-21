@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import rc1 from "../components/imgs/rc1.JPG";
-import rc2 from "../components/imgs/rc2.jpg";
-import rc3 from "../components/imgs/rc3.JPG";
-import rc4 from "../components/imgs/rc4.JPG";
-import rc5 from "../components/imgs/rc5.JPG";
-import rc6 from "../components/imgs/rc6.JPG";
+import rc1 from "../components/imgs/rc1.webp";
+import rc2 from "../components/imgs/rc2.webp";
+import rc3 from "../components/imgs/rc3.webp";
+import rc4 from "../components/imgs/rc4.webp";
+import rc5 from "../components/imgs/rc5.webp";
+import rc6 from "../components/imgs/rc6.webp";
 import next from "../components/imgs/next-new.svg";
 import prev from "../components/imgs/prev-new.svg";
 

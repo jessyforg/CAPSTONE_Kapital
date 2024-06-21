@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import frame from "../components/imgs/framework.png";
+import frame from "../components/imgs/framework.webp";
 
 function Framework() {
   useEffect(() => {

@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import dost from "./imgs/dost.png";
-import uc from "./imgs/uc.png";
-import dict from "./imgs/dict.png";
-import neda from "./imgs/neda.png";
-import dti from "./imgs/dti.png";
-import da from "./imgs/da.svg";
-import peza from "./imgs/peza.svg";
+import dost from "./imgs/dost.webp";
+import uc from "./imgs/uc.webp";
+import dict from "./imgs/dict.webp";
+import neda from "./imgs/neda.webp";
+import dti from "./imgs/dti.webp";
+import da from "./imgs/da.webp";
+import peza from "./imgs/peza.webp";
 import video from "../components/imgs/taraki-home-video.mp4";
 
 function Home() {
@@ -23,7 +23,10 @@ function Home() {
   return (
     <div>
       <div className="phone:bg-trkblack tablet:bg-transparent font-satoshi overflow-x-hidden pt-12">
-        <section id="home" className="h-screen section text-center pt-16 tablet-m:py-28 laptop-s:py-32 laptop-m:py-32 desktop-m:py-[18rem]">
+        <section
+          id="home"
+          className="text-center pt-16 tablet-m:py-28 laptop-s:py-32 laptop-m:py-32 desktop-m:py-[18rem]"
+        >
           <div className="w-full h-full overflow-hidden">
             <video
               autoPlay

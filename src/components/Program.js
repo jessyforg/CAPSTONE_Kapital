@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import aware from "../components/imgs/aware.png";
-import ready from "../components/imgs/ready.jpg";
-import know from "../components/imgs/knowledge.JPG";
-import inno from "../components/imgs/inno.png";
+import aware from "../components/imgs/aware.webp";
+import ready from "../components/imgs/ready.webp";
+import know from "../components/imgs/knowledge.webp";
+import inno from "../components/imgs/inno.webp";
 
 function Program() {
   useEffect(() => {

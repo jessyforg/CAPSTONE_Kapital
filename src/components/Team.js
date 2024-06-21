@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import ateJez from "../components/imgs/team/ate-jez.png";
-import maamT from "../components/imgs/team/thelma.png";
-import sirjade from "../components/imgs/team/jade.png";
+import ateJez from "../components/imgs/team/ate-jez.webp";
+import maamT from "../components/imgs/team/thelma.webp";
+import sirjade from "../components/imgs/team/jade.webp";
 import "./styles.css";
 
 function TarakiTeam() {

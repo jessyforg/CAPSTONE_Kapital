@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import icon1 from "../components/imgs/2.png";
-import icon2 from "../components/imgs/3.png";
-import icon3 from "../components/imgs/5.png";
-import icon4 from "../components/imgs/6.png";
-import icon5 from "../components/imgs/7.png";
-import icon6 from "../components/imgs/8.png";
+import icon1 from "../components/imgs/2.svg";
+import icon2 from "../components/imgs/3.svg";
+import icon3 from "../components/imgs/5.svg";
+import icon4 from "../components/imgs/6.svg";
+import icon5 from "../components/imgs/7.svg";
+import icon6 from "../components/imgs/8.svg";
 
 function Objective() {
   useEffect(() => {
