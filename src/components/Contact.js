@@ -213,7 +213,7 @@ function Contacts() {
             </a>
 
             <a
-              href="google.com"
+              href="https://heyzine.com/flip-book/be7bd4e55d.html#page/1"
               target="_blank"
               rel="noreferrer"
               className="transition-all duration-300 hover:scale-110"
