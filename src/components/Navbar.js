@@ -31,7 +31,7 @@ function Navbar() {
             to="home"
             spy={true}
             smooth={true}
-            duration={2000}
+            duration={1600}
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
           >
             <img
@@ -54,7 +54,7 @@ function Navbar() {
               <svg
                 className="w-5 h-5"
                 aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="http://www.w3.org/1600/svg"
                 fill="none"
                 viewBox="0 0 17 14"
               >
@@ -79,8 +79,8 @@ function Navbar() {
                   to="about"
                   spy={true}
                   smooth={true}
-                  duration={2000}
-                  offset={-200}
+                  duration={1600}
+                  offset={-220}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   About
@@ -91,7 +91,7 @@ function Navbar() {
                   to="program"
                   spy={true}
                   smooth={true}
-                  duration={2000}
+                  duration={1600}
                   offset={-100}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -103,7 +103,7 @@ function Navbar() {
                   to="framework"
                   spy={true}
                   smooth={true}
-                  duration={2000}
+                  duration={1600}
                   offset={-120}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -115,7 +115,7 @@ function Navbar() {
                   to="events"
                   spy={true}
                   smooth={true}
-                  duration={2000}
+                  duration={1600}
                   offset={-120}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -127,7 +127,7 @@ function Navbar() {
                   to="faq"
                   spy={true}
                   smooth={true}
-                  duration={2000}
+                  duration={1600}
                   offset={-100}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
