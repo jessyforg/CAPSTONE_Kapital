@@ -1,5 +1,5 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-scroll";
 import tarakiLogo from "../components/imgs/taraki-black.svg";
 
 function Navbar() {
@@ -27,16 +27,19 @@ function Navbar() {
     <header className="font-satoshi overflow-x-hidden">
       <nav className="bg-white border-gray-200 shadow-md fixed w-full z-50 top-0 start-0">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8 laptop-s:p-7 desktop-m:p-10">
-          <a
-            href="#home"
-            className="flex items-center space-x-3 rtl:space-x-reverse"
+          <Link
+            to="home"
+            spy={true}
+            smooth={true}
+            duration={2000}
+            className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
           >
             <img
               src={tarakiLogo}
               className="w-28 laptop-s:absolute laptop-s:left-2/4 laptop-s:-translate-x-1/2 laptop-m:w-32 desktop-m:w-40"
               alt="TARAKI LOGO HERE"
             />
-          </a>
+          </Link>
           <div className="flex space-x-3 tablet-m:space-x-0 rtl:space-x-reverse">
             <button
               data-collapse-toggle="navbar-cta"
@@ -72,44 +75,59 @@ function Navbar() {
           >
             <ul className="flex flex-col font-medium text-center p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1.26rem]">
               <li>
-                <a
-                  href="#home"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
+                <Link
+                  to="about"
+                  spy={true}
+                  smooth={true}
+                  duration={2000}
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#about"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                <Link
+                  to="program"
+                  spy={true}
+                  smooth={true}
+                  duration={2000}
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   Programs
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#services"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                <Link
+                  to="framework"
+                  spy={true}
+                  smooth={true}
+                  duration={2000}
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   Framework
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#contact"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                <Link
+                  to="events"
+                  spy={true}
+                  smooth={true}
+                  duration={2000}
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   Events
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#contact"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                <Link
+                  to="faq"
+                  spy={true}
+                  smooth={true}
+                  duration={2000}
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   FAQ
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

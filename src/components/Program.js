@@ -18,7 +18,7 @@ function Program() {
     <div>
       <div>
         <div className="">
-          <section className="mt-16 tablet:my-12 text-center">
+          <section id="program" className="mt-16 tablet:my-12 text-center">
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-2xl px-20 tablet:px-52 tablet-m:px-72 laptop-m:px-96 laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-6 laptop-m:py-8 desktop-s:py-10 laptop-s:bg-trkblack laptop-s:text-white"
               data-aos="fade-down"

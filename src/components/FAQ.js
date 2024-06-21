@@ -48,6 +48,7 @@ function FAQs() {
     <div>
       <div className="cont">
         <section
+          id="faq"
           className="flex flex-col justify-start mt-5 tablet:mt-12 bg-trkblack px-8 pt-5 pb-8 tablet:px-8"
           data-aos="fade-down"
           data-aos-delay="200"

@@ -23,7 +23,7 @@ function Home() {
   return (
     <div>
       <div className="phone:bg-trkblack tablet:bg-transparent font-satoshi overflow-x-hidden pt-12">
-        <section className="text-center pt-16 tablet-m:py-28 laptop-s:py-32 laptop-m:py-32 desktop-m:py-[18rem]">
+        <section id="home" className="h-screen section text-center pt-16 tablet-m:py-28 laptop-s:py-32 laptop-m:py-32 desktop-m:py-[18rem]">
           <div className="w-full h-full overflow-hidden">
             <video
               autoPlay
