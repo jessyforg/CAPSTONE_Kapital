@@ -20,7 +20,7 @@ function Objective() {
     <div>
       <div className="font-satoshi overflow-hidden">
         <div className="cont">
-          <section className="mt-16 tablet:mt-12 text-center">
+          <section id="objectives" className="mt-16 tablet:mt-12 text-center">
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-5"
               data-aos="fade-up"

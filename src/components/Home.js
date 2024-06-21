@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-scroll";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -53,12 +54,20 @@ function Home() {
                 A Technological Consortium for Awareness, Readiness, and
                 Advancement of Knowledge in Innovation
               </p>
+              <Link
+              to="objectives"
+              spy={true}
+              smooth={true}
+              duration={1600}
+              offset={-100}
+              >
               <button
                 className=" bg-white py-1 px-4 mt-5 mb-7 tablet-m:mt-5 tablet:mb-12 tablet-m:mb-0 text-[0.8rem] laptop-s:text-sm laptop-s:px-8 laptop-s:py-3 desktop-m:px-10 desktop-m:py-5 laptop-m:text-lg desktop-s:text-[1.4rem] desktop-m:text-[1.7rem] border border-white rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600"
                 data-aos="fade-up" // AOS attribute
               >
                 Learn More
               </button>
+              </Link>
             </div>
           </div>
         </section>
