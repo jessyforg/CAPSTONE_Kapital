@@ -32,6 +32,7 @@ function Navbar() {
             spy={true}
             smooth={true}
             duration={1600}
+            offset={-50}
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
           >
             <img
