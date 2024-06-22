@@ -3,6 +3,38 @@ import { Link } from "react-scroll";
 import tarakiLogo from "../components/imgs/taraki-black.svg";
 
 function Navbar() {
+  const [emailDetails, setEmailDetails] = useState({});
+
+  const handleChange = (e) => {
+    setEmailDetails({ ...emailDetails, [e.target.name]: e.target.value });
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    window.Email.send({
+      Username: "bugsywap@gmail.com",
+      SecureToken: "b6db85e9-dd18-4632-95d3-42a1f0202ab0",
+      Port: 2525,
+      To: "ollerogabe@gmail.com",
+      From: "bugsywap@gmail.com",
+      Subject: "New Contact Form Submission",
+      Body: `
+      Name: ${emailDetails.name}<br/>
+      Email: ${emailDetails.email}<br/>
+      Number: ${emailDetails.number}<br/>
+      Message: ${emailDetails.message}
+    `,
+    })
+      .then((message) => {
+        console.log("Email sent successfully:", message);
+        alert("Sent to email successfully!");
+      })
+      .catch((error) => {
+        console.error("Failed to send email:", error);
+        alert("Failed to send email: " + error.message);
+      });
+  };
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
 
@@ -224,119 +256,137 @@ function Navbar() {
                     Let us know what you think about
                   </p>
                   <hr></hr>
-                  <div className="flex justify-evenly items-center">
-                    <div className="my-3">
-                      <label
-                        for="name"
-                        class="block mb-2 text-sm font-medium text-gray-900"
-                      >
-                        Name
-                      </label>
-                      <div class="flex">
-                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
-                          <svg
-                            class="w-6 h-5 text-gray-500"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
-                          </svg>
-                        </span>
-                        <input
-                          type="text"
-                          id="name"
-                          class="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4 "
-                          placeholder="John Hee Hee"
-                        />
-                      </div>
+                  <form onSubmit={sendEmail}>
+                    <div className="flex justify-evenly items-center">
+                      <div className="my-3">
+                        <label
+                          for="name"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Name
+                        </label>
+                        <div className="flex">
+                          <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
+                            <svg
+                              className="w-6 h-5 text-gray-500"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+                            </svg>
+                          </span>
+                          <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
+                            placeholder="John Hee Hee"
+                            value={emailDetails.name}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
 
-                      <label
-                        for="email"
-                        class="block my-2 text-sm font-medium text-gray-900"
-                      >
-                        Email
-                      </label>
-                      <div class="flex">
-                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
-                          <svg
-                            className="w-6 h-5 text-gray-500"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
-                            <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
-                          </svg>
-                        </span>
-                        <input
-                          type="email"
-                          id="email"
-                          class="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4 "
-                          placeholder="example@gmail.com"
-                        />
-                      </div>
-                      <label
-                        for="number"
-                        class="block my-2 text-sm font-medium text-gray-900"
-                      >
-                        Mobile Number
-                      </label>
-                      <div class="flex">
-                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
-                          <svg
-                            className="w-6 h-8 text-gray-500"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill=""
-                              d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z"
-                            />
-                          </svg>
-                        </span>
-                        <input
-                          type="text"
-                          id="number"
-                          class="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4 "
-                          placeholder="0999*********"
-                        />
-                      </div>
+                        <label
+                          for="email"
+                          className="block my-2 text-sm font-medium text-gray-900"
+                        >
+                          Email
+                        </label>
+                        <div className="flex">
+                          <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
+                            <svg
+                              className="w-6 h-5 text-gray-500"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
+                              <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
+                            </svg>
+                          </span>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
+                            placeholder="example@email.com"
+                            value={emailDetails.email}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                        <label
+                          for="number"
+                          className="block my-2 text-sm font-medium text-gray-900"
+                        >
+                          Mobile Number
+                        </label>
+                        <div className="flex">
+                          <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
+                            <svg
+                              className="w-6 h-8 text-gray-500"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill=""
+                                d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z"
+                              />
+                            </svg>
+                          </span>
+                          <input
+                            type="text"
+                            id="number"
+                            name="number"
+                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
+                            placeholder="Enter your contact number"
+                            value={emailDetails.number}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
 
-                      <label
-                        for="message"
-                        class="block my-2 text-sm font-medium text-gray-900"
-                      >
-                        Your message
-                      </label>
-                      <textarea
-                        id="message"
-                        rows="4"
-                        class="block p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Write your thoughts here..."
-                      ></textarea>
-                      <div className="flex justify-end pt-2">
-                        <button className="focus:outline-none px-4 w-full bg-orange-500 p-3 rounded-lg text-white hover:bg-orange-400">
-                          Submit
-                        </button>
+                        <label
+                          for="message"
+                          className="block my-2 text-sm font-medium text-gray-900"
+                        >
+                          Your message
+                        </label>
+                        <textarea
+                          id="message"
+                          name="message"
+                          rows="4"
+                          className="block p-2.5 w-[33rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Leave a message..."
+                          value={emailDetails.message}
+                          onChange={handleChange}
+                          required
+                        ></textarea>
+                        <div className="flex justify-end pt-2">
+                          <button className="focus:outline-none px-4 w-full bg-orange-500 p-3 rounded-lg text-white hover:bg-orange-400">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                      <div className="shadow-lg w-96 h-[28rem] ml-8">
+                        <iframe
+                          title="University of Cordilleras Location"
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3853.9072788242074!2d120.5901796201217!3d16.410273498776423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3391a1685e7b7073%3A0xe6bda988e8558d2!2sUniversity%20of%20Cordilleras%20Legarda!5e0!3m2!1sen!2sph!4v1719022546794!5m2!1sen!2sph"
+                          width="384"
+                          height="448"
+                          style={{ border: 0 }}
+                          allowFullScreen=""
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          className="rounded-md shadow-md"
+                        ></iframe>
                       </div>
                     </div>
-                    <div className="bg-gray-400 w-96 h-[28rem] ml-8">
-                    <iframe
-                        title="University of Cordilleras Location"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3853.9072788242074!2d120.5901796201217!3d16.410273498776423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3391a1685e7b7073%3A0xe6bda988e8558d2!2sUniversity%20of%20Cordilleras%20Legarda!5e0!3m2!1sen!2sph!4v1719022546794!5m2!1sen!2sph"
-                        width="384"
-                        height="448"
-                        style={{ border: 0 }}
-                        allowFullScreen=""
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        className="rounded-md shadow-md"
-                      ></iframe>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
