@@ -26,6 +26,7 @@ function Contacts() {
               spy={true}
               smooth={true}
               duration={2000}
+              offset={-50}
               className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
             >
               <img

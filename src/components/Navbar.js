@@ -199,7 +199,7 @@ function Navbar() {
               ref={modalRef}
               className="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
             >
-              <div className="border border-orange-600 modal-container bg-white w-[60rem] mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+              <div className="border border-orange-600 modal-container bg-white w-[65rem] mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
                 <div className="modal-content py-4 text-left px-6">
                   <div className="flex justify-between items-center">
                     <p className="text-2xl font-bold">Connect with us today!</p>
@@ -323,7 +323,19 @@ function Navbar() {
                         </button>
                       </div>
                     </div>
-                    <div className="bg-gray-400 w-96 h-[28rem] ml-8"></div>
+                    <div className="bg-gray-400 w-96 h-[28rem] ml-8">
+                    <iframe
+                        title="University of Cordilleras Location"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3853.9072788242074!2d120.5901796201217!3d16.410273498776423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3391a1685e7b7073%3A0xe6bda988e8558d2!2sUniversity%20of%20Cordilleras%20Legarda!5e0!3m2!1sen!2sph!4v1719022546794!5m2!1sen!2sph"
+                        width="384"
+                        height="448"
+                        style={{ border: 0 }}
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="rounded-md shadow-md"
+                      ></iframe>
+                    </div>
                   </div>
                 </div>
               </div>
