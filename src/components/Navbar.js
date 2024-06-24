@@ -1,38 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { Link } from "react-scroll";
 import tarakiLogo from "../components/imgs/taraki-black.svg";
 
 function Navbar() {
-  const [emailDetails, setEmailDetails] = useState({});
-
-  const handleChange = (e) => {
-    setEmailDetails({ ...emailDetails, [e.target.name]: e.target.value });
-  };
+  const form = useRef();
 
   const sendEmail = (e) => {
     e.preventDefault();
-    window.Email.send({
-      Username: "bugsywap@gmail.com",
-      SecureToken: "b6db85e9-dd18-4632-95d3-42a1f0202ab0",
-      Port: 2525,
-      To: "ollerogabe@gmail.com",
-      From: "bugsywap@gmail.com",
-      Subject: "New Contact Form Submission",
-      Body: `
-      Name: ${emailDetails.name}<br/>
-      Email: ${emailDetails.email}<br/>
-      Number: ${emailDetails.number}<br/>
-      Message: ${emailDetails.message}
-    `,
-    })
-      .then((message) => {
-        console.log("Email sent successfully:", message);
-        alert("Sent to email successfully!");
+
+    emailjs
+      .sendForm("service_h4xlbv5", "template_qk4cuxj", form.current, {
+        publicKey: "kpx994M2oPUsZVeoz",
       })
-      .catch((error) => {
-        console.error("Failed to send email:", error);
-        alert("Failed to send email: " + error.message);
-      });
+      .then(
+        () => {
+          console.log("SUCCESS!");
+          e.target.reset();
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -256,7 +245,7 @@ function Navbar() {
                     Let us know what you think about
                   </p>
                   <hr></hr>
-                  <form onSubmit={sendEmail}>
+                  <form ref={form} onSubmit={sendEmail}>
                     <div className="flex justify-evenly items-center">
                       <div className="my-3">
                         <label
@@ -279,12 +268,10 @@ function Navbar() {
                           </span>
                           <input
                             type="text"
-                            id="name"
-                            name="name"
+                            id="user_name"
+                            name="user_name"
                             className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
                             placeholder="John Hee Hee"
-                            value={emailDetails.name}
-                            onChange={handleChange}
                             required
                           />
                         </div>
@@ -313,8 +300,6 @@ function Navbar() {
                             name="email"
                             className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
                             placeholder="example@email.com"
-                            value={emailDetails.email}
-                            onChange={handleChange}
                             required
                           />
                         </div>
@@ -344,8 +329,6 @@ function Navbar() {
                             name="number"
                             className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
                             placeholder="Enter your contact number"
-                            value={emailDetails.number}
-                            onChange={handleChange}
                             required
                           />
                         </div>
@@ -362,12 +345,14 @@ function Navbar() {
                           rows="4"
                           className="block p-2.5 w-[33rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Leave a message..."
-                          value={emailDetails.message}
-                          onChange={handleChange}
                           required
                         ></textarea>
                         <div className="flex justify-end pt-2">
-                          <button className="focus:outline-none px-4 w-full bg-orange-500 p-3 rounded-lg text-white hover:bg-orange-400">
+                          <button
+                            type="submit"
+                            value="send"
+                            className="focus:outline-none px-4 w-full bg-orange-500 p-3 rounded-lg text-white hover:bg-orange-400"
+                          >
                             Submit
                           </button>
                         </div>
