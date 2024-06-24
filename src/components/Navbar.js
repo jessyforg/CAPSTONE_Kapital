@@ -145,7 +145,7 @@ function Navbar() {
                   to="about"
                   spy={true}
                   smooth={true}
-                  duration={1600}
+                  duration={1000}
                   offset={-410}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -157,7 +157,7 @@ function Navbar() {
                   to="team"
                   spy={true}
                   smooth={true}
-                  duration={1600}
+                  duration={1000}
                   offset={-280}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -169,7 +169,7 @@ function Navbar() {
                   to="program"
                   spy={true}
                   smooth={true}
-                  duration={1600}
+                  duration={1000}
                   offset={-100}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -181,7 +181,7 @@ function Navbar() {
                   to="framework"
                   spy={true}
                   smooth={true}
-                  duration={1600}
+                  duration={1000}
                   offset={-120}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -193,7 +193,7 @@ function Navbar() {
                   to="events"
                   spy={true}
                   smooth={true}
-                  duration={1600}
+                  duration={1000}
                   offset={-120}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -205,7 +205,7 @@ function Navbar() {
                   to="faq"
                   spy={true}
                   smooth={true}
-                  duration={1600}
+                  duration={1000}
                   offset={-100}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -225,7 +225,7 @@ function Navbar() {
               ref={modalRef}
               className="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
             >
-              <div className="border border-orange-600 modal-container bg-white w-[65rem] mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+              <div className="border border-orange-600 modal-container bg-white w-[60rem] laptop-s:w-[65rem] mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
                 <div className="modal-content py-4 text-left px-6">
                   <div className="flex justify-between items-center">
                     <p className="text-2xl font-bold">Connect with us today!</p>
@@ -275,7 +275,7 @@ function Navbar() {
                             type="text"
                             id="user_name"
                             name="user_name"
-                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
+                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-0 laptop-s:flex-1 min-w-0 w-[27rem] laptop-s:w-[30rem] text-sm border-gray-300 p-4"
                             placeholder="John Hee Hee"
                             required
                           />
@@ -303,7 +303,7 @@ function Navbar() {
                             type="email"
                             id="email"
                             name="email"
-                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
+                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-0 laptop-s:flex-1 min-w-0 w-[27rem] laptop-s:w-[30rem] text-sm border-gray-300 p-4"
                             placeholder="example@email.com"
                             required
                           />
@@ -332,7 +332,7 @@ function Navbar() {
                             type="text"
                             id="number"
                             name="number"
-                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-[30rem] text-sm border-gray-300 p-4"
+                            className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-0 laptop-s:flex-1 min-w-0 w-[27rem] laptop-s:w-[30rem] text-sm border-gray-300 p-4"
                             placeholder="Enter your contact number"
                             required
                           />
@@ -348,7 +348,7 @@ function Navbar() {
                           id="message"
                           name="message"
                           rows="4"
-                          className="block p-2.5 w-[33rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                          className="block p-2.5 flex-0 laptop-s:flex-1 min-w-0 w-[30rem] laptop-s:w-[33rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Leave a message..."
                           required
                         ></textarea>
@@ -380,27 +380,30 @@ function Navbar() {
                 </div>
               </div>
               {showAlert && (
-                <div class="bg-gray-100 absolute z-50 rounded-md p-5 flex flex-col top-[4.5rem] items-center mx-96 animate__animated animate__fadeInDown animate__faster">
-                  <svg
-                    class="stroke-2 stroke-current text-green-600 h-24 w-24 mr-2 flex-shrink-0"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M0 0h24v24H0z" stroke="none" />
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M9 12l2 2 4-4" />
-                  </svg>
+                <>
+                  <div className="fixed inset-0 z-50 bg-black bg-opacity-70 animate__animated animate__fadeIn animate__faster"></div>
+                  <div class="bg-gray-100 absolute z-50 rounded-md p-8 laptop-s:px-20 flex flex-col top-[28rem] laptop-s:top-[15rem] items-center animate__animated animate__fadeInDown animate__faster">
+                    <svg
+                      class="stroke-2 stroke-current text-green-600 h-28 w-28 mr-2 flex-shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M0 0h24v24H0z" stroke="none" />
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M9 12l2 2 4-4" />
+                    </svg>
 
-                  <div class="text-green-700">
-                    <div class="font-bold text-xl text-center">
-                      Email has been sent!
+                    <div class="text-green-700">
+                      <div class="font-bold text-2xl text-center">
+                        Email has been sent!
+                      </div>
+
+                      <div>Please wait for TARAKI team to get back to you.</div>
                     </div>
-
-                    <div>Please wait for TARAKI team to get back to you.</div>
                   </div>
-                </div>
+                </>
               )}
             </div>
           )}
