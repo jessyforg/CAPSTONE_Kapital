@@ -27,6 +27,10 @@
   animation-name: slideInFromTop;
 }
 
+.swiper-pagination-bullet {
+  background-color: black;
+}
+
 @keyframes slideInFromTop {
   0% {
     transform: translateY(-100%);
