@@ -5,18 +5,23 @@ import tarakiLogo from "../components/imgs/taraki-black.svg";
 
 function Navbar() {
   const form = useRef();
+  const [showAlert, setShowAlert] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
 
     emailjs
-      .sendForm("service_h4xlbv5", "template_qk4cuxj", form.current, {
-        publicKey: "kpx994M2oPUsZVeoz",
+      .sendForm("service_mb7zq1l", "template_l38puqp", form.current, {
+        publicKey: "uPusDgqo4_QQYA63c",
       })
       .then(
         () => {
           console.log("SUCCESS!");
           e.target.reset();
+          setShowAlert(true);
+          setTimeout(() => {
+            setShowAlert(false);
+          }, 5000);
         },
         (error) => {
           console.log("FAILED...", error.text);
@@ -249,7 +254,7 @@ function Navbar() {
                     <div className="flex justify-evenly items-center">
                       <div className="my-3">
                         <label
-                          for="name"
+                          htmlFor="name"
                           className="block mb-2 text-sm font-medium text-gray-900"
                         >
                           Name
@@ -277,7 +282,7 @@ function Navbar() {
                         </div>
 
                         <label
-                          for="email"
+                          htmlFor="email"
                           className="block my-2 text-sm font-medium text-gray-900"
                         >
                           Email
@@ -304,7 +309,7 @@ function Navbar() {
                           />
                         </div>
                         <label
-                          for="number"
+                          htmlFor="number"
                           className="block my-2 text-sm font-medium text-gray-900"
                         >
                           Mobile Number
@@ -334,7 +339,7 @@ function Navbar() {
                         </div>
 
                         <label
-                          for="message"
+                          htmlFor="message"
                           className="block my-2 text-sm font-medium text-gray-900"
                         >
                           Your message
@@ -374,10 +379,20 @@ function Navbar() {
                   </form>
                 </div>
               </div>
+              {showAlert && (
+                <div
+                  className="absolute z-50 p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                  role="alert"
+                  >
+                  <span className="font-medium">Info alert!</span> Change a few things up and try submitting again.
+                </div>
+              )}
             </div>
+
           )}
         </div>
       </nav>
+
     </header>
   );
 }
