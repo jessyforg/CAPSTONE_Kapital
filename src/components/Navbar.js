@@ -24,7 +24,7 @@ function Navbar() {
           setShowAlert(true);
           setTimeout(() => {
             setShowAlert(false);
-          }, 5000);
+          }, 3000);
         }
       );
   };
@@ -380,34 +380,32 @@ function Navbar() {
                 </div>
               </div>
               {showAlert && (
-        <div class="bg-green-100 absolute z-50 rounded-md p-3 flex top-[4.5rem] items-center mx-96">
-          <svg
-            class="stroke-2 stroke-current text-green-600 h-8 w-8 mr-2 flex-shrink-0"
-            viewBox="0 0 24 24"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M0 0h24v24H0z" stroke="none" />
-            <circle cx="12" cy="12" r="9" />
-            <path d="M9 12l2 2 4-4" />
-          </svg>
+                <div class="bg-gray-100 absolute z-50 rounded-md p-5 flex flex-col top-[4.5rem] items-center mx-96 animate__animated animate__fadeInDown animate__faster">
+                  <svg
+                    class="stroke-2 stroke-current text-green-600 h-24 w-24 mr-2 flex-shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M0 0h24v24H0z" stroke="none" />
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M9 12l2 2 4-4" />
+                  </svg>
 
-          <div class="text-green-700">
-            <div class="font-bold text-xl">Email has been sent!</div>
+                  <div class="text-green-700">
+                    <div class="font-bold text-xl text-center">
+                      Email has been sent!
+                    </div>
 
-            <div>
-              Please wait for TARAKI team to get back to you.
+                    <div>Please wait for TARAKI team to get back to you.</div>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        </div>
-      )}
-            </div>
-
           )}
         </div>
       </nav>
-
     </header>
   );
 }
