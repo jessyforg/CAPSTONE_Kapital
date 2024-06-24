@@ -18,7 +18,8 @@ function Contacts() {
         <div className="cont">
           <section
             className="flex justify-center items-center mt-14 tablet:mt-12"
-            data-aos="fade-right">
+            data-aos="fade-down"
+            >
             <Link
               to="home"
               spy={true}
@@ -47,6 +48,7 @@ function Contacts() {
                   href="#home"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
                   data-aos="fade-down"
+                  data-aos-duration="800"
                     >
                   About
                 </Link>
@@ -61,6 +63,7 @@ function Contacts() {
                   href="#home"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
                   data-aos="fade-down"
+                  data-aos-duration="1000"
                     >
                   TARAKIs
                 </Link>
@@ -75,6 +78,7 @@ function Contacts() {
                   href="#program"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
+                  data-aos-duration="1200"
                     >
                   Programs
                 </Link>
@@ -89,6 +93,7 @@ function Contacts() {
                   href="#services"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
+                  data-aos-duration="1400"
                     >
                   Framework
                 </Link>
@@ -103,7 +108,7 @@ function Contacts() {
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
-    
+                  data-aos-duration="1600"
                 >
                   Events
                 </Link>
@@ -118,7 +123,7 @@ function Contacts() {
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
-    
+                  data-aos-duration="1800"
                 >
                   FAQ
                 </Link>

@@ -18,7 +18,7 @@ function Framework() {
           <section id="framework" className="mt-16 tablet:mt-12 text-center">
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem]"
-              data-aos="fade-right"
+              data-aos="zoom-in"
               
             >
               Framework

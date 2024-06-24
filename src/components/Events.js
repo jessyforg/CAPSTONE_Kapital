@@ -105,7 +105,7 @@ function Events() {
         <section id="events" className="mt-16 tablet:mt-12">
           <h1
             className="font-semibold text-md text-center laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem]"
-            data-aos="fade-right"
+            data-aos="zoom-in"
             
           >
             Highlights
@@ -138,7 +138,6 @@ function Events() {
             </div>
             <div
               className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center tablet:h-[15rem] tablet-m:h-[18rem] w-full h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]"
-              data-aos="flip-left"
               
             >
               <div

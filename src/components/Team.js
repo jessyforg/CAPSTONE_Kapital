@@ -27,7 +27,6 @@ function TarakiTeam() {
       },
     });
     AOS.init({
-      duration: 1000, // Animation duration
       easing: "ease-in-out", // Easing function
       once: false,
     });
@@ -613,6 +612,7 @@ function TarakiTeam() {
               <div
                 className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
                 data-aos="flip-right"
+                data-aos-duration="1000"
               >
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
@@ -704,6 +704,7 @@ function TarakiTeam() {
               <div
                 className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
                 data-aos="flip-right"
+                data-aos-duration="2000"
                 
               >
                 <div
@@ -796,6 +797,7 @@ function TarakiTeam() {
               <div
                 className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
                 data-aos="flip-right"
+                data-aos-duration="3000"
               >
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
