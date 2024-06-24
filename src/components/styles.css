@@ -23,6 +23,21 @@
   animation-name: fadeOut;
 }
 
+.animate-slideInFromTop {
+  animation-name: slideInFromTop;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

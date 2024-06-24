@@ -12,19 +12,19 @@ function Navbar() {
 
     emailjs
       .sendForm("service_mb7zq1l", "template_l38puqp", form.current, {
-        publicKey: "uPusDgqo4_QQYA63c",
+        publicKey: "",
       })
       .then(
         () => {
           console.log("SUCCESS!");
           e.target.reset();
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
           setShowAlert(true);
           setTimeout(() => {
             setShowAlert(false);
           }, 5000);
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
         }
       );
   };
@@ -380,13 +380,28 @@ function Navbar() {
                 </div>
               </div>
               {showAlert && (
-                <div
-                  className="absolute z-50 p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
-                  role="alert"
-                  >
-                  <span className="font-medium">Info alert!</span> Change a few things up and try submitting again.
-                </div>
-              )}
+        <div class="bg-green-100 absolute z-50 rounded-md p-3 flex top-[4.5rem] items-center mx-96">
+          <svg
+            class="stroke-2 stroke-current text-green-600 h-8 w-8 mr-2 flex-shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M0 0h24v24H0z" stroke="none" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+
+          <div class="text-green-700">
+            <div class="font-bold text-xl">Email has been sent!</div>
+
+            <div>
+              Please wait for TARAKI team to get back to you.
+            </div>
+          </div>
+        </div>
+      )}
             </div>
 
           )}
