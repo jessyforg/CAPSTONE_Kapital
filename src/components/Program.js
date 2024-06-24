@@ -22,7 +22,6 @@ function Program() {
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-2xl px-20 tablet:px-52 tablet-m:px-72 laptop-m:px-96 laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-6 laptop-m:py-8 desktop-s:py-10 laptop-s:bg-trkblack laptop-s:text-white"
               data-aos="fade-down"
-              data-aos-delay="200"
             >
               We&apos;re covering a lot of developments in our news updates.
             </h1>
@@ -31,6 +30,7 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8"
             data-aos="fade-right"
+            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[115rem] tablet-m:w-[130rem] tablet:h-[14rem] laptop-s:w-[160rem] laptop-m:w-[180rem] desktop-m:w-[210rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"
@@ -63,6 +63,7 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8 tablet:mt-5"
             data-aos="fade-right"
+            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[100rem] tablet-m:w-[130rem] tablet:h-[14rem] tablet:order-2 laptop-s:w-[130rem] laptop-m:w-[140rem] desktop-m:w-[200rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"
@@ -98,6 +99,7 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:mt-5 tablet:px-8"
             data-aos="fade-right"
+            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[110rem] tablet-m:w-[125rem] tablet:h-[14rem] laptop-s:w-[170rem] laptop-m:w-[180rem] desktop-m:w-[200rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"
@@ -129,6 +131,7 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8 tablet:mt-5"
             data-aos="fade-right"
+            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[85rem] tablet-m:w-[110rem] tablet:h-[14rem] tablet:order-2 laptop-s:w-[114rem] laptop-m:w-[124rem] desktop-m:w-[180rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"

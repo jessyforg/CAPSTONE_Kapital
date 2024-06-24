@@ -18,9 +18,7 @@ function Contacts() {
         <div className="cont">
           <section
             className="flex justify-center items-center mt-14 tablet:mt-12"
-            data-aos="fade-right"
-            data-aos-delay="200"
-          >
+            data-aos="fade-right">
             <Link
               to="home"
               spy={true}
@@ -49,8 +47,7 @@ function Contacts() {
                   href="#home"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
                   data-aos="fade-down"
-                  data-aos-delay="200"
-                >
+                    >
                   About
                 </Link>
               </li>
@@ -64,8 +61,7 @@ function Contacts() {
                   href="#home"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
                   data-aos="fade-down"
-                  data-aos-delay="400"
-                >
+                    >
                   TARAKIs
                 </Link>
               </li>
@@ -79,8 +75,7 @@ function Contacts() {
                   href="#program"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
-                  data-aos-delay="600"
-                >
+                    >
                   Programs
                 </Link>
               </li>
@@ -94,8 +89,7 @@ function Contacts() {
                   href="#services"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
-                  data-aos-delay="800"
-                >
+                    >
                   Framework
                 </Link>
               </li>
@@ -109,7 +103,7 @@ function Contacts() {
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
-                  data-aos-delay="1000"
+    
                 >
                   Events
                 </Link>
@@ -124,7 +118,7 @@ function Contacts() {
                   href="#contact"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
                   data-aos="fade-down"
-                  data-aos-delay="1200"
+    
                 >
                   FAQ
                 </Link>
@@ -139,8 +133,6 @@ function Contacts() {
               rel="noreferrer"
               className=""
               data-aos="zoom-in"
-              data-aos-delay="300"
-              data-aos-duration="1000"
             >
               <svg
                 className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
@@ -171,8 +163,6 @@ function Contacts() {
               rel="noreferrer"
               className=""
               data-aos="zoom-in"
-              data-aos-delay="600"
-              data-aos-duration="1000"
             >
               <svg
                 className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
@@ -207,8 +197,6 @@ function Contacts() {
               rel="noreferrer"
               className=""
               data-aos="zoom-in"
-              data-aos-delay="900"
-              data-aos-duration="1000"
             >
               <svg
                 className="tablet:w-8 tablet:h-8  laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
@@ -239,8 +227,7 @@ function Contacts() {
               target="_blank"
               rel="noreferrer"
               data-aos="zoom-in"
-              data-aos-delay="1200"
-              data-aos-duration="1000"
+
             >
               <svg
                 className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
