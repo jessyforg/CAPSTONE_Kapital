@@ -106,7 +106,7 @@ function Events() {
           <h1
             className="font-semibold text-md text-center laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem]"
             data-aos="fade-right"
-            data-aos-delay="200"
+            
           >
             Highlights
           </h1>
@@ -114,8 +114,8 @@ function Events() {
         <div
           className="swiper mySwiperEvent mt-2"
           data-aos="zoom-in"
-          data-aos-delay="400"
-          data-aos-duration="1000"
+          
+          
         >
           <div className="swiper-wrapper tablet:h-[17rem] tablet-m:h-[20rem] tablet:w-full laptop-s:h-[25rem] desktop-m:h-[28rem]">
             <div className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center w-full tablet:h-[15rem] tablet-m:h-[18rem] h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]">
@@ -139,7 +139,7 @@ function Events() {
             <div
               className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center tablet:h-[15rem] tablet-m:h-[18rem] w-full h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]"
               data-aos="flip-left"
-              data-aos-delay="900"
+              
             >
               <div
                 className="bg-cover bg-center w-full h-full tablet:h-[15rem] tablet-m:h-[18rem] laptop-s:h-[25rem]"

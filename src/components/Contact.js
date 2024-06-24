@@ -137,18 +137,20 @@ function Contacts() {
               href="https://www.facebook.com/tarakicar"
               target="_blank"
               rel="noreferrer"
-              className="transition-all duration-300 hover:scale-110"
+              className=""
+              data-aos="zoom-in"
+              data-aos-delay="300"
+              data-aos-duration="1000"
             >
               <svg
-                className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10"
+                className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
                 height="28"
                 fill="none"
                 viewBox="0 0 48 48"
-                data-aos="zoom-in"
-                data-aos-delay="1400"
-                data-aos-duration="600"
+                
+                
               >
                 <g clipPath="url(#a)">
                   <path
@@ -167,18 +169,20 @@ function Contacts() {
               href="https://www.instagram.com/tarakicar/"
               target="_blank"
               rel="noreferrer"
-              className="transition-all duration-300 hover:scale-110"
+              className=""
+              data-aos="zoom-in"
+              data-aos-delay="600"
+              data-aos-duration="1000"
             >
               <svg
-                className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10"
+                className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
                 height="28"
                 fill="none"
                 viewBox="0 0 48 48"
-                data-aos="zoom-in"
-                data-aos-delay="1600"
-                data-aos-duration="600"
+                
+                
               >
                 <g clipPath="url(#a)">
                   <path
@@ -201,18 +205,20 @@ function Contacts() {
               href="https://ph.linkedin.com/company/taraki-car?fbclid=IwZXh0bgNhZW0CMTAAAR0FWX8lV2uhonBQWo7ZcVXDE47WYE7txp3X2VfG_07yJCfhNLU1MudzBM8_aem_ZmFrZWR1bW15MTZieXRlcw"
               target="_blank"
               rel="noreferrer"
-              className="transition-all duration-300 hover:scale-110"
+              className=""
+              data-aos="zoom-in"
+              data-aos-delay="900"
+              data-aos-duration="1000"
             >
               <svg
-                className="tablet:w-8 tablet:h-8  laptop-m:w-10 laptop-m:h-10"
+                className="tablet:w-8 tablet:h-8  laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
                 height="28"
                 fill="none"
                 viewBox="0 0 48 48"
-                data-aos="zoom-in"
-                data-aos-delay="1800"
-                data-aos-duration="600"
+                
+                
               >
                 <g clipPath="url(#a)">
                   <path
@@ -232,18 +238,19 @@ function Contacts() {
               href="https://heyzine.com/flip-book/be7bd4e55d.html#page/1"
               target="_blank"
               rel="noreferrer"
-              className="transition-all duration-300 hover:scale-110"
+              data-aos="zoom-in"
+              data-aos-delay="1200"
+              data-aos-duration="1000"
             >
               <svg
-                className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10"
+                className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
                 height="28"
                 fill="none"
                 viewBox="0 0 32 23"
-                data-aos="zoom-in"
-                data-aos-delay="2000"
-                data-aos-duration="600"
+                
+                
               >
                 <path
                   fill="#F04F06"

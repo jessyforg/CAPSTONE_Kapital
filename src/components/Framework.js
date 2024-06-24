@@ -19,12 +19,12 @@ function Framework() {
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem]"
               data-aos="fade-right"
-              data-aos-delay="200"
+              data-aos-duration="1000"
             >
               Framework
             </h1>
           </section>
-          <div className="mx-auto mt-5" data-aos="zoom-in" data-aos-delay="400">
+          <div className="mx-auto mt-5" data-aos="zoom-in" data-aos-duration="1000">
             <img
               src={frame}
               alt="awareness"

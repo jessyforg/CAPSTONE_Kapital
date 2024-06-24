@@ -51,20 +51,20 @@ function FAQs() {
           id="faq"
           className="flex flex-col justify-start mt-5 tablet:mt-12 bg-trkblack px-8 pt-5 pb-8 tablet:px-8"
           data-aos="fade-down"
-          data-aos-delay="200"
+          data-aos-delay="100"
         >
           <section className="text-center">
             <h1
               className="tablet-m:hidden font-semibold text-md tablet-m:text-xl text-white"
               data-aos="fade-down"
-              data-aos-delay="400"
+              data-aos-delay="100"
             >
               FAQs
             </h1>
             <h1
               className="phone:hidden tablet-m:block font-semibold text-md tablet-m:text-2xl text-white laptop-m:text-3xl desktop-m:text-4xl desktop-s:text-[2rem]"
               data-aos="fade-down"
-              data-aos-delay="400"
+              data-aos-delay="100"
             >
               Frequently Asked Questions
             </h1>
@@ -72,7 +72,7 @@ function FAQs() {
           <div
             className="laptop-s:mx-40 laptop-m:mx-40 desktop-s:mx-40 desktop-m:mx-40"
             data-aos="fade-right"
-            data-aos-delay="600"
+            data-aos-delay="100"
           >
             <div className="m-2 space-y-2 laptop-s:my-5">
               {faqItems.map((item, index) => (
