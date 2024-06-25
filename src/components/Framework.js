@@ -24,7 +24,7 @@ function Framework() {
               Framework
             </h1>
           </section>
-          <div className="mx-auto mt-5" data-aos="zoom-in" >
+          <div className="mx-auto tablet:px-[1.8rem] tablet-m:px-[2.3rem] mt-5" data-aos="zoom-in" >
             <img
               src={frame}
               alt="awareness"

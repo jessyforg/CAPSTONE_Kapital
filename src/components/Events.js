@@ -112,7 +112,7 @@ function Events() {
           </h1>
         </section>
         <div
-          className="swiper mySwiperEvent mt-2"
+          className="swiper mySwiperEvent tablet:mx-[1.8rem] tablet-m:mx-[2.3rem] mt-2"
           data-aos="zoom-in"
           
           

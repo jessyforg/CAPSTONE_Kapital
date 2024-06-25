@@ -28,7 +28,7 @@ function Program() {
           </section>{" "}
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet-m:px-[4rem]"
             data-aos="fade-right"
             
           >
@@ -61,7 +61,7 @@ function Program() {
           </div>
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8 tablet:mt-5"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem]"
             data-aos="fade-right"
             
           >
@@ -71,7 +71,7 @@ function Program() {
             ></div>
             <div
               id="sectionTextCont"
-              className="tablet:flex tablet:flex-col tablet:px-0 tablet:bg-gradient-to-r from-orange-100 laptop-s:rounded-lg
+              className="tablet:flex tablet:flex-col tablet:px-0 tablet:bg-gradient-to-r from-orange-100 tablet:rounded-lg
               tablet:py-[0.9rem] tablet:pl-4 tablet:mr-4 tablet:mt-5
               tablet-m:py-[0.8rem] tablet-m:pl-4 tablet-m:mr-4 tablet-m:mt-5
               laptop-s:py-[4.5rem] laptop-s:pl-4 laptop-s:mr-4 laptop-s:mt-5 
@@ -97,7 +97,7 @@ function Program() {
           </div>
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:mt-5 tablet:px-8"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:mt-5 tablet:px-14 tablet-m:px-[4rem]"
             data-aos="fade-right"
             
           >
@@ -129,7 +129,7 @@ function Program() {
           </div>
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-8 tablet:mt-5"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem]"
             data-aos="fade-right"
             
           >
@@ -139,7 +139,7 @@ function Program() {
             ></div>
             <div
               id="sectionTextCont"
-              className="tablet:flex tablet:flex-col tablet:px-0 tablet:bg-gradient-to-r from-orange-100 laptop-s:rounded-lg
+              className="tablet:flex tablet:flex-col tablet:px-0 tablet:bg-gradient-to-r from-orange-100 tablet:rounded-lg
               tablet:py-[1.5rem] tablet:pl-4 tablet:mr-4 tablet:mt-5
               tablet-m:py-[1rem] tablet-m:pl-4 tablet-m:mr-4 tablet-m:mt-5
               laptop-s:py-[4.5rem] laptop-s:pl-4 laptop-s:mr-4 laptop-s:mt-5 

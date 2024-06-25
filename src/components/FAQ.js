@@ -70,7 +70,7 @@ function FAQs() {
             </h1>
           </section>
           <div
-            className="laptop-s:mx-40 laptop-m:mx-40 desktop-s:mx-40 desktop-m:mx-40"
+            className="tablet:mx-[1.8rem] laptop-s:mx-40 laptop-m:mx-40 desktop-s:mx-40 desktop-m:mx-40"
             data-aos="fade-right"
             
           >
