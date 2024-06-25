@@ -55,23 +55,23 @@ function Home() {
                 Advancement of Knowledge in Innovation
               </p>
               <Link
-              to="objectives"
-              spy={true}
-              smooth={true}
-              duration={1600}
-              offset={-100}
+                to="objectives"
+                spy={true}
+                smooth={true}
+                duration={1600}
+                offset={-100}
               >
-              <button
-                className=" bg-white py-1 px-4 mt-5 mb-7 tablet-m:mt-5 tablet:mb-12 tablet-m:mb-0 text-[0.8rem] laptop-s:text-sm laptop-s:px-8 laptop-s:py-3 desktop-m:px-10 desktop-m:py-5 laptop-m:text-lg desktop-s:text-[1.4rem] desktop-m:text-[1.7rem] border border-white rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 aos-init"
-                data-aos="fade-up" // AOS attribute
-              >
-                Learn More
-              </button>
+                <button
+                  className=" bg-white py-1 px-4 mt-5 mb-7 tablet-m:mt-5 tablet:mb-12 tablet-m:mb-0 text-[0.8rem] laptop-s:text-sm laptop-s:px-8 laptop-s:py-3 desktop-m:px-10 desktop-m:py-5 laptop-m:text-lg desktop-s:text-[1.4rem] desktop-m:text-[1.7rem] border border-white rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 aos-init"
+                  data-aos="fade-up" // AOS attribute
+                >
+                  Learn More
+                </button>
               </Link>
             </div>
           </div>
         </section>
-        <div className="relative flex flex-col justify-center overflow-hidden bg-gray-50 border border-b-gray-400 tablet:mt-10 tablet-m:mt-20 laptop-s:mt-32 laptop-m:mt-56 desktop-s:mt-64 desktop-m:pt-0">
+        <div className="relative flex flex-col justify-center overflow-hidden bg-gray-50 border border-b-gray-400 tablet:mt-10 tablet-m:mt-20 laptop-s:mt-32 laptop-m:mt-52 desktop-s:mt-60 desktop-m:pt-0">
           <div className="pointer-events-none flex overflow-hidden">
             <div className="animate-marquee flex min-w-full shrink-0 items-center gap-10 tablet:gap-14 tablet-m:gap-24 laptop-s:gap-32 laptop-m:gap-32 desktop-s:gap-36 desktop-m:gap-48 p-3">
               <img
