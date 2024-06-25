@@ -11,8 +11,8 @@ import icon6 from "../components/imgs/8.webp";
 function Objective() {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration
-      easing: "ease-in-out", // Easing function
+      duration: 800, // Animation duration
+      easing: "ease", // Easing function
       once: false,
     });
   }, []);
@@ -22,7 +22,7 @@ function Objective() {
         <div className="cont">
           <section id="objectives" className="mt-16 tablet:mt-12 text-center">
             <h1
-              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-5"
+              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-5 aos-init"
               data-aos="fade-up"
             >
               Objectives
@@ -33,11 +33,11 @@ function Objective() {
               <img
                 src={icon1}
                 alt="1st-ico"
-                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72"
+                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
                 data-aos="fade-right"
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
                 data-aos="fade-right"
               >
                 Establishment of a 5-yr Regional Startup Development Plan and
@@ -48,11 +48,11 @@ function Objective() {
               <img
                 src={icon2}
                 alt="2nd-ico"
-                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72"
+                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
                 data-aos="fade-down"
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
                 data-aos="fade-down"
               >
                 Increasing Awareness about the Consortium
@@ -62,11 +62,11 @@ function Objective() {
               <img
                 src={icon3}
                 alt="3rd-ico"
-                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72"
+                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
                 data-aos="fade-left"
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
                 data-aos="fade-left"
               >
                 Upskilling and Upscaling Activities
@@ -76,11 +76,11 @@ function Objective() {
               <img
                 src={icon4}
                 alt="4th-ico"
-                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72"
+                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
                 data-aos="fade-right"
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
                 data-aos="fade-right"
               >
                 Establishment of Local Investor Network
@@ -90,11 +90,11 @@ function Objective() {
               <img
                 src={icon5}
                 alt="5th-ico"
-                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72"
+                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
                 data-aos="fade-up"
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
                 data-aos="fade-up"
               >
                 Cross Pollination Undertakings Among Stakeholders
@@ -104,11 +104,11 @@ function Objective() {
               <img
                 src={icon6}
                 alt="6th-ico"
-                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72"
+                className="w-52 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
                 data-aos="fade-left"
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
                 data-aos="fade-left"
               >
                 Activating startup activity hubs in lesser active provinces in

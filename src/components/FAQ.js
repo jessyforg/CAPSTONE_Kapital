@@ -49,20 +49,20 @@ function FAQs() {
       <div className="cont">
         <section
           id="faq"
-          className="flex flex-col justify-start mt-5 tablet:mt-12 bg-trkblack px-8 pt-5 pb-8 tablet:px-8"
+          className="flex flex-col justify-start mt-5 tablet:mt-12 bg-trkblack px-8 pt-5 pb-8 tablet:px-8 aos-init"
           data-aos="fade-down"
           
         >
           <section className="text-center">
             <h1
-              className="tablet-m:hidden font-semibold text-md tablet-m:text-xl text-white"
+              className="tablet-m:hidden font-semibold text-md tablet-m:text-xl text-white aos-init"
               data-aos="fade-down"
               
             >
               FAQs
             </h1>
             <h1
-              className="phone:hidden tablet-m:block font-semibold text-md tablet-m:text-2xl text-white laptop-m:text-3xl desktop-m:text-4xl desktop-s:text-[2rem]"
+              className="phone:hidden tablet-m:block font-semibold text-md tablet-m:text-2xl text-white laptop-m:text-3xl desktop-m:text-4xl desktop-s:text-[2rem] aos-init"
               data-aos="fade-down"
               
             >
@@ -70,7 +70,7 @@ function FAQs() {
             </h1>
           </section>
           <div
-            className="tablet:mx-[1.8rem] laptop-s:mx-40 laptop-m:mx-40 desktop-s:mx-40 desktop-m:mx-40"
+            className="tablet:mx-[1.8rem] laptop-s:mx-40 laptop-m:mx-40 desktop-s:mx-40 desktop-m:mx-40 aos-init"
             data-aos="fade-right"
             
           >

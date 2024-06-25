@@ -27,7 +27,7 @@ function TarakiTeam() {
       },
     });
     AOS.init({
-      easing: "ease-in-out", // Easing function
+      easing: "ease", // Easing function
       once: false,
     });
   }, []);
@@ -38,14 +38,14 @@ function TarakiTeam() {
         <div className="cont tablet:px-8">
           <section className="mt-16 tablet:mt-12 text-center">
             <h1
-              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] desktop-m:mb-7"
+              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] desktop-m:mb-7 aos-init"
               data-aos="fade-down"
               data-aos-delay="200"
             >
               TARAKIs
             </h1>
             <p
-              className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2 laptop-s:text-lg laptop-m:text-[1.4rem] desktop-m:text-[1.6rem] laptop-s:mx-40 laptop-m:mx-80"
+              className="font-light tablet:font-normal tablet:leading-6 text-sm tablet:text-md tablet-m:text-lg tablet-m:px-24 tablet:px-20 px-10 mt-5 tablet:mt-2 laptop-s:text-lg laptop-m:text-[1.4rem] desktop-m:text-[1.6rem] laptop-s:mx-40 laptop-m:mx-80 aos-init"
               data-aos="fade-up"
               data-aos-delay="600"
             >
@@ -57,7 +57,7 @@ function TarakiTeam() {
           </section>
           <section id="team" className="mx-auto mt-5 tablet:px-3 tablet-m:px-8">
             <div className="swiper mySwiper px-10 tablet:hidden">
-              <div className="swiper-wrapper" data-aos="flip-right">
+              <div className="swiper-wrapper aos-init" data-aos="flip-right">
                 <div className="swiper-slide shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:h-80 h-[26rem] my-5">
                   <div
                     className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
@@ -327,7 +327,7 @@ function TarakiTeam() {
 
             <div className="tabletCont phone:hidden tablet-m:hidden tablet:flex justify-between items-center">
               <div
-                className="relative overflow-hidden shadow-md m-2 w-56 h-72 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]"
+                className="relative overflow-hidden shadow-md m-2 w-56 h-72 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem] aos-init"
                 data-aos="flip-left"
                 data-aos-delay="200"
               >
@@ -420,7 +420,7 @@ function TarakiTeam() {
                 </div>
               </div>
               <div
-                className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]"
+                className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem] aos-init"
                 data-aos="flip-left"
                 data-aos-delay="400"
               >
@@ -513,7 +513,7 @@ function TarakiTeam() {
                 </div>
               </div>
               <div
-                className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem]"
+                className="relative overflow-hidden w-56 h-72 shadow-md m-2 rounded-3xl cursor-pointer text-2xl font-bold group transition-all duration-500 hover:w-[120rem] aos-init"
                 data-aos="flip-left"
                 data-aos-delay="600"
               >
@@ -610,7 +610,7 @@ function TarakiTeam() {
 
             <div className="laptopCont px-0 hidden tablet-m:flex justify-between items-center">
               <div
-                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
+                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10 aos-init"
                 data-aos="flip-right"
                 data-aos-duration="1000"
               >
@@ -702,7 +702,7 @@ function TarakiTeam() {
                 </div>
               </div>
               <div
-                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
+                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10 aos-init"
                 data-aos="flip-right"
                 data-aos-duration="2000"
                 
@@ -795,7 +795,7 @@ function TarakiTeam() {
                 </div>
               </div>
               <div
-                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10"
+                className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10 aos-init"
                 data-aos="flip-right"
                 data-aos-duration="3000"
               >

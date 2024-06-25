@@ -15,8 +15,8 @@ import video from "../components/imgs/taraki-home-video.mp4";
 function Home() {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration
-      easing: "ease-in-out", // Easing function
+      duration: 800, // Animation duration
+      easing: "ease", // Easing function
       once: false,
     });
   }, []);
@@ -48,7 +48,7 @@ function Home() {
                 we <span className="text-orange-600">EXCEED!</span>
               </h1>
               <p
-                className="text-white font-extralight text-[0.9rem] laptop-s:text-[1rem] laptop-m:text-xl desktop-m:text-2xl desktop-m:mx-60 leading-relaxed mt-5 px-8 tablet:px-52 tablet-m:px-[23rem]"
+                className="text-white font-extralight text-[0.9rem] laptop-s:text-[1rem] laptop-m:text-xl desktop-m:text-2xl desktop-m:mx-60 leading-relaxed mt-5 px-8 tablet:px-52 tablet-m:px-[23rem] aos-init"
                 data-aos="fade-left" // AOS attribute
               >
                 A Technological Consortium for Awareness, Readiness, and
@@ -62,7 +62,7 @@ function Home() {
               offset={-100}
               >
               <button
-                className=" bg-white py-1 px-4 mt-5 mb-7 tablet-m:mt-5 tablet:mb-12 tablet-m:mb-0 text-[0.8rem] laptop-s:text-sm laptop-s:px-8 laptop-s:py-3 desktop-m:px-10 desktop-m:py-5 laptop-m:text-lg desktop-s:text-[1.4rem] desktop-m:text-[1.7rem] border border-white rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600"
+                className=" bg-white py-1 px-4 mt-5 mb-7 tablet-m:mt-5 tablet:mb-12 tablet-m:mb-0 text-[0.8rem] laptop-s:text-sm laptop-s:px-8 laptop-s:py-3 desktop-m:px-10 desktop-m:py-5 laptop-m:text-lg desktop-s:text-[1.4rem] desktop-m:text-[1.7rem] border border-white rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 aos-init"
                 data-aos="fade-up" // AOS attribute
               >
                 Learn More
@@ -75,43 +75,43 @@ function Home() {
           <div className="pointer-events-none flex overflow-hidden">
             <div className="animate-marquee flex min-w-full shrink-0 items-center gap-10 tablet:gap-14 tablet-m:gap-24 laptop-s:gap-32 laptop-m:gap-32 desktop-s:gap-36 desktop-m:gap-48 p-3">
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={dost}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={uc}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={dict}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={neda}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={dti}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={da}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={peza}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
@@ -119,43 +119,43 @@ function Home() {
             </div>
             <div className="animate-marquee flex min-w-full shrink-0 items-center gap-10 tablet:gap-14 tablet-m:gap-24 laptop-s:gap-32 laptop-m:gap-32 desktop-s:gap-36 desktop-m:gap-48 p-3">
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={dost}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={uc}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={dict}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={neda}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={dti}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={da}
                 alt=""
                 data-aos="zoom-in" // AOS attribute
               />
               <img
-                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20"
+                className="w-12 rounded-md object-cover shadow-md laptop-m:w-16 desktop-s:w-20 desktop-m:w-20 aos-init"
                 src={peza}
                 alt=""
                 data-aos="zoom-in" // AOS attribute

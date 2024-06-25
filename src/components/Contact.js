@@ -7,8 +7,8 @@ import logo from "../components/imgs/taraki-black.svg";
 function Contacts() {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration
-      easing: "ease-in-out", // Easing function
+      duration: 800, // Animation duration
+      easing: "ease", // Easing function
       once: false,
     });
   }, []);
@@ -17,7 +17,7 @@ function Contacts() {
       <div>
         <div className="cont">
           <section
-            className="flex justify-center items-center mt-14 tablet:mt-12"
+            className="flex justify-center items-center mt-14 tablet:mt-12 aos-init"
             data-aos="fade-down"
             >
             <Link
@@ -46,7 +46,7 @@ function Contacts() {
                   duration={2000}
                   offset={-200}
                   href="#home"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg aos-init"
                   data-aos="fade-down"
                   data-aos-duration="800"
                     >
@@ -61,7 +61,7 @@ function Contacts() {
                   duration={2000}
                   offset={-200}
                   href="#home"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1000"
                     >
@@ -76,7 +76,7 @@ function Contacts() {
                   duration={2000}
                   offset={-100}
                   href="#program"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600 aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1200"
                     >
@@ -91,7 +91,7 @@ function Contacts() {
                   duration={2000}
                   offset={-120}
                   href="#services"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600 aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1400"
                     >
@@ -106,7 +106,7 @@ function Contacts() {
                   duration={2000}
                   offset={-120}
                   href="#contact"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600 aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1600"
                 >
@@ -121,7 +121,7 @@ function Contacts() {
                   duration={2000}
                   offset={-100}
                   href="#contact"
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600 aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1800"
                 >
@@ -136,7 +136,7 @@ function Contacts() {
               href="https://www.facebook.com/tarakicar"
               target="_blank"
               rel="noreferrer"
-              className=""
+              className=" aos-init"
               data-aos="zoom-in"
             >
               <svg
@@ -166,7 +166,7 @@ function Contacts() {
               href="https://www.instagram.com/tarakicar/"
               target="_blank"
               rel="noreferrer"
-              className=""
+              className="aos-init"
               data-aos="zoom-in"
             >
               <svg
@@ -200,7 +200,7 @@ function Contacts() {
               href="https://ph.linkedin.com/company/taraki-car?fbclid=IwZXh0bgNhZW0CMTAAAR0FWX8lV2uhonBQWo7ZcVXDE47WYE7txp3X2VfG_07yJCfhNLU1MudzBM8_aem_ZmFrZWR1bW15MTZieXRlcw"
               target="_blank"
               rel="noreferrer"
-              className=""
+              className="aos-init"
               data-aos="zoom-in"
             >
               <svg
@@ -231,6 +231,7 @@ function Contacts() {
               href="https://heyzine.com/flip-book/be7bd4e55d.html#page/1"
               target="_blank"
               rel="noreferrer"
+              className="aos-init"
               data-aos="zoom-in"
 
             >

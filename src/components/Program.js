@@ -9,8 +9,8 @@ import inno from "../components/imgs/inno.webp";
 function Program() {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration
-      easing: "ease-in-out", // Easing function
+      duration: 800, // Animation duration
+      easing: "ease", // Easing function
       once: false,
     });
   }, []);
@@ -20,7 +20,7 @@ function Program() {
         <div className="">
           <section id="program" className="mt-16 tablet:my-12 text-center">
             <h1
-              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl px-20 tablet:px-52 tablet-m:px-72 laptop-m:px-96 laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-6 laptop-m:py-8 desktop-s:py-10 laptop-s:bg-trkblack laptop-s:text-white"
+              className="font-semibold text-md tablet:text-lg tablet-m:text-2xl px-20 tablet:px-52 tablet-m:px-72 laptop-m:px-96 laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] laptop-s:py-6 laptop-m:py-8 desktop-s:py-10 laptop-s:bg-trkblack laptop-s:text-white aos-init"
               data-aos="fade-down"
             >
               We&apos;re covering a lot of developments in our news updates.
@@ -28,7 +28,7 @@ function Program() {
           </section>{" "}
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet-m:px-[4rem]"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
             
           >
@@ -42,13 +42,13 @@ function Program() {
               className="tablet:flex tablet:flex-col tablet:px-5 laptop-s:rounded-lg"
             >
               <h1
-                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0"
+                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0 aos-init"
                 data-aos="fade-right"
               >
                 AWARENESS PROGRAM
               </h1>
               <p
-                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.2rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose desktop-m:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 laptop-s:mt-7 px-8 tablet:px-0"
+                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.2rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose desktop-m:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 laptop-s:mt-7 px-8 tablet:px-0 aos-init"
                 data-aos="fade-right"
               >
                 Our Awareness Programs are designed to educate and inform
@@ -61,7 +61,7 @@ function Program() {
           </div>
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem]"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
             
           >
@@ -79,13 +79,13 @@ function Program() {
               desktop-m:py-[7.8rem] desktop-m:pl-4 desktop-m:mr-4 desktop-m:mt-5"
             >
               <h1
-                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0"
+                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0 aos-init"
                 data-aos="fade-right"
               >
                 READINESS PROGRAM
               </h1>
               <p
-                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.3rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5"
+                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.3rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5 aos-init"
                 data-aos="fade-right"
               >
                 The Readiness Programs focus on preparing individuals and
@@ -97,7 +97,7 @@ function Program() {
           </div>
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:mt-5 tablet:px-14 tablet-m:px-[4rem]"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:mt-5 tablet:px-14 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
             
           >
@@ -110,13 +110,13 @@ function Program() {
               className="tablet:flex tablet:flex-col tablet:px-5"
             >
               <h1
-                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0"
+                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0 aos-init"
                 data-aos="fade-right"
               >
                 KNOWLEDGE ADVANCEMENT INITIVATIVES
               </h1>
               <p
-                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.3rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:px-0"
+                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.3rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:px-0 aos-init"
                 data-aos="fade-right"
               >
                 Our Knowledge Advancement Initiatives aim to push the boundaries
@@ -129,7 +129,7 @@ function Program() {
           </div>
           <div
             id="sectionCont"
-            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem]"
+            className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
             
           >
@@ -147,13 +147,13 @@ function Program() {
               desktop-m:py-[7.8rem] desktop-m:pl-4 desktop-m:mr-4 desktop-m:mt-5"
             >
               <h1
-                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0"
+                className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0 aos-init"
                 data-aos="fade-right"
               >
                 INNOVATION PROJECT
               </h1>
               <p
-                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.3rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5"
+                className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.3rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:pl-0 tablet:pr-5 aos-init"
                 data-aos="fade-right"
               >
                 TARAKI&apos;s Innovation Projects are practical applications of

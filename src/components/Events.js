@@ -93,8 +93,8 @@ function Events() {
       console.log("Slide changed");
     });
     AOS.init({
-      duration: 1000, // Animation duration
-      easing: "ease-in-out", // Easing function
+      duration: 800, // Animation duration
+      easing: "ease", // Easing function
       once: false,
     });
   }, []);
@@ -104,7 +104,7 @@ function Events() {
       <div className="px-8">
         <section id="events" className="mt-16 tablet:mt-12">
           <h1
-            className="font-semibold text-md text-center laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem]"
+            className="font-semibold text-md text-center laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] aos-init"
             data-aos="zoom-in"
             
           >
@@ -112,7 +112,7 @@ function Events() {
           </h1>
         </section>
         <div
-          className="swiper mySwiperEvent tablet:mx-[1.8rem] tablet-m:mx-[2.3rem] mt-2"
+          className="swiper mySwiperEvent tablet:mx-[1.8rem] tablet-m:mx-[2.3rem] mt-2 aos-init"
           data-aos="zoom-in"
           
           
