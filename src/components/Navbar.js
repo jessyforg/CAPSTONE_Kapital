@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { Link } from "react-scroll";
 import tarakiLogo from "../components/imgs/taraki-black.svg";
+import "./styles.css";
 
 function Navbar() {
   const form = useRef();
@@ -139,7 +140,7 @@ function Navbar() {
             id="navbar-cta"
             ref={navbarStickyRef}
           >
-            <ul className="flex flex-col font-medium text-center p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1rem]">
+            <ul className="flex flex-col font-medium p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1rem]">
               <li>
                 <Link
                   to="about"
@@ -164,30 +165,140 @@ function Navbar() {
                   TARAKIs
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="program"
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  offset={-100}
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
-                >
-                  Programs
-                </Link>
-              </li>
 
               <li>
-                <Link
-                  to="events"
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  offset={-120}
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
-                >
-                  Events
-                </Link>
+                <div className="dropdown">
+                  <span className="rounded-md shadow-sm">
+                    <button
+                      className="inline-flex justify-center w-full  leading-5 transition duration-150 ease-in-out bg-white  rounded-md hover:text-orange-600 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded="true"
+                      aria-controls="headlessui-menu-items-117"
+                    >
+                      <span>Explore</span>
+                      <svg
+                        className="w-5 h-5 ml-2 -mr-1"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                  </span>
+                  <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-100">
+                    <div
+                      className="absolute right-0 laptop-s:w-40 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                      aria-labelledby="headlessui-menu-button-1"
+                      id="headlessui-menu-items-117"
+                      role="menu"
+                    >
+                      <div className="py-1">
+                        <li>
+                          <Link
+                            to="program"
+                            spy={true}
+                            smooth={true}
+                            duration={1000}
+                            offset={-120}
+                            className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
+                          >
+                            Programs
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="framework"
+                            spy={true}
+                            smooth={true}
+                            duration={1000}
+                            offset={-120}
+                            className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
+                          >
+                            Framework
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="events"
+                            spy={true}
+                            smooth={true}
+                            duration={1000}
+                            offset={-120}
+                            className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
+                          >
+                            Events
+                          </Link>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="dropdown">
+                  <span className="rounded-md shadow-sm">
+                    <button
+                      className="inline-flex justify-center w-full  leading-5 transition duration-150 ease-in-out bg-white  rounded-md hover:text-orange-600 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded="true"
+                      aria-controls="headlessui-menu-items-117"
+                    >
+                      <span>Partners</span>
+                      <svg
+                        className="w-5 h-5 ml-2 -mr-1"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                  </span>
+                  <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-100">
+                    <div
+                      className="absolute right-0 laptop-s:w-40 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                      aria-labelledby="headlessui-menu-button-1"
+                      id="headlessui-menu-items-117"
+                      role="menu"
+                    >
+                      <div className="py-1">
+                        <li>
+                          <Link
+                            to="tbi"
+                            spy={true}
+                            smooth={true}
+                            duration={1000}
+                            offset={-120}
+                            className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
+                          >
+                            TBI
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="investors"
+                            spy={true}
+                            smooth={true}
+                            duration={1000}
+                            offset={-120}
+                            className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
+                          >
+                            Investors
+                          </Link>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </li>
               <li>
                 <Link
@@ -200,19 +311,6 @@ function Navbar() {
                 >
                   FAQ
                 </Link>
-              </li>
-              <li>
-                <a
-                  href="tbi.js"
-                  target="_blank"
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  offset={-100}
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
-                >
-                  TBI
-                </a>
               </li>
             </ul>
           </div>
@@ -259,7 +357,7 @@ function Navbar() {
                           htmlFor="name"
                           className="block mb-2 text-sm font-medium text-gray-900"
                         >
-                          Name
+                          Your name
                         </label>
                         <div className="flex">
                           <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
@@ -287,7 +385,7 @@ function Navbar() {
                           htmlFor="email"
                           className="block my-2 text-sm font-medium text-gray-900"
                         >
-                          Email
+                          Your email
                         </label>
                         <div className="flex">
                           <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
@@ -314,7 +412,7 @@ function Navbar() {
                           htmlFor="number"
                           className="block my-2 text-sm font-medium text-gray-900"
                         >
-                          Mobile Number
+                          Your mobile number
                         </label>
                         <div className="flex">
                           <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md">
@@ -384,9 +482,9 @@ function Navbar() {
               {showAlert && (
                 <>
                   <div className="fixed inset-0 z-50 bg-black bg-opacity-70 animate__animated animate__fadeIn animate__faster"></div>
-                  <div class="bg-gray-100 absolute z-50 rounded-md p-8 laptop-s:px-20 flex flex-col top-[28rem] laptop-s:top-[15rem] items-center animate__animated animate__fadeInDown animate__faster">
+                  <div className="bg-gray-100 absolute z-50 rounded-md p-8 laptop-s:px-20 flex flex-col top-[28rem] laptop-s:top-[15rem] items-center animate__animated animate__fadeInDown animate__faster">
                     <svg
-                      class="stroke-2 stroke-current text-green-600 h-28 w-28 mr-2 flex-shrink-0"
+                      className="stroke-2 stroke-current text-green-600 h-28 w-28 mr-2 flex-shrink-0"
                       viewBox="0 0 24 24"
                       fill="none"
                       strokeLinecap="round"
@@ -397,8 +495,8 @@ function Navbar() {
                       <path d="M9 12l2 2 4-4" />
                     </svg>
 
-                    <div class="text-green-700">
-                      <div class="font-bold text-2xl text-center">
+                    <div className="text-green-700">
+                      <div className="font-bold text-2xl">
                         Email has been sent!
                       </div>
 
