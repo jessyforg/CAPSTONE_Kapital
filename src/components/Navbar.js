@@ -202,8 +202,9 @@ function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="tbi"
+                <a
+                  href="tbi.js"
+                  target="_blank"
                   spy={true}
                   smooth={true}
                   duration={1000}
@@ -211,7 +212,7 @@ function Navbar() {
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   TBI
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
