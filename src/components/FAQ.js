@@ -51,20 +51,17 @@ function FAQs() {
           id="faq"
           className="flex flex-col justify-start mt-5 tablet:mt-12 bg-trkblack px-8 pt-5 pb-8 tablet:px-8 aos-init"
           data-aos="fade-down"
-          
         >
           <section className="text-center">
             <h1
               className="tablet-m:hidden font-semibold text-md tablet-m:text-xl text-white aos-init"
               data-aos="fade-down"
-              
             >
               FAQs
             </h1>
             <h1
               className="phone:hidden tablet-m:block font-semibold text-md tablet-m:text-2xl text-white laptop-m:text-3xl desktop-m:text-4xl desktop-s:text-[2rem] aos-init"
               data-aos="fade-down"
-              
             >
               Frequently Asked Questions
             </h1>
@@ -72,7 +69,6 @@ function FAQs() {
           <div
             className="tablet:mx-[1.8rem] laptop-s:mx-40 laptop-m:mx-40 desktop-s:mx-40 desktop-m:mx-40 aos-init"
             data-aos="fade-right"
-            
           >
             <div className="m-2 space-y-2 laptop-s:my-5">
               {faqItems.map((item, index) => (
@@ -96,7 +92,7 @@ function FAQs() {
                   <div
                     className={`overflow-hidden transition-all duration-500 ${
                       activeIndex === index
-                        ? "max-h-screen opacity-100 phone:text-[1rem] laptop-s:text-lg desktop-s:text-xl text-gray-500"
+                        ? "max-h-screen opacity-100 phone:text-[1rem] laptop-s:text-lg desktop-s:text-xl text-gray-400"
                         : "max-h-0 opacity-0"
                     }`}
                   >
