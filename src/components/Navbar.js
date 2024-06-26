@@ -176,18 +176,7 @@ function Navbar() {
                   Programs
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="framework"
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  offset={-120}
-                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
-                >
-                  Framework
-                </Link>
-              </li>
+
               <li>
                 <Link
                   to="events"
@@ -210,6 +199,18 @@ function Navbar() {
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="tbi"
+                  spy={true}
+                  smooth={true}
+                  duration={1000}
+                  offset={-100}
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
+                >
+                  TBI
                 </Link>
               </li>
             </ul>
