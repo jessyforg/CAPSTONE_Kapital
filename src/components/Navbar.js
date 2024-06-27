@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { Link } from "react-scroll";
+import { NavLink } from "react-router-dom";
 import tarakiLogo from "../components/imgs/taraki-black.svg";
 import "./styles.css";
 
@@ -97,7 +98,7 @@ function Navbar() {
             to="home"
             spy={true}
             smooth={true}
-            duration={1600}
+            duration={3000}
             offset={-50}
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
           >
@@ -146,8 +147,8 @@ function Navbar() {
                   to="about"
                   spy={true}
                   smooth={true}
-                  duration={1000}
-                  offset={-410}
+                  duration={1900}
+                  offset={-400}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   About
@@ -240,65 +241,13 @@ function Navbar() {
                 </div>
               </li>
               <li>
-                <div className="dropdown">
-                  <span className="rounded-md shadow-sm">
-                    <button
-                      className="inline-flex justify-center w-full  leading-5 transition duration-150 ease-in-out bg-white  rounded-md hover:text-orange-600 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
-                      type="button"
-                      aria-haspopup="true"
-                      aria-expanded="true"
-                      aria-controls="headlessui-menu-items-117"
-                    >
-                      <span>Engagements</span>
-                      <svg
-                        className="w-5 h-5 ml-2 -mr-1"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </button>
-                  </span>
-                  <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-100">
-                    <div
-                      className="absolute right-0 laptop-s:w-40 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                      aria-labelledby="headlessui-menu-button-1"
-                      id="headlessui-menu-items-117"
-                      role="menu"
-                    >
-                      <div className="py-1">
-                        <li>
-                          <Link
-                            to="tbi"
-                            spy={true}
-                            smooth={true}
-                            duration={1000}
-                            offset={-120}
-                            className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
-                          >
-                            TBI
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="investors"
-                            spy={true}
-                            smooth={true}
-                            duration={1000}
-                            offset={-120}
-                            className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
-                          >
-                            Investors
-                          </Link>
-                        </li>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <NavLink
+                  to="/tbi"
+                  activeClassName="text-orange-600"
+                  className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
+                >
+                  Engagements
+                </NavLink>
               </li>
               <li>
                 <Link

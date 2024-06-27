@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 import Navbar from "./components/Navbar.js";
 import Home from "./components/Home.js";
 import About from "./components/About.js";
@@ -9,11 +11,11 @@ import Events from "./components/Events.js";
 import FAQ from "./components/FAQ.js";
 import Contact from "./components/Contact.js";
 import Footer from "./components/Footer.js";
+import TBI from "./components/TBI.js";
 
-export default function App() {
+function MainPage() {
   return (
     <>
-      <Navbar />
       <Home />
       <About />
       <Objective />
@@ -23,7 +25,21 @@ export default function App() {
       <Events />
       <FAQ />
       <Contact />
-      <Footer />
     </>
   );
 }
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>        
+        <Route path="/" element={<MainPage />} />
+        <Route path="/Tbi" element={<TBI />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
