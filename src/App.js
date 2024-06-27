@@ -25,6 +25,7 @@ function MainPage() {
       <Events />
       <FAQ />
       <Contact />
+      <Footer />      
     </>
   );
 }
@@ -37,7 +38,7 @@ export default function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/Tbi" element={<TBI />} />
       </Routes>
-      <Footer />
+
     </BrowserRouter>
   );
 }

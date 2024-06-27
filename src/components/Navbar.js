@@ -98,7 +98,7 @@ function Navbar() {
             to="home"
             spy={true}
             smooth={true}
-            duration={3000}
+            duration={1200}
             offset={-50}
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
           >
@@ -147,7 +147,7 @@ function Navbar() {
                   to="about"
                   spy={true}
                   smooth={true}
-                  duration={1900}
+                  duration={1000}
                   offset={-400}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
@@ -246,7 +246,7 @@ function Navbar() {
                   activeClassName="text-orange-600"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
-                  Engagements
+                  Engagement
                 </NavLink>
               </li>
               <li>

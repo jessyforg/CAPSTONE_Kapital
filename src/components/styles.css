@@ -1,4 +1,4 @@
-.dropdown:focus-within .dropdown-menu {
+.dropdown:hover .dropdown-menu {
   opacity: 1;
   transform: translate(0) scale(1);
   visibility: visible;
