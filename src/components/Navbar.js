@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { Link } from "react-scroll";
-import { NavLink } from "react-router-dom";
+import { scroller } from "react-scroll";
+import { Link } from "react-router-dom";
 import tarakiLogo from "../components/imgs/taraki-black.svg";
 import "./styles.css";
 
@@ -90,16 +90,19 @@ function Navbar() {
     };
   }, []);
 
+  const closeNavbar = () => {
+    navbarStickyRef.current.classList.add("hidden");
+  };
+
   return (
     <header className="font-satoshi overflow-x-hidden">
       <nav className="bg-white border-gray-200 shadow-md fixed w-full z-50 top-0 start-0">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8 laptop-s:p-7 desktop-m:p-10">
           <Link
-            to="home"
-            spy={true}
-            smooth={true}
-            duration={1200}
-            offset={-50}
+            to="/" onClick={(e) => {
+              scroller.scrollTo('team', { smooth: true, duration: 1000, offset: -50 });
+              closeNavbar();
+            }}
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
           >
             <img
@@ -144,11 +147,10 @@ function Navbar() {
             <ul className="flex flex-col font-medium p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1rem]">
               <li>
                 <Link
-                  to="about"
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  offset={-400}
+                  to="/" onClick={(e) => {
+                    scroller.scrollTo('about', { smooth: true, duration: 1000, offset: -400 });
+                    closeNavbar();
+                  }}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   About
@@ -156,11 +158,10 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="team"
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  offset={-280}
+                  to="/" onClick={(e) => {
+                    scroller.scrollTo('team', { smooth: true, duration: 1000, offset: -280 });
+                    closeNavbar();
+                  }}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   TARAKIs
@@ -171,7 +172,7 @@ function Navbar() {
                 <div className="dropdown">
                   <span className="rounded-md shadow-sm">
                     <button
-                      className="inline-flex justify-center w-full  leading-5 transition duration-150 ease-in-out bg-white  rounded-md hover:text-orange-600 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+                      className="inline-flex px-3 w-full leading-5 transition duration-150 ease-in-out bg-white  rounded-md hover:text-orange-600 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
                       type="button"
                       aria-haspopup="true"
                       aria-expanded="true"
@@ -193,7 +194,7 @@ function Navbar() {
                   </span>
                   <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-100">
                     <div
-                      className="absolute right-0 laptop-s:w-40 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                      className="absolute laptop-s:w-40 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                       aria-labelledby="headlessui-menu-button-1"
                       id="headlessui-menu-items-117"
                       role="menu"
@@ -201,11 +202,10 @@ function Navbar() {
                       <div className="py-1">
                         <li>
                           <Link
-                            to="program"
-                            spy={true}
-                            smooth={true}
-                            duration={1000}
-                            offset={-120}
+                            to="/" onClick={(e) => {
+                              scroller.scrollTo('program', { smooth: true, duration: 1000, offset: -120 });
+                              closeNavbar();
+                            }}
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
                           >
                             Programs
@@ -213,11 +213,10 @@ function Navbar() {
                         </li>
                         <li>
                           <Link
-                            to="framework"
-                            spy={true}
-                            smooth={true}
-                            duration={1000}
-                            offset={-120}
+                            to="/" onClick={(e) => {
+                              scroller.scrollTo('framework', { smooth: true, duration: 1000, offset: -120 });
+                              closeNavbar();
+                            }}
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
                           >
                             Framework
@@ -225,11 +224,10 @@ function Navbar() {
                         </li>
                         <li>
                           <Link
-                            to="events"
-                            spy={true}
-                            smooth={true}
-                            duration={1000}
-                            offset={-120}
+                            to="/" onClick={(e) => {
+                              scroller.scrollTo('events', { smooth: true, duration: 1000, offset: -120 });
+                              closeNavbar();
+                            }}
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
                           >
                             Events
@@ -241,21 +239,22 @@ function Navbar() {
                 </div>
               </li>
               <li>
-                <NavLink
-                  to="/tbi"
+                <Link
+                  to="/tbi" onClick={(e) => {
+                    closeNavbar();
+                  }}
                   activeClassName="text-orange-600"
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   Engagement
-                </NavLink>
+                </Link>
               </li>
               <li>
                 <Link
-                  to="faq"
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  offset={-100}
+                  to="/" onClick={(e) => {
+                    scroller.scrollTo('team', { smooth: true, duration: 1000, offset: -100 });
+                    closeNavbar();
+                  }}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
                 >
                   FAQ

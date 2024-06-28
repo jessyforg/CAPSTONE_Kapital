@@ -12,11 +12,11 @@ function TBI() {
               <img
                 src={Intto}
                 alt="1st-ico"
-                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72"
                 
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
                 
               >
                 Establishment of a 5-yr Regional Startup Development Plan and
@@ -27,11 +27,11 @@ function TBI() {
               <img
                 src={UP}
                 alt="2nd-ico"
-                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72"
                 
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
                 
               >
                 Increasing Awareness about the Consortium
@@ -41,11 +41,11 @@ function TBI() {
               <img
                 src={Slu}
                 alt="3rd-ico"
-                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72"
                 
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
                 
               >
                 Upskilling and Upscaling Activities
@@ -55,11 +55,11 @@ function TBI() {
               <img
                 src={Bsu}
                 alt="4th-ico"
-                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72"
                 
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
                 
               >
                 Establishment of Local Investor Network
@@ -69,11 +69,11 @@ function TBI() {
               <img
                 src={Ifsu}
                 alt="5th-ico"
-                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72"
                 
               />
               <p
-                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16"
                 
               >
                 Cross Pollination Undertakings Among Stakeholders
