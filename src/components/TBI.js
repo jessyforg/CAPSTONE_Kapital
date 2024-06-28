@@ -14,7 +14,7 @@ function TBI() {
         Technology Business Incubation - CAR
       </h1>
       <section className="grid grid-cols-1 place-items-center justify-items-center tablet:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-12 laptop-m:px-24 desktop-s:px-28 desktop-m:px-36">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ucgreen">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ucgreen hover:border-4">
           <img
             src={Intto}
             alt="1st-ico"
@@ -27,7 +27,7 @@ function TBI() {
             through its two specialized units.
           </p>
         </div>
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-upred">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-upred hover:border-4">
           <img
             src={UP}
             alt="1st-ico"
@@ -40,7 +40,7 @@ function TBI() {
             innovation, fostering public service initiatives.
           </p>
         </div>
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-slublue">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-slublue hover:border-4">
           <img
             src={SLU}
             alt="1st-ico"
@@ -53,7 +53,7 @@ function TBI() {
             fostering tech-savvy entrepreneurs.
           </p>
         </div>
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
           <img
             src={BSU}
             alt="1st-ico"
@@ -66,11 +66,11 @@ function TBI() {
             professional services to help them grow.
           </p>
         </div>
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ifsugreen">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4">
           <img
             src={IFSU}
             alt="1st-ico"
-            className="h-7 w-64 laptop-s:h-20 laptop-s:w-44 de80top-m:w-[25rem] aos-init"
+            className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
           />
           <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
