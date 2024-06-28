@@ -1,16 +1,85 @@
 import React from 'react';
+import Intto from './imgs/InTTO.svg';
+import UP from './imgs/SILBI_TBI.svg';
+import Slu from './imgs/SLU.svg';
+import Bsu from './imgs/BSU.svg';
+import Ifsu from './imgs/IFSU.svg';
 
 function TBI() {
   return (
-    <div className='bg-trkblack py-[22rem] flex flex-col justify-center items-center min-h-screen space-y-2'>
-    <h1 className='text-center text-white text-5xl font-bold'>
-      COMING SOON!
-    </h1>
-    <h2 className='text-center text-orange-600 text-2xl font-semibold'>This page is still under development. Thank you!</h2>
-    <a href="/" className="text-center bg-white py-1 px-4 mt-5 mb-7 tablet-m:mt-5 tablet:mb-12 tablet-m:mb-0 text-[0.8rem] laptop-s:text-sm laptop-s:px-8 laptop-s:py-3 desktop-m:px-10 desktop-m:py-5 laptop-m:text-lg desktop-s:text-[1.4rem] desktop-m:text-[1.7rem] border border-white rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 aos-init">
-        Return to home
-    </a>
-</div>
+    <section className="tablet:grid tablet:grid-cols-2 tablet-m:grid-cols-3 laptop-s:py-10">
+            <div className="mt-5 transition-all duration-300 hover:scale-110">
+              <img
+                src={Intto}
+                alt="1st-ico"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                
+              />
+              <p
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                
+              >
+                Establishment of a 5-yr Regional Startup Development Plan and
+                Roadmaps
+              </p>
+            </div>
+            <div className="mt-5 transition-all duration-300 hover:scale-110">
+              <img
+                src={UP}
+                alt="2nd-ico"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                
+              />
+              <p
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                
+              >
+                Increasing Awareness about the Consortium
+              </p>
+            </div>
+            <div className="mt-5 transition-all duration-300 hover:scale-110">
+              <img
+                src={Slu}
+                alt="3rd-ico"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                
+              />
+              <p
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                
+              >
+                Upskilling and Upscaling Activities
+              </p>
+            </div>
+            <div className="mt-5 transition-all duration-300 hover:scale-110">
+              <img
+                src={Bsu}
+                alt="4th-ico"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                
+              />
+              <p
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                
+              >
+                Establishment of Local Investor Network
+              </p>
+            </div>
+            <div className="mt-5 transition-all duration-300 hover:scale-110">
+              <img
+                src={Ifsu}
+                alt="5th-ico"
+                className="w-44 tablet-m:w-56 mx-auto desktop-m:w-72 aos-init"
+                
+              />
+              <p
+                className="text-sm tablet-m:text-[0.8rem] laptop-s:text-[1rem] laptop-m:text-[1.3rem] desktop-m:text-[1.6rem] text-center font-regular mt-1 px-16 aos-init"
+                
+              >
+                Cross Pollination Undertakings Among Stakeholders
+              </p>
+            </div>
+          </section>
 
   );
 }
