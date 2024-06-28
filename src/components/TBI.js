@@ -14,6 +14,7 @@ function TBI() {
         Technology Business Incubation - CAR
       </h1>
       <section className="grid grid-cols-1 place-items-center justify-items-center tablet:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-12 laptop-m:px-24 desktop-s:px-28 desktop-m:px-36">
+        <a href="https://www.facebook.com/UCInTTO" target="_blank" rel="noopener noreferrer">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ucgreen hover:border-4">
           <img
             src={Intto}
@@ -27,6 +28,8 @@ function TBI() {
             through its two specialized units.
           </p>
         </div>
+        </a>
+        <a href="https://upbsilbi.com/" target="_blank" rel="noopener noreferrer">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-upred hover:border-4">
           <img
             src={UP}
@@ -40,6 +43,8 @@ function TBI() {
             innovation, fostering public service initiatives.
           </p>
         </div>
+        </a>
+        <a href="https://www.facebook.com/slu.edu.ph" target="_blank" rel="noopener noreferrer">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-slublue hover:border-4">
           <img
             src={SLU}
@@ -53,6 +58,8 @@ function TBI() {
             fostering tech-savvy entrepreneurs.
           </p>
         </div>
+        </a>
+        <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
           <img
             src={BSU}
@@ -66,6 +73,8 @@ function TBI() {
             professional services to help them grow.
           </p>
         </div>
+        </a>
+        <a href="https://www.facebook.com/ifugaostateuniversity" target="_blank" rel="noopener noreferrer">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4">
           <img
             src={IFSU}
@@ -79,6 +88,7 @@ function TBI() {
             professional services to help them grow.
           </p>
         </div>
+        </a>
       </section>
       <section className="my-10">
         <h1 className="font-bold text-[1rem] laptop-s:text-xl desktop-s:text-2xl text-center">
