@@ -8,7 +8,6 @@ import "./styles.css";
 
 function TarakiTeam() {
   useEffect(() => {
-    // Initialize Swiper when component mounts
     // eslint-disable-next-line no-unused-vars
     const swiper = new window.Swiper(".mySwiper", {
       effect: "cards",
@@ -705,7 +704,6 @@ function TarakiTeam() {
                 className="shadow-lg bg-white flex flex-col justify-center items-center w-[100%] tablet:w-full tablet:my-4  tablet:h-64 tablet-m:w-[30%] tablet-m:h-[36rem] desktop-s:h-[45rem] h-[26rem] my-5 transition-all duration-300 hover:scale-105 hover:z-10 aos-init"
                 data-aos="flip-right"
                 data-aos-duration="2000"
-                
               >
                 <div
                   className="bg-cover bg-center w-[100%] tablet:w-[100%] h-full"
