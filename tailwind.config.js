@@ -34,6 +34,11 @@ module.exports = {
       },
       colors: {
         trkblack: "#151515",
+        ucgreen: "#173218",
+        upred: "#751618",
+        slublue: "#073066",
+        bsuyellow: "#F5D10B",
+        ifsugreen: "#083D05",
       },
     },
     fontFamily: {
