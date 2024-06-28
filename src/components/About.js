@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import animation from "../components/imgs/taraki-animation.mp4";
+import animation from "../components/imgs/taraki-animation.webm";
 function About() {
   useEffect(() => {
     AOS.init({

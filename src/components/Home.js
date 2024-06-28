@@ -10,7 +10,7 @@ import neda from "./imgs/neda.webp";
 import dti from "./imgs/dti.webp";
 import da from "./imgs/da.webp";
 import peza from "./imgs/peza.webp";
-import video from "../components/imgs/taraki-home-video.mp4";
+import video from "../components/imgs/taraki-home-video.webm";
 
 function Home() {
   useEffect(() => {
