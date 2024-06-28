@@ -100,7 +100,7 @@ function Navbar() {
         <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8 laptop-s:p-7 desktop-m:p-10">
           <Link
             to="/" onClick={(e) => {
-              scroller.scrollTo('team', { smooth: true, duration: 1000, offset: -50 });
+              scroller.scrollTo('home', { smooth: true, duration: 1000, offset: -50 });
               closeNavbar();
             }}
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
