@@ -252,7 +252,7 @@ function Navbar() {
               <li>
                 <Link
                   to="/" onClick={(e) => {
-                    scroller.scrollTo('team', { smooth: true, duration: 1000, offset: -100 });
+                    scroller.scrollTo('faq', { smooth: true, duration: 1000, offset: -100 });
                     closeNavbar();
                   }}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
