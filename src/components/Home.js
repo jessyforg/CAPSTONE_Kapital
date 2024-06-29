@@ -39,7 +39,7 @@ function Home() {
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="relative z-10 tablet:pt-[3rem] tablet-m:pt-[7rem] laptop-s:pt-32 laptop-m:pt-56 desktop-m:pt-48">
+            <div className="relative z-10 tablet:pt-[3rem] tablet-m:pt-[7rem] laptop-s:pt-32 laptop-m:pt-56 desktop-m:pt-32">
               <h1
                 className="text-white text-3xl tablet:text-4xl laptop-s:text-5xl desktop-s:text-[3.6rem] desktop-m:text-[3.8rem] font-bold px-8 tablet:px-52"
                 data-aos="fade-right" // AOS attribute
