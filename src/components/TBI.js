@@ -189,7 +189,7 @@ function TBI() {
         </div>
         </a>
         </section>
-        <section className="grid grid-cols-1 place-items-center justify-items-center tablet-m:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-2 laptop-s:px-[15.3rem] laptop-m:px-[18.9rem] desktop-s:px-[21.3rem] desktop-m:px-[26rem] phone:pt-4 phone:hidden tablet:hidden">
+        <section className="grid grid-cols-1 place-items-center justify-items-center tablet-m:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-2 tablet-m:px-[12.5rem] laptop-s:px-[15.3rem] laptop-m:px-[18.9rem] desktop-s:px-[21.3rem] desktop-m:px-[26rem] phone:pt-4 phone:hidden tablet:hidden">
         <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
           <img
