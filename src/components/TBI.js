@@ -159,6 +159,38 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4 tablet-m:hidden">
+          <img
+            src={BSU}
+            alt="1st-ico"
+            className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
+          />
+          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+            Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
+            Technology Business Incubator/Innovation Center supports start-ups
+            and micro businesses in agricultural technology, offering
+            professional services to help them grow.
+          </p>
+        </div>
+        </a>
+        <a href="https://www.facebook.com/ifugaostateuniversity" target="_blank" rel="noopener noreferrer">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4 tablet-m:hidden">
+          <img
+            src={IFSU}
+            alt="1st-ico"
+            className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
+          />
+          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+            Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
+            Technology Business Incubator/Innovation Center supports start-ups
+            and micro businesses in agricultural technology, offering
+            professional services to help them grow.
+          </p>
+        </div>
+        </a>
+        </section>
+        <section className="grid grid-cols-1 place-items-center justify-items-center tablet-m:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-2 laptop-s:px-[15.3rem] laptop-m:px-[18.9rem] desktop-s:px-[21.3rem] desktop-m:px-[26rem] phone:pt-4 phone:hidden tablet:hidden">
+        <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
           <img
             src={BSU}
