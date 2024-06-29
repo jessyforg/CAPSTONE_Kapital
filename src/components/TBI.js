@@ -44,7 +44,7 @@ function TBI() {
               alt="1st-ico"
               className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
             />
-            <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem] text-center font-regular px-10 mt-1 h-10 aos-init">
+            <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem] text-center font-regular px-10 mt-1 aos-init">
               Silbi, meaning "service" in Filipino, reflects UP Baguio's
               dedication to community service. The SILBI Center drives
               transformation in Cordillera and Northern Luzon through research
@@ -63,7 +63,7 @@ function TBI() {
               alt="1st-ico"
               className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
             />
-            <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem] text-left font-regular px-10 mt-1 h-24 laptop-s:h-28 desktop-m:h-32 box-border">
+            <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem] text-left font-regular px-10 mt-1 box-border">
               Established in 2017 with CHED funding, the SIRIB Center created a
               Technology Hub and Co-Working Space. It launched
               "Technopreneurship 101" to integrate entrepreneurship into
