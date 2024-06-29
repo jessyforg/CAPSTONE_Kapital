@@ -113,7 +113,7 @@ function Program() {
                 className="text-center tablet:text-left text-sm tablet:text-[0.9rem] tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2rem] desktop-m:text-[2.5rem] font-semibold mt-5 px-8 tablet:px-0 aos-init"
                 data-aos="fade-right"
               >
-                KNOWLEDGE ADVANCEMENT INITIVATIVES
+                KNOWLEDGE ADVANCEMENT INITIATIVES
               </h1>
               <p
                 className="text-sm tablet:text-[0.9rem] tablet-m:text-lg laptop-s:text-[1.3rem] laptop-m:text-[1.4rem] desktop-m:text-[1.9rem] tablet:font-normal tablet:leading-6 laptop-s:leading-loose text-center tablet:text-left font-light mt-2 tablet:mt-4 px-8 tablet:px-0 aos-init"

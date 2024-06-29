@@ -16,6 +16,7 @@ import TBI from "./components/TBI.js";
 function MainPage() {
   return (
     <>
+      <Navbar />
       <Home />
       <About />
       <Objective />
@@ -33,7 +34,6 @@ function MainPage() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>        
         <Route path="/" element={<MainPage />} />
         <Route path="/Tbi" element={<TBI />} />

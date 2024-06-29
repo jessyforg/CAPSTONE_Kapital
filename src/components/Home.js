@@ -14,6 +14,9 @@ import video from "../components/imgs/taraki-home-video.webm";
 
 function Home() {
   useEffect(() => {
+    document.title = 'Welcome to TARAKI';
+  }, []);
+  useEffect(() => {
     AOS.init({
       duration: 800, // Animation duration
       easing: "ease", // Easing function

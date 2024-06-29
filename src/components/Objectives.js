@@ -28,7 +28,7 @@ function Objective() {
               Objectives
             </h1>
           </section>
-          <section className="tablet:grid tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-10 laptop-s:py-10">
+          <section className="tablet:grid tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-10 laptop-s:py-10 leading-loose">
             <div className="mt-5 transition-all duration-300 hover:scale-110">
               <img
                 src={icon1}
