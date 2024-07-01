@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { scroller } from "react-scroll";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import tarakiLogo from "../components/imgs/taraki-black.svg"
 import "aos/dist/aos.css";
 import Intto from "./imgs/InTTO.svg";
@@ -8,118 +8,65 @@ import UP from "./imgs/SILBI_TBI.svg";
 import SLU from "./imgs/SLU.svg";
 import BSU from "./imgs/BSU.svg";
 import IFSU from "./imgs/IFSU.svg";
-import profile from "./imgs/profile-investors.svg";
+import Henry from "./imgs/investors/Henry.svg"
+import Jaydee from "./imgs/investors/Jaydee.svg"
+import Wilson from "./imgs/investors/Wilson.svg"
+import Elmer from "./imgs/investors/Elmer.svg"
+import Angelo from "./imgs/investors/Angelo.svg"
+import Benjie from "./imgs/investors/Benjie.svg"
+
 
 function TBI() {
-  const menuButtonRef = useRef(null);
-  const navbarStickyRef = useRef(null);
 
-  useEffect(() => {
-    document.title = 'TBI';
-  }, []);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleMenuButtonClick = () => {
-      if (navbarStickyRef.current.classList.contains("hidden")) {
-        navbarStickyRef.current.classList.remove("hidden");
-      } else {
-        navbarStickyRef.current.classList.add("hidden");
-      }
-    };
-
-    const menuButton = menuButtonRef.current;
-    menuButton.addEventListener("click", handleMenuButtonClick);
-
-    return () => {
-      menuButton.removeEventListener("click", handleMenuButtonClick);
-    };
-  }, []);
-
-  const closeNavbar = () => {
-    navbarStickyRef.current.classList.add("hidden");
+  const handleScrollToHome = () => {
+    scroller.scrollTo('Home', { smooth: true, duration: 1000, offset: -400 });
+    navigate('/');
   };
 
   return (
     <>
-    <nav className="bg-white border-gray-200 shadow-md fixed w-full z-50 top-0 start-0">
-        <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8 laptop-s:p-7 desktop-m:p-10">
-          <Link
-            to="/" onClick={(e) => {
-              scroller.scrollTo('home', { smooth: true, duration: 1000, offset: -50 });
-              closeNavbar();
-            }}
-            className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
-          >
-            <img
-              src={tarakiLogo}
-              className="w-28 laptop-s:absolute laptop-s:left-2/4 laptop-s:-translate-x-1/2 laptop-m:w-32 desktop-m:w-40"
-              alt="TARAKI LOGO HERE"
-            />
-          </Link>
-          <div className="flex space-x-3 tablet-m:space-x-0 rtl:space-x-reverse">
-            <button
-              data-collapse-toggle="navbar-cta"
-              type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-800 rounded-lg tablet-m:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              aria-controls="navbar-cta"
-              aria-expanded="false"
-              id="mobile-menu-button"
-              ref={menuButtonRef}
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/1600/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
-            </button>
-          </div>
-          <div
-            className="items-center justify-between hidden w-full tablet-m:flex tablet-m:w-auto mx-auto laptop-s:flex-1"
-            id="navbar-cta"
-            ref={navbarStickyRef}
-          >
-            <ul className="flex flex-col font-medium tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 tablet-m:ml-[43rem] laptop-s:ml-7 laptop-m:text-[1rem]">
-              <li>
-                <Link
-                  to="/" onClick={(e) => {
-                    scroller.scrollTo('Home', { smooth: true, duration: 1000, offset: -400 });
-                    closeNavbar();
-                  }}
-                  className="bg-white phone:py-3 phone:px-6 tablet-m:px-3 tablet-m:py-2 laptop-s:px-5 laptop-s:py-3 text-[0.8rem] laptop-s:text-sm border border-trkblack rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 laptop-m:text-lg"
-                  >
-                  Return to home
-                </Link>
-              </li>
-              <li>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      
+      <nav className="bg-white border-gray-200 shadow-md fixed w-full z-50 top-0 start-0">
+  <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8 laptop-s:p-7 desktop-m:p-10">
+    <Link
+      to="/"
+      onClick={(e) => {
+        scroller.scrollTo('home', { smooth: true, duration: 1000, offset: -50 });
+      }}
+      className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
+    >
+      <img
+        src={tarakiLogo}
+        className="w-28 laptop-s:absolute laptop-s:left-2/4 laptop-s:-translate-x-1/2 laptop-m:w-32 desktop-m:w-40"
+        alt="TARAKI LOGO HERE"
+      />
+    </Link>
+    <div className="flex space-x-3 tablet-m:space-x-0 rtl:space-x-reverse">
+    <button
+      onClick={handleScrollToHome}
+      className="bg-white phone:py-3 phone:px-3 tablet-m:px-3 tablet-m:py-2 laptop-s:px-5 laptop-s:py-3 text-[0.8rem] laptop-s:text-sm border border-trkblack rounded-md hover:bg-trkblack hover:text-white hover:border-orange-600 laptop-m:text-lg"
+    >
+      Return to home
+    </button>
+    </div>
+  </div>
+</nav>
+
+
     <div className="font-satoshi mt-24 laptop-s:mt-32 desktop-s:mt-36 desktop-m:mt-40">
       <h1 className="font-bold text-[1rem] laptop-s:text-xl desktop-s:text-2xl text-center">
         Technology Business Incubation - CAR
       </h1>
       <section className="grid grid-cols-1 place-items-center justify-items-center tablet:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-12 laptop-m:px-24 desktop-s:px-28 desktop-m:px-36">
         <a href="https://www.facebook.com/UCInTTO" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ucgreen hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ucgreen hover:border-4">
           <img
             src={Intto}
             alt="1st-ico"
-            className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
+            className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init mb-1"
           />
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">InTTO</h3>
           <p className="text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             The Innovation and Technology Transfer Office (InTTO) fosters
             innovation by offering business and technology transfer
@@ -129,12 +76,13 @@ function TBI() {
         </div>
         </a>
         <a href="https://upbsilbi.com/" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-upred hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-upred hover:border-4">
           <img
             src={UP}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">SILBI</h3>
           <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem] text-center font-regular px-10 mt-1 aos-init">
             Silbi, meaning "service" in Filipino, reflects UP Baguio's
             dedication to community service. The SILBI Center drives
@@ -144,12 +92,13 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/slu.edu.ph" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-slublue hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-slublue hover:border-4">
           <img
             src={SLU}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">ConRes</h3>
           <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Established in 2017 with CHED funding, the SIRIB Center created a
             Technology Hub and Co-Working Space. It launched "Technopreneurship
@@ -159,12 +108,13 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4 tablet-m:hidden">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4 tablet-m:hidden">
           <img
             src={BSU}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">ATBI / IC</h3>
           <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
@@ -174,12 +124,13 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/ifugaostateuniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4 tablet-m:hidden">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4 tablet-m:hidden">
           <img
             src={IFSU}
             alt="1st-ico"
             className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
           />
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">IFSU</h3>
           <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
@@ -191,12 +142,13 @@ function TBI() {
         </section>
         <section className="grid grid-cols-1 place-items-center justify-items-center tablet-m:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-2 tablet-m:px-[12.5rem] laptop-s:px-[15.3rem] laptop-m:px-[18.9rem] desktop-s:px-[21.3rem] desktop-m:px-[26rem] phone:pt-4 phone:hidden tablet:hidden">
         <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
           <img
             src={BSU}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
+          <h3 className="py-3 text-center text-xl laptop-s:text-xl desktop-m:[1.5rem] font-semibold">ATBI / IC</h3>
           <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
@@ -206,12 +158,13 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/ifugaostateuniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-60 desktop-m:h-72 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4">
           <img
             src={IFSU}
             alt="1st-ico"
             className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
           />
+          <h3 className="py-3 text-center text-xl font-semibold">IFSU</h3>
           <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
@@ -227,7 +180,7 @@ function TBI() {
         </h1>
         <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 tablet-m:grid-cols-3 px-10 tablet-m:px-8">
           <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-            <img src={profile} alt="" className="w-36 rounded-full" />
+            <img src={Henry} alt="" className="w-36 rounded-full" />
             <div className="">
               <h1 className="font-bold tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                 Henry James Banayat
@@ -238,7 +191,7 @@ function TBI() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-            <img src={profile} alt="" className="w-36 rounded-full" />
+            <img src={Jaydee} alt="" className="w-36 rounded-full" />
             <div className="">
               <h1 className="font-bold tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                 Jaydee Rebadulla
@@ -250,7 +203,7 @@ function TBI() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-            <img src={profile} alt="" className="w-36 rounded-full" />
+            <img src={Wilson} alt="" className="w-36 rounded-full" />
             <div className="">
               <h1 className="font-bold tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                 Wilson Capuyan
@@ -262,7 +215,7 @@ function TBI() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-            <img src={profile} alt="" className="w-36 rounded-full" />
+            <img src={Elmer} alt="" className="w-36 rounded-full" />
             <div className="">
               <h1 className="font-bold tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                 Elmer Macalingay
@@ -273,7 +226,7 @@ function TBI() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-            <img src={profile} alt="" className="w-36 rounded-full" />
+            <img src={Benjie} alt="" className="w-36 rounded-full" />
             <div className="">
               <h1 className="font-bold tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                 Hon. Benjamin Magalong
@@ -284,7 +237,7 @@ function TBI() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-            <img src={profile} alt="" className="w-36 rounded-full" />
+            <img src={Angelo} alt="" className="w-36 rounded-full" />
             <div className="">
               <h1 className="font-bold tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                 Angelo Valdez

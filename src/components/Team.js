@@ -157,9 +157,9 @@ function TarakiTeam() {
                       Startup Community Enabler
                     </h1>
                     <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
-                      Jezelle brings over 20 years of experience in technology
-                      and innovation. Her visionary leadership has been
-                      instrumental in shaping TARAKI's strategic direction.
+                      Jezelle is an educator, empowering TARAKI startups, and 
+                      fosters community growth through spearheading innovative 
+                      initiatives.
                     </p>
                     <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                       <svg
@@ -436,9 +436,9 @@ function TarakiTeam() {
                       Startup Community Enabler
                     </h1>
                     <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
-                      Jezelle brings over 20 years of experience in technology
-                      and innovation. Her visionary leadership has been
-                      instrumental in shaping TARAKI's strategic direction.
+                      Jezelle is an educator, empowering TARAKI startups, and 
+                      fosters community growth through spearheading innovative 
+                      initiatives.
                     </p>
                     <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                       <svg
@@ -716,11 +716,10 @@ function TarakiTeam() {
                   <h1 className="laptop-s:text-lg laptop-m:text-xl desktop-m:text-2xl">
                     Startup Community Enabler
                   </h1>
-                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed">
-                    Jeze is a seasoned technologist with a passion for
-                    cutting-edge innovations. She oversees all technology
-                    initiatives, ensuring TARAKI remains at the forefront of
-                    industry advancements.
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[1.65rem] laptop-s:pb-[3.27rem] desktop-s:pb-[1.5rem]">
+                      Jezelle is an educator, empowering TARAKI startups, and 
+                      fosters community growth through spearheading innovative 
+                      initiatives.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg
