@@ -172,7 +172,7 @@ function Navbar() {
                 <div className="dropdown">
                   <span className="rounded-md">
                     <button
-                      className="inline-flex py-2 px-3 w-full leading-5 transition duration-150 ease-in-out bg-white  rounded-md hover:text-orange-600 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+                      className="inline-flex phone:py-2 tablet-m:py-0 px-3 w-full leading-5 transition duration-150 ease-in-out bg-white  rounded-md hover:text-orange-600 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
                       type="button"
                       aria-haspopup="true"
                       aria-expanded="true"

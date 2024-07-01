@@ -60,14 +60,14 @@ function TBI() {
       </h1>
       <section className="grid grid-cols-1 place-items-center justify-items-center tablet:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-12 laptop-m:px-24 desktop-s:px-28 desktop-m:px-36">
         <a href="https://www.facebook.com/UCInTTO" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ucgreen hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ucgreen hover:border-4">
           <img
             src={Intto}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init mb-1"
           />
-          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">InTTO</h3>
-          <p className="text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] text-ucgreen font-bold">InTTO</h3>
+          <p className="text-[0.7rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             The Innovation and Technology Transfer Office (InTTO) fosters
             innovation by offering business and technology transfer
             opportunities to faculty, students, alumni, and the community
@@ -76,14 +76,14 @@ function TBI() {
         </div>
         </a>
         <a href="https://upbsilbi.com/" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-upred hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-upred hover:border-4">
           <img
             src={UP}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
-          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">SILBI</h3>
-          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem] text-center font-regular px-10 mt-1 aos-init">
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-bold text-upred">SILBI</h3>
+          <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem] text-center font-regular px-10 mt-1 aos-init">
             Silbi, meaning "service" in Filipino, reflects UP Baguio's
             dedication to community service. The SILBI Center drives
             transformation in Cordillera and Northern Luzon through research and
@@ -92,14 +92,14 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/slu.edu.ph" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-slublue hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-slublue hover:border-4">
           <img
             src={SLU}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
-          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">ConRes</h3>
-          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-bold text-slublue">ConRes</h3>
+          <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Established in 2017 with CHED funding, the SIRIB Center created a
             Technology Hub and Co-Working Space. It launched "Technopreneurship
             101" to integrate entrepreneurship into engineering education,
@@ -108,14 +108,14 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4 tablet-m:hidden">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4 tablet-m:hidden">
           <img
             src={BSU}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
-          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">ATBI / IC</h3>
-          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-bold text-bsuyellow">ATBI / IC</h3>
+          <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
             and micro businesses in agricultural technology, offering
@@ -124,14 +124,14 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/ifugaostateuniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4 tablet-m:hidden">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4 tablet-m:hidden">
           <img
             src={IFSU}
             alt="1st-ico"
             className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
           />
-          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-semibold">IFSU</h3>
-          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-bold text-ifsugreen">IFSU</h3>
+          <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
             and micro businesses in agricultural technology, offering
@@ -142,14 +142,14 @@ function TBI() {
         </section>
         <section className="grid grid-cols-1 place-items-center justify-items-center tablet-m:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-2 tablet-m:px-[12.5rem] laptop-s:px-[15.3rem] laptop-m:px-[18.9rem] desktop-s:px-[21.3rem] desktop-m:px-[26rem] phone:pt-4 phone:hidden tablet:hidden">
         <a href="https://www.facebook.com/BenguetStateUniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-bsuyellow hover:border-4">
           <img
             src={BSU}
             alt="1st-ico"
             className="h-12 laptop-s:h-16 desktop-m:h-20 aos-init"
           />
-          <h3 className="py-3 text-center text-xl laptop-s:text-xl desktop-m:[1.5rem] font-semibold">ATBI / IC</h3>
-          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+          <h3 className="py-3 text-center text-xl laptop-s:text-xl desktop-m:[1.5rem] font-bold text-bsuyellow">ATBI / IC</h3>
+          <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
             and micro businesses in agricultural technology, offering
@@ -158,14 +158,14 @@ function TBI() {
         </div>
         </a>
         <a href="https://www.facebook.com/ifugaostateuniversity" target="_blank" rel="noopener noreferrer">
-        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-52 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4">
+        <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ifsugreen hover:border-4">
           <img
             src={IFSU}
             alt="1st-ico"
             className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
           />
-          <h3 className="py-3 text-center text-xl font-semibold">IFSU</h3>
-          <p className="text-[0.6rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
+          <h3 className="py-3 text-center text-xl laptop-s:text-xl desktop-m:[1.5rem] font-bold text-ifsugreen">IFSU</h3>
+          <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
             and micro businesses in agricultural technology, offering
@@ -256,7 +256,7 @@ function TBI() {
     <footer className="text-center bg-white p-2 rounded-lg shadow mt-8 laptop-s:text-center">
           <div className="w-full mx-auto max-w-screen-xl p-4 px-14 tablet:px-64 tablet:flex tablet:items-center tablet:justify-between laptop-s:px-[32rem] phone:px-16 tablet-m:px-96">
             <span className="text-xs text-gray-400 text-center laptop-m:text-sm">
-              © 2024 | TARAKI | All Rights Reserved Designed by <span className="font-semibold text-gray-500"> TARAKI-CAR</span>
+              © 2024 | TARAKI | All Rights Reserved Designed by <span className="font-bold text-gray-500"> TARAKI-CAR</span>
             </span>
             <ul className="flex flex-wrap items-center mt-0 text-sm font-medium phone:hidden laptop:flex text-gray-400">
               <li>

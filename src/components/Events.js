@@ -108,7 +108,7 @@ function Events() {
             data-aos="zoom-in"
             
           >
-            Highlights
+            Regional Startup Caravans
           </h1>
         </section>
         <div
