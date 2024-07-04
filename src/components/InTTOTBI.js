@@ -9,6 +9,7 @@ import les from "../components/imgs/tbi-team/Les.svg"
 import echo from "../components/imgs/tbi-team/Echo.svg"
 import ParaPo from "../components/imgs/ParaPo.svg"
 import QrX from "../components/imgs/QrX.svg"
+import tempprofile from "../components/imgs/profile-investors.svg"
 
 export default function InTTOTBI() {
 
@@ -55,7 +56,7 @@ export default function InTTOTBI() {
             className="laptop-s:w-52 phone:w-24 relative left-2/4 -translate-x-1/2 laptop-m:w-32 desktop-m:w-40"
           />
 
-        <h1 className="font-bold text-[1rem] laptop-s:text-xl desktop-s:text-2xl text-center py-3">
+        <h1 className="font-bold text-[1rem] laptop-s:text-xl desktop-s:text-2xl text-center py-10">
          InTTO Startups
         </h1>
         </section>
@@ -108,7 +109,7 @@ export default function InTTOTBI() {
                     </div>
                     </div>
                     <button
-                    className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full mt-5"
+                    className="bg-dentasync px-6 py-2 font-semibold text-white rounded-full mt-5"
                     >
                     Contact Us!
                     </button>
@@ -140,7 +141,7 @@ export default function InTTOTBI() {
                   </p>
                   <div className="grid-container phone:hidden tablet:hidden tablet-m:hidden laptop-s:block">
                     <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-                        <img src={gabe} alt="" className="w-20 rounded-full" />
+                        <img src={tempprofile} alt="" className="w-20 rounded-full" />
                         <div className="">
                         <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                             Ryzel Felizco 
@@ -148,7 +149,7 @@ export default function InTTOTBI() {
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-                        <img src={les} alt="" className="w-20 rounded-full" />
+                        <img src={tempprofile} alt="" className="w-20 rounded-full" />
                         <div className="">
                         <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                             Carl Masedman 
@@ -156,7 +157,7 @@ export default function InTTOTBI() {
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center text-center mt-5">
-                        <img src={echo} alt="" className="w-20 rounded-full" />
+                        <img src={tempprofile} alt="" className="w-20 rounded-full" />
                         <div className="">
                         <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                             Colston Bod-oy
@@ -165,7 +166,64 @@ export default function InTTOTBI() {
                     </div>
                     </div>
                     <button
-                    className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full mt-5"
+                    className="bg-parapo px-6 py-2 font-semibold text-white rounded-full mt-5"
+                    >
+                    Contact Us!
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="w-[300px] h-[400px] bg-transparent cursor-pointer group perspective border-gray-300 rounded-lg"
+          >
+            <div
+              className="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
+            >
+              <div className="absolute backface-hidden border-2 rounded-md w-full h-full">
+              <img src={QrX} className="w-full h-full px-5" alt=""/>
+              </div>
+              <div
+                className="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden rounded-lg"
+              >
+                <div
+                  className="text-center flex flex-col items-center justify-center h-full text-gray-800 px-5"
+                >
+                  <p>
+                  A modernized prescription software that generates 
+                  unique QR codes for medical prescriptions, aiming 
+                  to improve efficiency, reduce errors, and streamline 
+                  healthcare processes.
+                  </p>
+                  <div className="grid-container phone:hidden tablet:hidden tablet-m:hidden laptop-s:block">
+                    <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
+                        <img src={tempprofile} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Lhorexcel Bombarda
+                        </h1>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
+                        <img src={tempprofile} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Agnes Nazarro 
+                        </h1>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-center text-center mt-5">
+                        <img src={tempprofile} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Earl Alexus Serafica 
+                        </h1>
+                        </div>
+                    </div>
+                    </div>
+                    <button
+                    className="bg-parapo px-6 py-2 font-semibold text-white rounded-full mt-5"
                     >
                     Contact Us!
                     </button>
@@ -174,6 +232,35 @@ export default function InTTOTBI() {
             </div>
           </div>
     </section>
+
+    <footer className="text-center bg-white p-2 rounded-lg shadow mt-8 laptop-s:text-center">
+          <div className="w-full mx-auto max-w-screen-xl p-4 px-14 tablet:px-64 tablet:flex tablet:items-center tablet:justify-between laptop-s:px-[32rem] phone:px-16 tablet-m:px-96">
+            <span className="text-xs text-gray-400 text-center laptop-m:text-sm">
+              © 2024 | TARAKI | All Rights Reserved Designed by <span className="font-bold text-gray-500"> TARAKI-CAR</span>
+            </span>
+            <ul className="flex flex-wrap items-center mt-0 text-sm font-medium phone:hidden laptop:flex text-gray-400">
+              <li>
+                <a
+                  href="#section2"
+                  className="hover:underline me-4 tablet:me-6"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#1" className="hover:underline me-4 tablet:me-6">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#2" className="hover:underline me-4 tablet:me-6">
+                  Licensing
+                </a>
+              </li>
+            </ul>
+          </div>
+        </footer>
+
     </>
   )
 }

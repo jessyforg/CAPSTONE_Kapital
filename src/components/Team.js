@@ -624,8 +624,8 @@ function TarakiTeam() {
                   <h1 className="laptop-s:text-xl desktop-m:text-2xl">
                     Project Leader
                   </h1>
-                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed">
-                    Dr. Thelma brings over 20 years of experience in technology
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[1.65rem] laptop-s:pb-[1.7rem] desktop-m:pb-[3.2rem]">
+                    20 years of experience in technology
                     and innovation. Her visionary leadership has been
                     instrumental in shaping TARAKI's strategic direction.
                   </p>
@@ -715,8 +715,8 @@ function TarakiTeam() {
                   <h1 className="laptop-s:text-lg laptop-m:text-xl desktop-m:text-2xl">
                     Startup Community Enabler
                   </h1>
-                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[1.65rem] laptop-s:pb-[3.27rem] desktop-s:pb-[1.5rem]">
-                      Jezelle is an educator, empowering TARAKI startups, and 
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[3.2rem] laptop-s:pb-[3.27rem]">
+                      An educator, empowering TARAKI startups, and 
                       fosters community growth through spearheading innovative 
                       initiatives.
                   </p>
@@ -806,8 +806,8 @@ function TarakiTeam() {
                   <h1 className="laptop-s:text-lg  laptop-m:text-xl desktop-m:text-2xl">
                     Project Assistant
                   </h1>
-                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed">
-                    Jade is a seasoned technologist with a passion for
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed desktop-s:pb-[1.6rem]">
+                    A seasoned technologist with a passion for
                     cutting-edge innovations. He oversees all technology
                     initiatives, ensuring TARAKI remains at the forefront of
                     industry advancements.

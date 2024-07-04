@@ -39,6 +39,9 @@ module.exports = {
         slublue: "#073066",
         bsuyellow: "#F5D10B",
         ifsugreen: "#083D05",
+        dentasync: "#039BE5",
+        parapo: "#234182",
+        qrx: "#16B2AF",
       },
     },
     fontFamily: {
