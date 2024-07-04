@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Intto from "./imgs/InTTO.svg";
 import tarakiLogo from "../components/imgs/taraki-black.svg"
 import DentaSync from "../components/imgs/DentaSync.svg"
+import gabe from "../components/imgs/tbi-team/Gabe.svg"
+import les from "../components/imgs/tbi-team/Les.svg"
+import echo from "../components/imgs/tbi-team/Echo.svg"
 import ParaPo from "../components/imgs/ParaPo.svg"
 import QrX from "../components/imgs/QrX.svg"
 
@@ -57,96 +60,115 @@ export default function InTTOTBI() {
         </h1>
         </section>
         
-        <section className="grid grid-cols-1 place-items-center justify-items-center tablet:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-12 laptop-m:px-24 desktop-s:px-28 desktop-m:px-36">
+        <section className="grid grid-cols-1 place-items-center justify-items-center tablet:grid gap-4 tablet-m:gap-1 tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-12 laptop-m:px-24 desktop-s:px-28 desktop-m:px-36">
           <div
-            class="w-[300px] h-[420px] bg-transparent cursor-pointer group perspective rounded-lg"
+            className="w-[300px] h-[400px] bg-transparent cursor-pointer group perspective border-gray-300 rounded-lg"
           >
             <div
-              class="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
+              className="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
             >
-              <div class="absolute backface-hidden border-2 w-full h-full">
-              <img src={DentaSync} class="w-full h-full" alt=""/>
+              <div className="absolute backface-hidden border-2 rounded-md w-full h-full">
+              <img src={DentaSync} className="w-full h-full px-5" alt=""/>
               </div>
               <div
-                class="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden"
+                className="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden rounded-lg"
               >
                 <div
-                  class="text-center flex flex-col items-center justify-center h-full text-gray-800 px-2 pb-24"
+                  className="text-center flex flex-col items-center justify-center h-full text-gray-800 px-5"
                 >
-                  <h1 class="text-3xl font-semibold">Lorem ipsum</h1>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                    itaque assumenda saepe animi maxime libero non quasi, odit natus
-                    veritatis enim culpa nam inventore doloribus quidem temporibus
-                    amet velit accusamus.
+                  An innovative web-based system that revolutionize dental clinic management by 
+                  streamlining appointment scheduling and dental records management, integrating 
+                  digitalized dental charts and visual gallery.
                   </p>
-                  <button
-                    class="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-20 scale-0 group-hover:scale-125"
-                  >
+                  <div className="grid-container phone:hidden tablet:hidden tablet-m:hidden laptop-s:block">
+                    <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
+                        <img src={gabe} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Gabriel Ollero 
+                        </h1>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
+                        <img src={les} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Leslie Fuentes 
+                        </h1>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-center text-center mt-5">
+                        <img src={echo} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Jericho Tamondong
+                        </h1>
+                        </div>
+                    </div>
+                    </div>
+                    <button
+                    className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full mt-5"
+                    >
                     Contact Us!
-                  </button>
+                    </button>
                 </div>
               </div>
             </div>
           </div>
+
           <div
-            class="w-[300px] h-[420px] bg-transparent cursor-pointer group perspective"
+            className="w-[300px] h-[400px] bg-transparent cursor-pointer group perspective border-gray-300 rounded-lg"
           >
             <div
-              class="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
+              className="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
             >
-              <div class="absolute backface-hidden border-2 w-full h-full">
-              <img src={ParaPo} class="w-full h-full" alt=""/>
+              <div className="absolute backface-hidden border-2 rounded-md w-full h-full">
+              <img src={ParaPo} className="w-full h-full px-5" alt=""/>
               </div>
               <div
-                class="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden"
+                className="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden rounded-lg"
               >
                 <div
-                  class="text-center flex flex-col items-center justify-center h-full text-gray-800 px-2 pb-24"
+                  className="text-center flex flex-col items-center justify-center h-full text-gray-800 px-5"
                 >
-                  <h1 class="text-3xl font-semibold">Lorem ipsum</h1>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                    itaque assumenda saepe animi maxime libero non quasi, odit natus
-                    veritatis enim culpa nam inventore doloribus quidem temporibus
-                    amet velit accusamus.
+                  A jeepney navigation system that provides user with commuting 
+                  information such a jeepney routes, jeepney stations, and jeepney 
+                  options and allows them to customize their own jeepney avatar 
+                  inspired by Filipino culture.
                   </p>
-                  <button
-                    class="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-20 scale-0 group-hover:scale-125"
-                  >
+                  <div className="grid-container phone:hidden tablet:hidden tablet-m:hidden laptop-s:block">
+                    <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
+                        <img src={gabe} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Ryzel Felizco 
+                        </h1>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
+                        <img src={les} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Carl Masedman 
+                        </h1>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-center text-center mt-5">
+                        <img src={echo} alt="" className="w-20 rounded-full" />
+                        <div className="">
+                        <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
+                            Colston Bod-oy
+                        </h1>
+                        </div>
+                    </div>
+                    </div>
+                    <button
+                    className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full mt-5"
+                    >
                     Contact Us!
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="w-[300px] h-[420px] bg-transparent cursor-pointer group perspective"
-          >
-            <div
-              class="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
-            >
-              <div class="absolute backface-hidden border-2 w-full h-full">
-              <img src={QrX} class="w-full h-full" alt=""/>
-              </div>
-              <div
-                class="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden"
-              >
-                <div
-                  class="text-center flex flex-col items-center justify-center h-full text-gray-800 px-2 pb-24"
-                >
-                  <h1 class="text-3xl font-semibold">Lorem ipsum</h1>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                    itaque assumenda saepe animi maxime libero non quasi, odit natus
-                    veritatis enim culpa nam inventore doloribus quidem temporibus
-                    amet velit accusamus.
-                  </p>
-                  <button
-                    class="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-20 scale-0 group-hover:scale-125"
-                  >
-                    Contact Us!
-                  </button>
+                    </button>
                 </div>
               </div>
             </div>

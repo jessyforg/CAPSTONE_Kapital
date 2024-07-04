@@ -46,6 +46,12 @@
   transform: rotateY(180deg);
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
