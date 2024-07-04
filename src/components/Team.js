@@ -627,8 +627,7 @@ function TarakiTeam() {
                   <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed">
                     Dr. Thelma brings over 20 years of experience in technology
                     and innovation. Her visionary leadership has been
-                    instrumental in shaping TARAKI's strategic direction. Lorem
-                    ipsum
+                    instrumental in shaping TARAKI's strategic direction.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg

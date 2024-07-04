@@ -7,7 +7,7 @@ import Intto from "./imgs/InTTO.svg";
 import UP from "./imgs/SILBI_TBI.svg";
 import SLU from "./imgs/SLU.svg";
 import BSU from "./imgs/BSU.svg";
-import IFSU from "./imgs/IFSU.svg";
+import IFSU from "./imgs/IFSU-TBI.svg";
 import Henry from "./imgs/investors/Henry.svg"
 import Jaydee from "./imgs/investors/Jaydee.svg"
 import Wilson from "./imgs/investors/Wilson.svg"
@@ -59,7 +59,7 @@ function TBI() {
         Technology Business Incubation - CAR
       </h1>
       <section className="grid grid-cols-1 place-items-center justify-items-center tablet:grid gap-4 tablet-m:gap-1  tablet:grid-cols-2 tablet-m:grid-cols-3 tablet:px-12 laptop-m:px-24 desktop-s:px-28 desktop-m:px-36">
-        <a href="https://www.facebook.com/UCInTTO" target="_blank" rel="noopener noreferrer">
+        <a href="/tbi/intto">
         <div className="border flex flex-col justify-center items-center mt-5 border-gray-300 rounded-lg w-72 h-60 laptop-s:w-[23rem] laptop-m:w-[25rem] desktop-s:w-[27rem] desktop-m:w-[32rem] laptop-s:h-72 desktop-m:h-80 transition-all duration-300 hover:scale-110 hover:border-ucgreen hover:border-4">
           <img
             src={Intto}
@@ -128,9 +128,9 @@ function TBI() {
           <img
             src={IFSU}
             alt="1st-ico"
-            className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
+            className="h-[4.5rem] laptop-s:h-10 laptop-s:w-10 desktop-m:w-[25rem] aos-init"
           />
-          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-bold text-ifsugreen">IFSU</h3>
+          <h3 className="py-3 text-center text-[0.9rem] laptop-s:text-xl desktop-m:[1.5rem] font-bold text-ifsugreen">IFSU IPTBM</h3>
           <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
@@ -162,9 +162,9 @@ function TBI() {
           <img
             src={IFSU}
             alt="1st-ico"
-            className="h-7 w-64 laptop-s:h-20 laptop-s:w-80 desktop-m:w-[25rem] aos-init"
+            className="h-14 tablet-m:w-[3.8rem] laptop-s:h-[4.5rem] laptop-s:w-20 desktop-m:w-[5.7rem] desktop-m:h-20 aos-init"
           />
-          <h3 className="py-3 text-center text-xl laptop-s:text-xl desktop-m:[1.5rem] font-bold text-ifsugreen">IFSU</h3>
+          <h3 className="py-3 text-center text-xl laptop-s:text-xl desktop-m:[1.5rem] font-bold text-ifsugreen">IFSU IPTBM</h3>
           <p className="text-[0.7rem] tablet-m:text-[0.6rem] laptop-s:text-[0.8rem] desktop-m:text-[0.9rem]  text-center font-regular px-10 mt-1 aos-init">
             Founded under BOR Resolution No. 1939, s. 2010, the Agri-based
             Technology Business Incubator/Innovation Center supports start-ups
@@ -174,6 +174,7 @@ function TBI() {
         </div>
         </a>
       </section>
+
       <section className="my-10">
         <h1 className="font-bold text-[1rem] laptop-s:text-xl desktop-s:text-2xl text-center">
           Potential Investors

@@ -12,6 +12,7 @@ import FAQ from "./components/FAQ.js";
 import Contact from "./components/Contact.js";
 import Footer from "./components/Footer.js";
 import TBI from "./components/TBI.js";
+import InTTOTBI from './components/InTTOTBI.js';
 
 function MainPage() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
       <Routes>        
         <Route path="/" element={<MainPage />} />
         <Route path="/Tbi" element={<TBI />} />
+        <Route path="/Tbi/InTTO" element={<InTTOTBI />} />
       </Routes>
 
     </BrowserRouter>
