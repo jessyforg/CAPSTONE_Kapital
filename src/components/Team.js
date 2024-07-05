@@ -715,7 +715,7 @@ function TarakiTeam() {
                   <h1 className="laptop-s:text-lg laptop-m:text-xl desktop-m:text-2xl">
                     Startup Community Enabler
                   </h1>
-                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[3.2rem] laptop-s:pb-[3.27rem]">
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[3.2rem] laptop-s:pb-[3.27rem] laptop-m:pb-[3.4rem] desktop-m:pb-[3.19rem]">
                     An educator, empowering TARAKI startups, and fosters
                     community growth through spearheading innovative
                     initiatives.
@@ -806,7 +806,7 @@ function TarakiTeam() {
                   <h1 className="laptop-s:text-lg  laptop-m:text-xl desktop-m:text-2xl">
                     Project Assistant
                   </h1>
-                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed desktop-s:pb-[1.6rem]">
+                  <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed laptop-l:pb-[1.65rem] desktop-s:pb-[1.6rem] desktop-m:pb-[1.475rem]">
                     A seasoned technologist with a passion for cutting-edge
                     innovations. He oversees all technology initiatives,
                     ensuring TARAKI remains at the forefront of industry

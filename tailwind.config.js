@@ -29,6 +29,7 @@ module.exports = {
         "tablet-m": "1024px",
         "laptop-s": "1280px",
         "laptop-m": "1440px",
+        "laptop-l": "1536px",
         "desktop-s": "1600px",
         "desktop-m": "1920px",
       },
