@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import frame from "../components/imgs/framework.webp";
+import frame from "../components/imgs/Framework.webp";
 
 function Framework() {
   useEffect(() => {
@@ -19,12 +19,14 @@ function Framework() {
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-xl laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] aos-init"
               data-aos="zoom-in"
-              
             >
               Framework
             </h1>
           </section>
-          <div className="mx-auto tablet:px-[1.8rem] tablet-m:px-[2.3rem] mt-5 aos-init" data-aos="zoom-in" >
+          <div
+            className="mx-auto tablet:px-[1.8rem] tablet-m:px-[2.3rem] mt-5 aos-init"
+            data-aos="zoom-in"
+          >
             <img
               src={frame}
               alt="awareness"

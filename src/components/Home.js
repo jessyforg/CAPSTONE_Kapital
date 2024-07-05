@@ -14,7 +14,7 @@ import video from "../components/imgs/taraki-home-video.webm";
 
 function Home() {
   useEffect(() => {
-    document.title = 'Welcome to TARAKI';
+    document.title = "Welcome to TARAKI";
   }, []);
   useEffect(() => {
     AOS.init({
@@ -39,7 +39,7 @@ function Home() {
               playsInline
               className=" phone:hidden tablet:block absolute tablet:top-16 laptop-s:top-24 laptop-m:top-28 left-0 m-auto w-full"
             >
-              <source src={video} type="video/mp4" />
+              <source src={video} type="video/webm" />
               Your browser does not support the video tag.
             </video>
             <div className="relative z-10 tablet:pt-[3rem] tablet-m:pt-[7rem] laptop-s:pt-32 laptop-m:pt-56 desktop-m:pt-32">

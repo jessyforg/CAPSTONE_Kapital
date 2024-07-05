@@ -30,7 +30,6 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
-            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[115rem] tablet-m:w-[130rem] tablet:h-[14rem] laptop-s:w-[160rem] laptop-m:w-[180rem] desktop-m:w-[210rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"
@@ -63,7 +62,6 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
-            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[100rem] tablet-m:w-[130rem] tablet:h-[14rem] tablet:order-2 laptop-s:w-[130rem] laptop-m:w-[140rem] desktop-m:w-[200rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"
@@ -99,7 +97,6 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:mt-5 tablet:px-14 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
-            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[110rem] tablet-m:w-[125rem] tablet:h-[14rem] laptop-s:w-[170rem] laptop-m:w-[180rem] desktop-m:w-[200rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"
@@ -131,7 +128,6 @@ function Program() {
             id="sectionCont"
             className="tablet:flex tablet:justify-between tablet:items-center tablet:px-14 tablet:mt-5 tablet-m:px-[4rem] aos-init"
             data-aos="fade-right"
-            
           >
             <div
               className="mx-auto mt-5 rounded-lg bg-cover bg-center w-72 h-52 tablet:w-[85rem] tablet-m:w-[110rem] tablet:h-[14rem] tablet:order-2 laptop-s:w-[114rem] laptop-m:w-[124rem] desktop-m:w-[180rem] laptop-s:h-[20rem] desktop-m:h-[30rem]"

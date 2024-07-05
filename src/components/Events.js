@@ -106,7 +106,6 @@ function Events() {
           <h1
             className="font-semibold text-md text-center laptop-s:text-2xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] aos-init"
             data-aos="zoom-in"
-            
           >
             Regional Startup Caravans
           </h1>
@@ -114,8 +113,6 @@ function Events() {
         <div
           className="swiper mySwiperEvent tablet:mx-[1.8rem] tablet-m:mx-[2.3rem] mt-2 aos-init"
           data-aos="zoom-in"
-          
-          
         >
           <div className="swiper-wrapper tablet:h-[17rem] tablet-m:h-[20rem] tablet:w-full laptop-s:h-[25rem] desktop-m:h-[28rem]">
             <div className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center w-full tablet:h-[15rem] tablet-m:h-[18rem] h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]">
@@ -136,10 +133,7 @@ function Events() {
                 Regional Caravan 1.2
               </h1>
             </div>
-            <div
-              className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center tablet:h-[15rem] tablet-m:h-[18rem] w-full h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]"
-              
-            >
+            <div className="swiper-slide shadow-xl bg-white flex flex-col justify-center items-center tablet:h-[15rem] tablet-m:h-[18rem] w-full h-40 my-2 laptop-s:h-[23.5rem] desktop-m:h-[28rem]">
               <div
                 className="bg-cover bg-center w-full h-full tablet:h-[15rem] tablet-m:h-[18rem] laptop-s:h-[25rem]"
                 style={{ backgroundImage: `url(${rc3})` }}

@@ -19,7 +19,7 @@ function Contacts() {
           <section
             className="flex justify-center items-center mt-14 tablet:mt-12 aos-init"
             data-aos="fade-down"
-            >
+          >
             <Link
               to="home"
               spy={true}
@@ -49,7 +49,7 @@ function Contacts() {
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg aos-init"
                   data-aos="fade-down"
                   data-aos-duration="800"
-                    >
+                >
                   About
                 </Link>
               </li>
@@ -64,7 +64,7 @@ function Contacts() {
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1000"
-                    >
+                >
                   TARAKIs
                 </Link>
               </li>
@@ -79,7 +79,7 @@ function Contacts() {
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600 aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1200"
-                    >
+                >
                   Programs
                 </Link>
               </li>
@@ -94,7 +94,7 @@ function Contacts() {
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 rounded-lg hover:text-orange-600 aos-init"
                   data-aos="fade-down"
                   data-aos-duration="1400"
-                    >
+                >
                   Framework
                 </Link>
               </li>
@@ -146,8 +146,6 @@ function Contacts() {
                 height="28"
                 fill="none"
                 viewBox="0 0 48 48"
-                
-                
               >
                 <g clipPath="url(#a)">
                   <path
@@ -176,8 +174,6 @@ function Contacts() {
                 height="28"
                 fill="none"
                 viewBox="0 0 48 48"
-                
-                
               >
                 <g clipPath="url(#a)">
                   <path
@@ -210,8 +206,6 @@ function Contacts() {
                 height="28"
                 fill="none"
                 viewBox="0 0 48 48"
-                
-                
               >
                 <g clipPath="url(#a)">
                   <path
@@ -233,7 +227,6 @@ function Contacts() {
               rel="noreferrer"
               className="aos-init"
               data-aos="zoom-in"
-
             >
               <svg
                 className="tablet:w-8 tablet:h-8 laptop-m:w-10 laptop-m:h-10 transition-all duration-300 hover:scale-110"
@@ -242,8 +235,6 @@ function Contacts() {
                 height="28"
                 fill="none"
                 viewBox="0 0 32 23"
-                
-                
               >
                 <path
                   fill="#F04F06"

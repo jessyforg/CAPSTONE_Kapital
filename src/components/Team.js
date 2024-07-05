@@ -157,8 +157,8 @@ function TarakiTeam() {
                       Startup Community Enabler
                     </h1>
                     <p className="bg-white font-extralight text-[0.8rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] leading-relaxed">
-                      Jezelle is an educator, empowering TARAKI startups, and 
-                      fosters community growth through spearheading innovative 
+                      Jezelle is an educator, empowering TARAKI startups, and
+                      fosters community growth through spearheading innovative
                       initiatives.
                     </p>
                     <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
@@ -436,8 +436,8 @@ function TarakiTeam() {
                       Startup Community Enabler
                     </h1>
                     <p className="bg-white font-extralight text-[0.7rem] tablet:mt-2 tablet-m:mt-6 tablet:text-[1rem] tablet-m:text-[1.1rem] laptop-m:text-[1.4rem] leading-relaxed">
-                      Jezelle is an educator, empowering TARAKI startups, and 
-                      fosters community growth through spearheading innovative 
+                      Jezelle is an educator, empowering TARAKI startups, and
+                      fosters community growth through spearheading innovative
                       initiatives.
                     </p>
                     <section className="flex space-x-3 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
@@ -625,9 +625,9 @@ function TarakiTeam() {
                     Project Leader
                   </h1>
                   <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[1.65rem] laptop-s:pb-[1.7rem] desktop-m:pb-[3.2rem]">
-                    20 years of experience in technology
-                    and innovation. Her visionary leadership has been
-                    instrumental in shaping TARAKI's strategic direction.
+                    20 years of experience in technology and innovation. Her
+                    visionary leadership has been instrumental in shaping
+                    TARAKI's strategic direction.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg
@@ -716,9 +716,9 @@ function TarakiTeam() {
                     Startup Community Enabler
                   </h1>
                   <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed tablet-m:pb-[3.2rem] laptop-s:pb-[3.27rem]">
-                      An educator, empowering TARAKI startups, and 
-                      fosters community growth through spearheading innovative 
-                      initiatives.
+                    An educator, empowering TARAKI startups, and fosters
+                    community growth through spearheading innovative
+                    initiatives.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg
@@ -807,10 +807,10 @@ function TarakiTeam() {
                     Project Assistant
                   </h1>
                   <p className="bg-white font-extralight laptop-s:mt-2 laptop-s:text-[1rem] laptop-m:text-lg desktop-m:text-xl leading-relaxed desktop-s:pb-[1.6rem]">
-                    A seasoned technologist with a passion for
-                    cutting-edge innovations. He oversees all technology
-                    initiatives, ensuring TARAKI remains at the forefront of
-                    industry advancements.
+                    A seasoned technologist with a passion for cutting-edge
+                    innovations. He oversees all technology initiatives,
+                    ensuring TARAKI remains at the forefront of industry
+                    advancements.
                   </p>
                   <section className="flex space-x-7 tablet:space-x-8 mt-1 tablet:mt-2 tablet-m:mt-6">
                     <svg

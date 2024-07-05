@@ -99,8 +99,13 @@ function Navbar() {
       <nav className="bg-white border-gray-200 shadow-md fixed w-full z-50 top-0 start-0">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4 tablet-m:px-8 laptop-s:p-7 desktop-m:p-10">
           <Link
-            to="/" onClick={(e) => {
-              scroller.scrollTo('home', { smooth: true, duration: 1000, offset: -50 });
+            to="/"
+            onClick={(e) => {
+              scroller.scrollTo("home", {
+                smooth: true,
+                duration: 1000,
+                offset: -50,
+              });
               closeNavbar();
             }}
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
@@ -147,8 +152,13 @@ function Navbar() {
             <ul className="flex flex-col font-medium p-4 tablet-m:p-0 mt-4 rounded-lg tablet-m:space-x-8 rtl:space-x-reverse tablet-m:flex-row tablet-m:mt-0 laptop-m:text-[1rem]">
               <li>
                 <Link
-                  to="/" onClick={(e) => {
-                    scroller.scrollTo('about', { smooth: true, duration: 1000, offset: -400 });
+                  to="/"
+                  onClick={(e) => {
+                    scroller.scrollTo("about", {
+                      smooth: true,
+                      duration: 1000,
+                      offset: -400,
+                    });
                     closeNavbar();
                   }}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
@@ -158,8 +168,13 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/" onClick={(e) => {
-                    scroller.scrollTo('team', { smooth: true, duration: 1000, offset: -280 });
+                  to="/"
+                  onClick={(e) => {
+                    scroller.scrollTo("team", {
+                      smooth: true,
+                      duration: 1000,
+                      offset: -280,
+                    });
                     closeNavbar();
                   }}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
@@ -202,8 +217,13 @@ function Navbar() {
                       <div className="py-1">
                         <li>
                           <Link
-                            to="/" onClick={(e) => {
-                              scroller.scrollTo('program', { smooth: true, duration: 1000, offset: -120 });
+                            to="/"
+                            onClick={(e) => {
+                              scroller.scrollTo("program", {
+                                smooth: true,
+                                duration: 1000,
+                                offset: -120,
+                              });
                               closeNavbar();
                             }}
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
@@ -213,8 +233,13 @@ function Navbar() {
                         </li>
                         <li>
                           <Link
-                            to="/" onClick={(e) => {
-                              scroller.scrollTo('framework', { smooth: true, duration: 1000, offset: -120 });
+                            to="/"
+                            onClick={(e) => {
+                              scroller.scrollTo("framework", {
+                                smooth: true,
+                                duration: 1000,
+                                offset: -120,
+                              });
                               closeNavbar();
                             }}
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
@@ -224,8 +249,13 @@ function Navbar() {
                         </li>
                         <li>
                           <Link
-                            to="/" onClick={(e) => {
-                              scroller.scrollTo('events', { smooth: true, duration: 1000, offset: -120 });
+                            to="/"
+                            onClick={(e) => {
+                              scroller.scrollTo("events", {
+                                smooth: true,
+                                duration: 1000,
+                                offset: -120,
+                              });
                               closeNavbar();
                             }}
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 cursor-pointer hover:bg-orange-100"
@@ -240,8 +270,13 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/" onClick={(e) => {
-                    scroller.scrollTo('faq', { smooth: true, duration: 1000, offset: -100 });
+                  to="/"
+                  onClick={(e) => {
+                    scroller.scrollTo("faq", {
+                      smooth: true,
+                      duration: 1000,
+                      offset: -100,
+                    });
                     closeNavbar();
                   }}
                   className="block py-2 px-3 tablet-m:p-0 text-gray-900 hover:text-orange-600 rounded-lg cursor-pointer"
@@ -251,7 +286,8 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/tbi" onClick={(e) => {
+                  to="/tbi"
+                  onClick={(e) => {
                     closeNavbar();
                   }}
                   activeClassName="text-orange-600"

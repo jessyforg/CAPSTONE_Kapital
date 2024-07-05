@@ -14,7 +14,10 @@ function About() {
     <div>
       <div className="font-satoshi overflow-x-hidden">
         <div className="cont tablet:flex tablet:justify-between tablet:items-center laptop-s:items-center tablet:mt-10 tablet:px-14">
-          <section id="about" className="text-center tablet:text-left mt-16 tablet:mt-0">
+          <section
+            id="about"
+            className="text-center tablet:text-left mt-16 tablet:mt-0"
+          >
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-2xl tablet:px-0 laptop-s:text-3xl laptop-m:text-[2.2rem] desktop-m:text-[2.6rem] aos-init"
               data-aos="fade-right"
@@ -41,7 +44,7 @@ function About() {
               playsInline
               className="header-video m-auto w-72 tablet:w-[95%] tablet-m:w-[100%] desktop-s:w-[195rem] laptop-s:w-[165rem] laptop-m:w-[185rem] desktop-m:w-[235rem]"
             >
-              <source src={animation} type="video/mp4" />
+              <source src={animation} type="video/webm" />
               Your browser does not support the video tag.
             </video>
           </section>
