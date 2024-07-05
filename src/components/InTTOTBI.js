@@ -12,7 +12,9 @@ import carl from "../components/imgs/tbi-team/Carl.png";
 import Ryzel from "../components/imgs/tbi-team/Ryzel.png";
 import Colston from "../components/imgs/tbi-team/Colston.png";
 import QrX from "../components/imgs/QrX.svg";
-import tempprofile from "../components/imgs/profile-investors.svg";
+import excel from "../components/imgs/tbi-team/Lhorexcel.png";
+import earl from "../components/imgs/tbi-team/Earl.png";
+import agnes from "../components/imgs/tbi-team/Agnes.png";
 
 export default function InTTOTBI() {
   const navigate = useNavigate();
@@ -179,11 +181,7 @@ export default function InTTOTBI() {
                 </p>
                 <div className="grid-container phone:hidden tablet:hidden tablet-m:hidden laptop-s:block">
                   <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-                    <img
-                      src={tempprofile}
-                      alt=""
-                      className="w-20 rounded-full"
-                    />
+                    <img src={excel} alt="" className="w-20 rounded-full" />
                     <div className="">
                       <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                         Lhorexcel Bombarda
@@ -191,11 +189,7 @@ export default function InTTOTBI() {
                     </div>
                   </div>
                   <div className="flex flex-col justify-center items-center text-center rounded-lg mt-5">
-                    <img
-                      src={tempprofile}
-                      alt=""
-                      className="w-20 rounded-full"
-                    />
+                    <img src={agnes} alt="" className="w-20 rounded-full" />
                     <div className="">
                       <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                         Agnes Nazarro
@@ -203,11 +197,7 @@ export default function InTTOTBI() {
                     </div>
                   </div>
                   <div className="flex flex-col justify-center items-center text-center mt-5">
-                    <img
-                      src={tempprofile}
-                      alt=""
-                      className="w-20 rounded-full"
-                    />
+                    <img src={earl} alt="" className="w-20 rounded-full" />
                     <div className="">
                       <h1 className=" tablet:text-[0.7rem] laptop-s:text-[0.9rem] desktop-s:text-[1rem] desktop-m:text-xl">
                         Earl Alexus Serafica
