@@ -8,12 +8,12 @@ import UP from "./imgs/SILBI_TBI.svg";
 import SLU from "./imgs/SLU.svg";
 import BSU from "./imgs/BSU.svg";
 import IFSU from "./imgs/IFSU-TBI.svg";
-import Henry from "./imgs/investors/Henry.svg";
-import Jaydee from "./imgs/investors/Jaydee.svg";
-import Wilson from "./imgs/investors/Wilson.svg";
-import Elmer from "./imgs/investors/Elmer.svg";
-import Angelo from "./imgs/investors/Angelo.svg";
-import Benjie from "./imgs/investors/Benjie.svg";
+import Henry from "./imgs/investors/Henry.webp";
+import Jaydee from "./imgs/investors/Jaydee.webp";
+import Wilson from "./imgs/investors/Wilson.webp";
+import Elmer from "./imgs/investors/Elmer.webp";
+import Angelo from "./imgs/investors/Angelo.webp";
+import Benjie from "./imgs/investors/Benjie.webp";
 
 function TBI() {
   const navigate = useNavigate();
