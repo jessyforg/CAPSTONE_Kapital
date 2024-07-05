@@ -32,9 +32,9 @@ function TarakiTeam() {
   }, []);
 
   return (
-    <div>
+    <section>
       <div className="font-satoshi overflow-x-hidden">
-        <div className="cont tablet:px-8">
+        <div className="cont tablet:px-8 phone:py-2">
           <section className="mt-16 tablet:mt-12 text-center">
             <h1
               className="font-semibold text-md tablet:text-lg tablet-m:text-2xl laptop-s:text-3xl laptop-m:text-[2.3rem] desktop-m:text-[2.9rem] desktop-m:mb-7 aos-init"
@@ -886,7 +886,7 @@ function TarakiTeam() {
           </section>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
