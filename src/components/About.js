@@ -42,6 +42,7 @@ function About() {
               loop
               muted
               playsInline
+              loading="lazy"
               className="header-video m-auto w-72 tablet:w-[95%] tablet-m:w-[100%] desktop-s:w-[195rem] laptop-s:w-[165rem] laptop-m:w-[185rem] desktop-m:w-[235rem]"
             >
               <source src={animation} type="video/webm" />

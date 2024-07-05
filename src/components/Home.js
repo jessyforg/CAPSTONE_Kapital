@@ -38,6 +38,7 @@ function Home() {
               muted
               playsInline
               className=" phone:hidden tablet:block absolute tablet:top-16 laptop-s:top-24 laptop-m:top-28 left-0 m-auto w-full"
+              loading="lazy"
             >
               <source src={video} type="video/webm" />
               Your browser does not support the video tag.
