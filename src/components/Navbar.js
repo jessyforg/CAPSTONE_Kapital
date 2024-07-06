@@ -360,7 +360,7 @@ function Navbar() {
                             id="user_name"
                             name="user_name"
                             className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-0 laptop-s:flex-1 min-w-0 w-[27rem] laptop-s:w-[30rem] text-sm border-gray-300 p-4"
-                            placeholder="John Hee Hee"
+                            placeholder="Enter your name"
                             required
                           />
                         </div>
