@@ -65,6 +65,31 @@
             border-radius: 5px;
         }
 
+        /* CTA Buttons */
+        .cta-buttons a {
+            display: inline-block;
+            background: linear-gradient(90deg, #f3c000, #ffab00);
+            color: #000;
+            font-weight: 600;
+            padding: 10px 20px;
+            margin-left: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-buttons a:hover {
+            background: linear-gradient(90deg, #ffab00, #f3c000);
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-buttons a:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
         /* Profile Dropdown */
         .profile-dropdown {
             position: relative;
@@ -92,15 +117,7 @@
             display: none;
             position: absolute;
             background-color: #222;
-            max-width: 100vw;
-            /* Prevents the dropdown from overflowing the screen */
-            width: auto;
-            /* Allows the dropdown to expand naturally */
-            box-sizing: border-box;
-            /* Ensures padding and border are included in the width calculation */
             min-width: 200px;
-            max-width: 250px;
-            /* Sets a maximum width for the dropdown */
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
             top: 100%;
@@ -110,8 +127,6 @@
             opacity: 0;
             transform: translateY(-10px);
             transition: opacity 0.3s ease, transform 0.3s ease;
-            overflow-x: auto;
-            /* Allow horizontal scrolling if the content overflows */
         }
 
         .profile-dropdown.open .dropdown-content {
@@ -171,8 +186,8 @@
                     <a href="logout.php" id="logOutBtn">Log Out</a>
                 <?php endif; ?>
             <?php else: ?>
-                <a href="sign_in.php" id="signInBtn">Sign In</a>
-                <a href="sign_up.php" id="signUpBtn">Sign Up</a>
+                <a href="sign_in.php" class="cta-btn">Sign In</a>
+                <a href="sign_up.php" class="cta-btn">Sign Up</a>
             <?php endif; ?>
         </div>
     </header>
