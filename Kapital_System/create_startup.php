@@ -43,8 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             SET 
                 name = '$startup_name',
                 industry = '$industry',
+                funding_stage = '$funding_stage',
                 description = '$description',
                 location = '$location',
+                website = '$website',
                 pitch_deck_url = '$pitch_deck_url',
                 business_plan_url = '$business_plan_url'
             WHERE entrepreneur_id = '$user_id'
@@ -52,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result_update_startup = mysqli_query($conn, $query_update_startup);
 
         if ($result_update_startup) {
-            echo "Startup profile updated successfully!";
+            echo "<script>alert('Startup profile updated successfully!');</script>";
         } else {
-            echo "Error updating startup profile: " . mysqli_error($conn);
+            echo "<script>alert('Error updating startup profile: " . mysqli_error($conn) . "');</script>";
         }
     } else {
         // Insert a new record into Startups table
@@ -63,16 +65,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 entrepreneur_id, 
                 name, 
                 industry, 
+                funding_stage, 
                 description, 
                 location, 
+                website, 
                 pitch_deck_url, 
                 business_plan_url
             ) VALUES (
                 '$user_id', 
                 '$startup_name', 
                 '$industry', 
+                '$funding_stage', 
                 '$description', 
                 '$location', 
+                '$website', 
                 '$pitch_deck_url', 
                 '$business_plan_url'
             )
@@ -80,149 +86,149 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result_insert_startup = mysqli_query($conn, $query_insert_startup);
 
         if ($result_insert_startup) {
-            echo "Startup profile created successfully!";
+            echo "<script>alert('Startup profile created successfully!');</script>";
         } else {
-            echo "Error creating startup profile: " . mysqli_error($conn);
+            echo "<script>alert('Error creating startup profile: " . mysqli_error($conn) . "');</script>";
         }
     }
 }
 ?>
 
-<!-- Embedded CSS and form code -->
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    .container {
-        width: 80%;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create or Update Startup Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-    h1 {
-        font-size: 2rem;
-        color: #333;
-        margin-bottom: 20px;
-    }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-    .form-group {
-        margin-bottom: 15px;
-    }
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    .form-group label {
-        font-size: 1rem;
-        color: #333;
-        display: block;
-        margin-bottom: 5px;
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
+        .form-group label {
+            font-size: 1rem;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-    .form-group textarea {
-        resize: vertical;
-        height: 150px;
-    }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-    .form-group select {
-        padding: 12px 10px;
-    }
+        .form-group textarea {
+            resize: vertical;
+            height: 150px;
+        }
 
-    button {
-        background-color: #007bff;
-        color: white;
-        padding: 12px 20px;
-        font-size: 1rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+        .form-group select {
+            padding: 12px 10px;
+        }
 
-    button:hover {
-        background-color: #0056b3;
-    }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-    .form-group input[type="text"] {
-        height: 40px;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
 
-    .form-group input[type="submit"] {
-        width: auto;
-        background-color: #28a745;
-    }
+<body>
+    <div class="container">
+        <h1>Create or Update Your Startup Profile</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="startup_name">Startup Name</label>
+                <input type="text" id="startup_name" name="startup_name" placeholder="Enter your startup's name"
+                    required>
+            </div>
 
-    .form-group input[type="submit"]:hover {
-        background-color: #218838;
-    }
-</style>
+            <div class="form-group">
+                <label for="industry">Industry</label>
+                <input type="text" id="industry" name="industry"
+                    placeholder="Enter your industry (e.g., Technology, Health)" required>
+            </div>
 
-<div class="container">
-    <h1>Create or Update Your Startup Profile</h1>
-    <form method="POST">
-        <div class="form-group">
-            <label for="startup_name">Startup Name</label>
-            <input type="text" id="startup_name" name="startup_name" placeholder="Enter your startup's name" required>
-        </div>
+            <div class="form-group">
+                <label for="funding_stage">Funding Stage</label>
+                <select id="funding_stage" name="funding_stage" required>
+                    <option value="seed">Seed</option>
+                    <option value="series_a">Series A</option>
+                    <option value="series_b">Series B</option>
+                    <option value="series_c">Series C</option>
+                    <option value="exit">Exit</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="industry">Industry</label>
-            <input type="text" id="industry" name="industry"
-                placeholder="Enter your industry (e.g., Technology, Health)" required>
-        </div>
+            <div class="form-group">
+                <label for="description">Startup Description</label>
+                <textarea id="description" name="description" placeholder="Provide a brief description of your startup"
+                    required></textarea>
+            </div>
 
-        <div class="form-group">
-            <label for="funding_stage">Funding Stage</label>
-            <select id="funding_stage" name="funding_stage" required>
-                <option value="seed">Seed</option>
-                <option value="series_a">Series A</option>
-                <option value="series_b">Series B</option>
-                <option value="series_c">Series C</option>
-                <option value="exit">Exit</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter your location">
+            </div>
 
-        <div class="form-group">
-            <label for="description">Startup Description</label>
-            <textarea id="description" name="description" placeholder="Provide a brief description of your startup"
-                required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website" placeholder="Enter your website URL">
+            </div>
 
-        <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" name="location" placeholder="Enter your location (e.g., New York, USA)">
-        </div>
+            <div class="form-group">
+                <label for="pitch_deck_url">Pitch Deck URL</label>
+                <input type="text" id="pitch_deck_url" name="pitch_deck_url"
+                    placeholder="Enter the URL to your pitch deck">
+            </div>
 
-        <div class="form-group">
-            <label for="website">Website</label>
-            <input type="text" id="website" name="website" placeholder="Enter your website URL">
-        </div>
+            <div class="form-group">
+                <label for="business_plan_url">Business Plan URL</label>
+                <input type="text" id="business_plan_url" name="business_plan_url"
+                    placeholder="Enter the URL to your business plan">
+            </div>
 
-        <div class="form-group">
-            <label for="pitch_deck_url">Pitch Deck URL</label>
-            <input type="text" id="pitch_deck_url" name="pitch_deck_url" placeholder="Enter the URL to your pitch deck">
-        </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
 
-        <div class="form-group">
-            <label for="business_plan_url">Business Plan URL</label>
-            <input type="text" id="business_plan_url" name="business_plan_url"
-                placeholder="Enter the URL to your business plan">
-        </div>
-
-        <button type="submit">Submit</button>
-    </form>
-</div>
+</html>
