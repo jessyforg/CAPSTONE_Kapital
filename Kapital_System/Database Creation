@@ -1,0 +1,113 @@
+CREATE DATABASE StartupConnect
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE StartupConnect;
+
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('entrepreneur', 'investor', 'job_seeker') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Entrepreneurs (
+    entrepreneur_id INT PRIMARY KEY,
+    startup_name VARCHAR(255) NOT NULL,
+    industry VARCHAR(255) NOT NULL,
+    funding_stage ENUM('seed', 'series_a', 'series_b', 'series_c', 'exit') NOT NULL,
+    description TEXT,
+    location VARCHAR(255),
+    website VARCHAR(255),
+    pitch_deck_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (entrepreneur_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Investors (
+    investor_id INT PRIMARY KEY,
+    investment_range_min DECIMAL(15, 2) NOT NULL,
+    investment_range_max DECIMAL(15, 2) NOT NULL,
+    preferred_industries JSON,
+    preferred_locations JSON,
+    funding_stage_preferences JSON,
+    bio TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (investor_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Job_Seekers (
+    job_seeker_id INT PRIMARY KEY,
+    resume_url VARCHAR(255),
+    skills JSON,
+    desired_role VARCHAR(255),
+    experience_level ENUM('entry', 'mid', 'senior') NOT NULL,
+    location_preference VARCHAR(255),
+    bio TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (job_seeker_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Startups (
+    startup_id INT AUTO_INCREMENT PRIMARY KEY,
+    entrepreneur_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    industry VARCHAR(255) NOT NULL,
+    description TEXT,
+    location VARCHAR(255),
+    funding_needed DECIMAL(15, 2),
+    pitch_deck_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (entrepreneur_id) REFERENCES Entrepreneurs(entrepreneur_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Jobs (
+    job_id INT AUTO_INCREMENT PRIMARY KEY,
+    startup_id INT NOT NULL,
+    role VARCHAR(255) NOT NULL,
+    description TEXT,
+    requirements TEXT,
+    location VARCHAR(255),
+    salary_range_min DECIMAL(15, 2),
+    salary_range_max DECIMAL(15, 2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (startup_id) REFERENCES Startups(startup_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Matches (
+    match_id INT AUTO_INCREMENT PRIMARY KEY,
+    startup_id INT NOT NULL,
+    investor_id INT NOT NULL,
+    match_score DECIMAL(5, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (startup_id) REFERENCES Startups(startup_id) ON DELETE CASCADE,
+    FOREIGN KEY (investor_id) REFERENCES Investors(investor_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Applications (
+    application_id INT AUTO_INCREMENT PRIMARY KEY,
+    job_id INT NOT NULL,
+    job_seeker_id INT NOT NULL,
+    status ENUM('applied', 'reviewed', 'interviewed', 'hired', 'rejected') DEFAULT 'applied',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (job_id) REFERENCES Jobs(job_id) ON DELETE CASCADE,
+    FOREIGN KEY (job_seeker_id) REFERENCES Job_Seekers(job_seeker_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    content TEXT NOT NULL,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
