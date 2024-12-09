@@ -1,7 +1,7 @@
 <?php
-session_start(); // Start the session
+session_start();
 include('navbar.php');
-include('db_connection.php'); // Assuming a separate file for database connection
+include('db_connection.php');
 
 // Redirect if the user is not logged in or does not have the entrepreneur role
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'entrepreneur') {
@@ -9,220 +9,143 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'entrepreneur') {
     exit("Redirecting to login page...");
 }
 
-// Retrieve the user ID from the session
 $user_id = $_SESSION['user_id'];
 
-// Check if the entrepreneur exists in the Entrepreneurs table
-$query = "SELECT entrepreneur_id FROM Entrepreneurs WHERE entrepreneur_id = '$user_id'";
+// Retrieve the entrepreneur details
+$query = "SELECT * FROM Entrepreneurs WHERE entrepreneur_id = '$user_id'";
 $result = mysqli_query($conn, $query);
+$entrepreneur = mysqli_fetch_assoc($result);
 
-if (mysqli_num_rows($result) === 0) {
-    die("Entrepreneur profile not found. Please ensure you have registered as an entrepreneur.");
-}
-
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitize and retrieve the form data
-    $startup_name = mysqli_real_escape_string($conn, $_POST['startup_name']);
-    $industry = mysqli_real_escape_string($conn, $_POST['industry']);
-    $funding_stage = mysqli_real_escape_string($conn, $_POST['funding_stage']);
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $location = mysqli_real_escape_string($conn, $_POST['location']);
-    $website = mysqli_real_escape_string($conn, $_POST['website']);
-    $pitch_deck_url = mysqli_real_escape_string($conn, $_POST['pitch_deck_url']);
-    $business_plan_url = mysqli_real_escape_string($conn, $_POST['business_plan_url']);
-
-    // Check if a record already exists in the Startups table
-    $query_check_startup = "SELECT startup_id FROM Startups WHERE entrepreneur_id = '$user_id'";
-    $result_check_startup = mysqli_query($conn, $query_check_startup);
-
-    if (mysqli_num_rows($result_check_startup) > 0) {
-        // Update the existing record in Startups table
-        $query_update_startup = "
-            UPDATE Startups 
-            SET 
-                name = '$startup_name',
-                industry = '$industry',
-                description = '$description',
-                location = '$location',
-                pitch_deck_url = '$pitch_deck_url',
-                business_plan_url = '$business_plan_url'
-            WHERE entrepreneur_id = '$user_id'
-        ";
-        $result_update_startup = mysqli_query($conn, $query_update_startup);
-
-        if ($result_update_startup) {
-            echo "Startup profile updated successfully!";
-        } else {
-            echo "Error updating startup profile: " . mysqli_error($conn);
-        }
-    } else {
-        // Insert a new record into Startups table
-        $query_insert_startup = "
-            INSERT INTO Startups (
-                entrepreneur_id, 
-                name, 
-                industry, 
-                description, 
-                location, 
-                pitch_deck_url, 
-                business_plan_url
-            ) VALUES (
-                '$user_id', 
-                '$startup_name', 
-                '$industry', 
-                '$description', 
-                '$location', 
-                '$pitch_deck_url', 
-                '$business_plan_url'
-            )
-        ";
-        $result_insert_startup = mysqli_query($conn, $query_insert_startup);
-
-        if ($result_insert_startup) {
-            echo "Startup profile created successfully!";
-        } else {
-            echo "Error creating startup profile: " . mysqli_error($conn);
-        }
-    }
-}
+// Fetch startups posted by the entrepreneur and others
+$startups_query = "
+    SELECT * FROM Startups 
+    WHERE entrepreneur_id = '$user_id' 
+    OR entrepreneur_id IN (SELECT entrepreneur_id FROM Startups)
+    ORDER BY created_at DESC";
+$startups_result = mysqli_query($conn, $startups_query);
 ?>
 
-<!-- Embedded CSS and form code -->
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
+<!-- Display the entrepreneur's dashboard -->
+<div class="container">
+    <h1>Welcome, <span
+            class="entrepreneur-name"><?php echo isset($entrepreneur['name']) ? $entrepreneur['name'] : 'Entrepreneur'; ?></span>!
+    </h1>
 
+    <a href="profile.php" class="btn btn-primary">Edit Profile</a>
+    <a href="create_startup.php" class="btn btn-secondary">Create New Startup</a>
+
+    <h2>News Feed</h2>
+    <?php
+    while ($startup = mysqli_fetch_assoc($startups_result)): ?>
+        <div class="startup-post">
+            <h3><?php echo isset($startup['name']) ? $startup['name'] : 'Startup Name'; ?></h3>
+            <p><strong>Industry:</strong> <?php echo isset($startup['industry']) ? $startup['industry'] : 'Not Provided'; ?>
+            </p>
+            <p><strong>Funding Stage:</strong>
+                <?php echo isset($startup['funding_stage']) ? $startup['funding_stage'] : 'Not Provided'; ?></p>
+            <p><strong>Description:</strong>
+                <?php echo isset($startup['description']) ? $startup['description'] : 'No description provided'; ?></p>
+            <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View
+                Details</a>
+        </div>
+    <?php endwhile; ?>
+</div>
+
+<!-- Embedded CSS -->
+<style>
     .container {
         width: 80%;
         margin: 0 auto;
-        padding: 20px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-        font-size: 2rem;
-        color: #333;
+        font-size: 2.5rem;
+        font-weight: bold;
         margin-bottom: 20px;
+        text-align: center;
     }
 
-    .form-group {
+    .entrepreneur-name {
+        color: #D8A25E;
+        /* Updated color for Entrepreneur's name */
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #D8A25E;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .startup-post {
+        background-color: #ffffff;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+        overflow: hidden;
+    }
+
+    .startup-post:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .startup-post h3 {
+        font-size: 1.5rem;
+        color: #333;
         margin-bottom: 15px;
     }
 
-    .form-group label {
+    .startup-post p {
         font-size: 1rem;
-        color: #333;
-        display: block;
-        margin-bottom: 5px;
+        color: #555;
+        margin: 5px 0;
     }
 
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        border: 1px solid #ccc;
+    .startup-post .btn {
+        padding: 10px 15px;
+        margin-top: 15px;
         border-radius: 5px;
-        box-sizing: border-box;
+        text-decoration: none;
+        display: inline-block;
     }
 
-    .form-group textarea {
-        resize: vertical;
-        height: 150px;
+    .startup-post .btn-info {
+        background-color: #17a2b8;
+        color: white;
     }
 
-    .form-group select {
-        padding: 12px 10px;
+    .startup-post .btn-info:hover {
+        background-color: #138496;
     }
 
-    button {
+    .startup-post .btn-info:focus {
+        outline: none;
+    }
+
+    .btn-primary {
         background-color: #007bff;
         color: white;
-        padding: 12px 20px;
-        font-size: 1rem;
-        border: none;
+        padding: 10px 15px;
         border-radius: 5px;
-        cursor: pointer;
+        text-decoration: none;
     }
 
-    button:hover {
+    .btn-primary:hover {
         background-color: #0056b3;
     }
 
-    .form-group input[type="text"] {
-        height: 40px;
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
     }
 
-    .form-group input[type="submit"] {
-        width: auto;
-        background-color: #28a745;
-    }
-
-    .form-group input[type="submit"]:hover {
-        background-color: #218838;
+    .btn-secondary:hover {
+        background-color: #5a6268;
     }
 </style>
-
-<div class="container">
-    <h1>Create or Update Your Startup Profile</h1>
-    <form method="POST">
-        <div class="form-group">
-            <label for="startup_name">Startup Name</label>
-            <input type="text" id="startup_name" name="startup_name" placeholder="Enter your startup's name" required>
-        </div>
-
-        <div class="form-group">
-            <label for="industry">Industry</label>
-            <input type="text" id="industry" name="industry"
-                placeholder="Enter your industry (e.g., Technology, Health)" required>
-        </div>
-
-        <div class="form-group">
-            <label for="funding_stage">Funding Stage</label>
-            <select id="funding_stage" name="funding_stage" required>
-                <option value="seed">Seed</option>
-                <option value="series_a">Series A</option>
-                <option value="series_b">Series B</option>
-                <option value="series_c">Series C</option>
-                <option value="exit">Exit</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Startup Description</label>
-            <textarea id="description" name="description" placeholder="Provide a brief description of your startup"
-                required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" name="location" placeholder="Enter your location (e.g., New York, USA)">
-        </div>
-
-        <div class="form-group">
-            <label for="website">Website</label>
-            <input type="text" id="website" name="website" placeholder="Enter your website URL">
-        </div>
-
-        <div class="form-group">
-            <label for="pitch_deck_url">Pitch Deck URL</label>
-            <input type="text" id="pitch_deck_url" name="pitch_deck_url" placeholder="Enter the URL to your pitch deck">
-        </div>
-
-        <div class="form-group">
-            <label for="business_plan_url">Business Plan URL</label>
-            <input type="text" id="business_plan_url" name="business_plan_url"
-                placeholder="Enter the URL to your business plan">
-        </div>
-
-        <button type="submit">Submit</button>
-    </form>
-</div>
