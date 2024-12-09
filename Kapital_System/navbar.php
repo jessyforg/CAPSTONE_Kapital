@@ -1,3 +1,10 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Start session only if it is not already started
+}
+ob_start(); // Start output buffering
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -228,3 +235,7 @@
 </body>
 
 </html>
+
+<?php
+ob_end_flush(); // Flush the output buffer and stop buffering
+?>
