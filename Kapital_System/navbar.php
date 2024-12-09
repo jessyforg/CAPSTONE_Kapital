@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
@@ -119,10 +120,34 @@
             </ul>
         </nav>
         <div class="cta-buttons">
-            <a href="signin.php">Sign In</a>
-            <a href="signup.php">Sign Up</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="logout.php" id="logOutBtn">Log Out</a>
+            <?php else: ?>
+                <a href="sign_in.php" id="signInBtn">Sign In</a>
+                <a href="sign_up.php" id="signUpBtn">Sign Up</a>
+            <?php endif; ?>
         </div>
     </header>
+
+    <script>
+        // Function to set active class on the current page
+        function setActiveLink() {
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                if (currentPage.includes(link.getAttribute('href'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Call the function when the page loads
+        window.onload = () => {
+            setActiveLink();
+        };
+    </script>
 </body>
 
 </html>

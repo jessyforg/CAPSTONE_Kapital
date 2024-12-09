@@ -111,3 +111,6 @@ CREATE TABLE Messages (
     FOREIGN KEY (sender_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (receiver_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
+
+ALTER TABLE Startups
+ADD COLUMN business_plan_url VARCHAR(255);

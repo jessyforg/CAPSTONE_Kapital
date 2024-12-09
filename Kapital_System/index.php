@@ -1,3 +1,6 @@
+<?php
+session_start(); // Start session to check login status
+?>
 <!DOCTYPE html>
 <html lang="en">
 

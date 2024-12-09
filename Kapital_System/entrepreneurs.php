@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     body {
-        font-family: 'Arial', sans-serif;
+        font-family: 'Poppins', sans-serif;
         background-color: #f4f7fb;
         color: #333;
         line-height: 1.6;
