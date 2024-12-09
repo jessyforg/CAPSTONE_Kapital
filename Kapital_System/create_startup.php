@@ -101,26 +101,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create or Update Startup Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #343131, #808080);
+            color: #fff;
         }
 
         .container {
-            width: 80%;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
-            background-color: white;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
+            color: #f4f4f4;
             font-size: 2rem;
-            color: #333;
             margin-bottom: 20px;
         }
 
@@ -128,45 +129,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 15px;
         }
 
-        .form-group label {
-            font-size: 1rem;
-            color: #333;
+        label {
             display: block;
             margin-bottom: 5px;
+            font-weight: bold;
+            color: #ddd;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        input,
+        textarea,
+        select,
+        button {
             width: 100%;
             padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 10px;
         }
 
-        .form-group textarea {
+        input,
+        textarea,
+        select {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #bbb;
+            font-size: 16px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        button {
+            background: #D8A25E;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background: #D8A25E;
+        }
+
+        textarea {
             resize: vertical;
             height: 150px;
         }
 
-        .form-group select {
+        select {
             padding: 12px 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
         }
 
-        button {
-            background-color: #007bff;
+        select option {
+            background-color: #333;
             color: white;
-            padding: 12px 20px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        .success {
+            color: #4caf50;
+        }
+
+        .error {
+            color: #f44336;
         }
     </style>
 </head>
