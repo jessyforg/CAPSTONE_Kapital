@@ -31,12 +31,14 @@ $startups_result = mysqli_query($conn, $startups_query);
             class="entrepreneur-name"><?php echo isset($entrepreneur['name']) ? $entrepreneur['name'] : 'Entrepreneur'; ?></span>!
     </h1>
 
-    <a href="profile.php" class="btn btn-primary">Edit Profile</a>
     <a href="create_startup.php" class="btn btn-secondary">Create New Startup</a>
 
     <h2>News Feed</h2>
     <?php
-    while ($startup = mysqli_fetch_assoc($startups_result)): ?>
+    while ($startup = mysqli_fetch_assoc($startups_result)):
+        // Check if the current user is the one who posted the startup
+        $is_entrepreneur_post = $startup['entrepreneur_id'] == $user_id;
+        ?>
         <div class="startup-post">
             <h3><?php echo isset($startup['name']) ? $startup['name'] : 'Startup Name'; ?></h3>
             <p><strong>Industry:</strong> <?php echo isset($startup['industry']) ? $startup['industry'] : 'Not Provided'; ?>
@@ -45,6 +47,14 @@ $startups_result = mysqli_query($conn, $startups_query);
                 <?php echo isset($startup['funding_stage']) ? $startup['funding_stage'] : 'Not Provided'; ?></p>
             <p><strong>Description:</strong>
                 <?php echo isset($startup['description']) ? $startup['description'] : 'No description provided'; ?></p>
+
+            <!-- Show the edit button only if the logged-in entrepreneur posted the startup -->
+            <?php if ($is_entrepreneur_post): ?>
+                <a href="edit_startup.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-warning">Edit
+                    Startup</a>
+            <?php endif; ?>
+
+            <!-- Show the view details button for everyone -->
             <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View
                 Details</a>
         </div>
@@ -125,16 +135,13 @@ $startups_result = mysqli_query($conn, $startups_query);
         outline: none;
     }
 
-    .btn-primary {
-        background-color: #007bff;
+    .startup-post .btn-warning {
+        background-color: #ffc107;
         color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        text-decoration: none;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
+    .startup-post .btn-warning:hover {
+        background-color: #e0a800;
     }
 
     .btn-secondary {
