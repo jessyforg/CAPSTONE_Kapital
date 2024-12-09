@@ -114,3 +114,25 @@ CREATE TABLE Messages (
 
 ALTER TABLE Startups
 ADD COLUMN business_plan_url VARCHAR(255);
+
+-- Step 1: Remove redundant columns from Entrepreneurs table
+ALTER TABLE Entrepreneurs
+DROP COLUMN startup_name,
+DROP COLUMN industry,
+DROP COLUMN funding_stage,
+DROP COLUMN description,
+DROP COLUMN location,
+DROP COLUMN website,
+DROP COLUMN pitch_deck_url,
+DROP COLUMN business_plan_url;
+
+-- Step 2: Alter Startups table to add business_plan_url
+ALTER TABLE Startups
+ADD COLUMN business_plan_url VARCHAR(255);
+
+-- Step 3: Ensure that the Startups table has the entrepreneur_id as a foreign key
+-- (Already exists, but just to confirm integrity)
+ALTER TABLE Startups
+ADD CONSTRAINT fk_entrepreneur_id
+FOREIGN KEY (entrepreneur_id) REFERENCES Entrepreneurs(entrepreneur_id)
+ON DELETE CASCADE;

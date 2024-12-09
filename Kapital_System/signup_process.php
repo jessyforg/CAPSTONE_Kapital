@@ -1,8 +1,9 @@
 <?php
+session_start();
 // Database connection
 $servername = "localhost";
-$username = "root"; // Your MySQL username
-$password = ""; // Your MySQL password
+$username = "root";
+$password = "";
 $dbname = "StartupConnect";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -34,18 +35,37 @@ if ($conn->query($sql) === TRUE) {
     // Get the user_id of the newly inserted user
     $user_id = $conn->insert_id;
 
-    // Redirect user to their specific page based on the role
+    // Start the session and set session variables
+    $_SESSION['user_id'] = $user_id;
+    $_SESSION['role'] = $role;
+
+    // Based on the role, insert into the appropriate table
     switch ($role) {
         case 'entrepreneur':
-            header("Location: entrepreneurs.php?user_id=$user_id");
+            $sql_entrepreneur = "INSERT INTO Entrepreneurs (entrepreneur_id) VALUES ('$user_id')";
+            if ($conn->query($sql_entrepreneur) === TRUE) {
+                header("Location: entrepreneurs.php");
+            } else {
+                echo "Error inserting into Entrepreneurs table: " . $conn->error;
+            }
             break;
 
         case 'investor':
-            header("Location: investors.php?user_id=$user_id");
+            $sql_investor = "INSERT INTO Investors (investor_id) VALUES ('$user_id')";
+            if ($conn->query($sql_investor) === TRUE) {
+                header("Location: investors.php");
+            } else {
+                echo "Error inserting into Investors table: " . $conn->error;
+            }
             break;
 
         case 'job_seeker':
-            header("Location: job-seekers.php?user_id=$user_id");
+            $sql_job_seeker = "INSERT INTO Job_Seekers (job_seeker_id) VALUES ('$user_id')";
+            if ($conn->query($sql_job_seeker) === TRUE) {
+                header("Location: job-seekers.php");
+            } else {
+                echo "Error inserting into Job Seekers table: " . $conn->error;
+            }
             break;
 
         default:
