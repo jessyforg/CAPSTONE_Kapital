@@ -94,22 +94,32 @@ include 'navbar.php';
         <h1 class="section-title">Available Jobs</h1>
         <div class="job-list">
             <?php
-            $query = "SELECT Jobs.job_id, Jobs.role, Jobs.description, Jobs.location, Jobs.salary_range_min, Jobs.salary_range_max, 
+            // Query to fetch job details and related startup details
+            $query = "SELECT Jobs.job_id, Jobs.role, Jobs.description, Jobs.requirements, Jobs.location, Jobs.salary_range_min, Jobs.salary_range_max, 
                       Startups.name AS startup_name, Startups.industry 
                       FROM Jobs 
                       JOIN Startups ON Jobs.startup_id = Startups.startup_id";
             $result = mysqli_query($conn, $query);
 
+            // Loop through the result and display job cards
             while ($job = mysqli_fetch_assoc($result)): ?>
                 <div class="job-card">
-                    <h3><?php echo htmlspecialchars($job['role']); ?></h3>
+                    <h3><?php echo htmlspecialchars($job['role']); ?></h3> <!-- Job Title -->
                     <p><strong>Startup:</strong> <?php echo htmlspecialchars($job['startup_name']); ?></p>
+                    <!-- Startup Name -->
                     <p><strong>Industry:</strong> <?php echo htmlspecialchars($job['industry']); ?></p>
+                    <!-- Startup Industry -->
                     <p><strong>Location:</strong> <?php echo htmlspecialchars($job['location']); ?></p>
+                    <!-- Job Location -->
                     <p><strong>Salary:</strong> <?php echo htmlspecialchars($job['salary_range_min']); ?> -
-                        <?php echo htmlspecialchars($job['salary_range_max']); ?></p>
-                    <p><?php echo htmlspecialchars($job['description']); ?></p>
+                        <?php echo htmlspecialchars($job['salary_range_max']); ?>
+                    </p> <!-- Salary Range -->
+                    <p><strong>Description:</strong> <?php echo htmlspecialchars($job['description']); ?></p>
+                    <!-- Job Description -->
+                    <p><strong>Requirements:</strong> <?php echo htmlspecialchars($job['requirements']); ?></p>
+                    <!-- Job Requirements -->
                     <a href="job-details.php?job_id=<?php echo $job['job_id']; ?>">View Details</a>
+                    <!-- Link to job details page -->
                 </div>
             <?php endwhile; ?>
         </div>

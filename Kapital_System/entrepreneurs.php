@@ -33,6 +33,9 @@ $startups_result = mysqli_query($conn, $startups_query);
 
     <a href="create_startup.php" class="btn btn-secondary">Create New Startup</a>
 
+    <!-- Link to post job (only visible to entrepreneurs) -->
+    <a href="post-job.php" class="btn btn-primary">Post a Job</a>
+
     <h2>News Feed</h2>
     <?php
     while ($startup = mysqli_fetch_assoc($startups_result)):
@@ -154,5 +157,18 @@ $startups_result = mysqli_query($conn, $startups_query);
 
     .btn-secondary:hover {
         background-color: #5a6268;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
     }
 </style>
