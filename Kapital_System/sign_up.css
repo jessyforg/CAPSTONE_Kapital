@@ -1,0 +1,144 @@
+/* Import Poppins font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+/* General Reset and Box Model */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Poppins", sans-serif; /* Apply Poppins font */
+	background: linear-gradient(
+		45deg,
+		#ffd700,
+		#000000
+	); /* Black to Gold Gradient */
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px; /* Padding around body */
+}
+
+/* Container for centering the form */
+.container {
+	background-color: rgba(255, 255, 255, 0.95);
+	padding: 40px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 420px; /* Limit max width */
+	max-height: 90vh; /* Prevent form from growing too tall */
+	text-align: center;
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+/* Heading Style */
+h2 {
+	font-size: 2rem;
+	margin-bottom: 20px; /* Space below the title */
+	color: #000000; /* Black color for text */
+	font-weight: 600;
+	text-align: center; /* Center the title */
+}
+
+/* Form Elements */
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start; /* Align elements to the left */
+	width: 100%; /* Full width */
+}
+
+/* Labels */
+label {
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 8px 0; /* Spacing between label and input */
+	width: 100%;
+	text-align: left;
+}
+
+/* Input fields */
+input,
+select,
+button,
+textarea {
+	padding: 12px;
+	margin: 8px 0;
+	border: 1px solid #ffd700; /* Gold border */
+	border-radius: 5px;
+	font-size: 1rem;
+	font-family: "Poppins", sans-serif;
+	width: 100%; /* Full width */
+	box-sizing: border-box;
+}
+
+/* Focused input styling */
+input:focus,
+select:focus,
+textarea:focus {
+	border-color: #ffd700;
+	outline: none;
+}
+
+/* Button styling */
+button {
+	background-color: #ffd700; /* Gold button */
+	color: black;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	border: none;
+	border-radius: 5px;
+	font-family: "Poppins", sans-serif;
+	font-size: 1.1rem;
+	padding: 14px 0;
+	width: 100%; /* Full width button */
+}
+
+button:hover {
+	background-color: #ffcc00; /* Slightly darker gold on hover */
+}
+
+/* Textarea styling for Bio and Preferred Industries */
+textarea {
+	resize: vertical;
+	min-height: 100px;
+	padding: 12px;
+}
+
+/* Link styling */
+a {
+	color: #330033;
+	text-decoration: none;
+	font-family: "Poppins", sans-serif;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+	.container {
+		width: 90%;
+	}
+
+	h2 {
+		font-size: 1.8rem;
+	}
+
+	input,
+	select,
+	button,
+	textarea {
+		font-size: 1rem;
+		padding: 12px;
+	}
+}
