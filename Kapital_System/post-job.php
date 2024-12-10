@@ -33,7 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               VALUES ('$startup_id', '$role', '$description', '$requirements', '$location', '$salary_range_min', '$salary_range_max')";
 
     if (mysqli_query($conn, $query)) {
-        echo "Job posted successfully!";
+        // Redirect to entrepreneurs.php after successfully posting the job
+        header('Location: entrepreneurs.php'); 
+        exit(); // Ensure no further code is executed
     } else {
         echo "Error posting job: " . mysqli_error($conn);
     }
