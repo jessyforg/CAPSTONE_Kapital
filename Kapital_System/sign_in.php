@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In - StartupConnect</title>
+    <title>Sign In - Kapital</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -20,7 +20,7 @@
 
             <button type="submit">Sign In</button>
         </form>
-        <p>Don't have an account? <a href="sign_up.php">Sign Up</a></p>
+        <p>Don't have an account? <a href="sign_up.php" class="sign-up-btn">Sign Up</a></p> <!-- Button updated -->
     </div>
 </body>
 
