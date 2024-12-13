@@ -22,6 +22,53 @@ if ($result->num_rows > 0) {
 } else {
     die("Startup not found.");
 }
+
+// Check if the user is logged in and has an investor role
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'investor') {
+    die("You need to be an investor to interact with startups.");
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Handle the match action (button click)
+if (isset($_POST['match_startup_id'])) {
+    $startup_id = mysqli_real_escape_string($conn, $_POST['match_startup_id']);
+    
+    // Check if this match already exists
+    $check_match_query = "SELECT * FROM Matches WHERE investor_id = '$user_id' AND startup_id = '$startup_id'";
+    $check_match_result = mysqli_query($conn, $check_match_query);
+    
+    if (mysqli_num_rows($check_match_result) == 0) {
+        // Insert the match into the Matches table
+        $insert_match_query = "INSERT INTO Matches (investor_id, startup_id, created_at) VALUES ('$user_id', '$startup_id', NOW())";
+        mysqli_query($conn, $insert_match_query);
+    }
+
+    // After the match is processed, redirect to avoid resubmission
+    header("Location: startup_detail.php?startup_id=$startup_id"); // Redirect to the same page
+    exit(); // Stop the script to avoid any further execution
+}
+
+// Handle the unmatch action (button click)
+if (isset($_POST['unmatch_startup_id'])) {
+    $startup_id = mysqli_real_escape_string($conn, $_POST['unmatch_startup_id']);
+    
+    // Delete the match from the Matches table
+    $delete_match_query = "DELETE FROM Matches WHERE investor_id = '$user_id' AND startup_id = '$startup_id'";
+    mysqli_query($conn, $delete_match_query);
+
+    // After unmatch, redirect to the same page to avoid resubmission
+    header("Location: startup_detail.php?startup_id=$startup_id"); // Redirect to the same page
+    exit(); // Stop the script to avoid any further execution
+}
+
+// Check if the investor has already matched with this startup
+$check_match_query = "SELECT * FROM Matches WHERE investor_id = ? AND startup_id = ?";
+$match_stmt = $conn->prepare($check_match_query);
+$match_stmt->bind_param("ii", $user_id, $startup_id);
+$match_stmt->execute();
+$match_result = $match_stmt->get_result();
+$is_matched = $match_result->num_rows > 0;
 ?>
 
 <!DOCTYPE html>
@@ -126,6 +173,20 @@ if ($result->num_rows > 0) {
                 <?php endif; ?>
             </p>
         </div>
+
+        <!-- Match/Unmatch Button -->
+        <?php if ($is_matched): ?>
+            <form method="POST" action="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup_id); ?>">
+                <input type="hidden" name="unmatch_startup_id" value="<?php echo htmlspecialchars($startup_id); ?>">
+                <button type="submit">Unmatch</button>
+            </form>
+        <?php else: ?>
+            <form method="POST" action="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup_id); ?>">
+                <input type="hidden" name="match_startup_id" value="<?php echo htmlspecialchars($startup_id); ?>">
+                <button type="submit">Match</button>
+            </form>
+        <?php endif; ?>
+
         <button onclick="window.history.back();">Back to Startups</button>
     </div>
 </body>
