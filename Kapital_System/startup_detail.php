@@ -78,8 +78,8 @@ if ($user_role === 'investor') {
 $admin_details = null;
 $is_owner = false;
 if ($user_role === 'entrepreneur') {
-    // Fetch admin details
-    $admin_query = "SELECT a.admin_name FROM Admins a INNER JOIN Startups s ON a.admin_id = s.admin_id WHERE s.startup_id = ?";
+    // Fetch admin details from the Users table
+    $admin_query = "SELECT u.name FROM Users u INNER JOIN Startups s ON u.user_id = s.approved_by WHERE s.startup_id = ?";
     $admin_stmt = $conn->prepare($admin_query);
     $admin_stmt->bind_param("i", $startup_id);
     $admin_stmt->execute();
@@ -200,7 +200,7 @@ if ($user_role === 'entrepreneur') {
                 <?php endif; ?>
             </p>
             <?php if ($admin_details): ?>
-                <p><strong>Approved By Admin:</strong> <?php echo htmlspecialchars($admin_details['admin_name']); ?></p>
+                <p><strong>Approved By Admin:</strong> <?php echo htmlspecialchars($admin_details['name']); ?></p>
             <?php endif; ?>
         </div>
 
