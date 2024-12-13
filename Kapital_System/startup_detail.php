@@ -23,52 +23,79 @@ if ($result->num_rows > 0) {
     die("Startup not found.");
 }
 
-// Check if the user is logged in and has an investor role
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'investor') {
-    die("You need to be an investor to interact with startups.");
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    die("You need to log in to access this page.");
 }
 
 $user_id = $_SESSION['user_id'];
+$user_role = $_SESSION['role'];
 
 // Handle the match action (button click)
 if (isset($_POST['match_startup_id'])) {
     $startup_id = mysqli_real_escape_string($conn, $_POST['match_startup_id']);
-    
+
     // Check if this match already exists
     $check_match_query = "SELECT * FROM Matches WHERE investor_id = '$user_id' AND startup_id = '$startup_id'";
     $check_match_result = mysqli_query($conn, $check_match_query);
-    
+
     if (mysqli_num_rows($check_match_result) == 0) {
         // Insert the match into the Matches table
         $insert_match_query = "INSERT INTO Matches (investor_id, startup_id, created_at) VALUES ('$user_id', '$startup_id', NOW())";
         mysqli_query($conn, $insert_match_query);
     }
 
-    // After the match is processed, redirect to avoid resubmission
-    header("Location: startup_detail.php?startup_id=$startup_id"); // Redirect to the same page
-    exit(); // Stop the script to avoid any further execution
+    // Redirect to the same page with a GET request
+    header("Location: startup_detail.php?startup_id=$startup_id");
+    exit();
 }
 
 // Handle the unmatch action (button click)
 if (isset($_POST['unmatch_startup_id'])) {
     $startup_id = mysqli_real_escape_string($conn, $_POST['unmatch_startup_id']);
-    
+
     // Delete the match from the Matches table
     $delete_match_query = "DELETE FROM Matches WHERE investor_id = '$user_id' AND startup_id = '$startup_id'";
     mysqli_query($conn, $delete_match_query);
 
-    // After unmatch, redirect to the same page to avoid resubmission
-    header("Location: startup_detail.php?startup_id=$startup_id"); // Redirect to the same page
-    exit(); // Stop the script to avoid any further execution
+    // Redirect to the same page with a GET request
+    header("Location: startup_detail.php?startup_id=$startup_id");
+    exit();
 }
 
 // Check if the investor has already matched with this startup
-$check_match_query = "SELECT * FROM Matches WHERE investor_id = ? AND startup_id = ?";
-$match_stmt = $conn->prepare($check_match_query);
-$match_stmt->bind_param("ii", $user_id, $startup_id);
-$match_stmt->execute();
-$match_result = $match_stmt->get_result();
-$is_matched = $match_result->num_rows > 0;
+$is_matched = false;
+if ($user_role === 'investor') {
+    $check_match_query = "SELECT * FROM Matches WHERE investor_id = ? AND startup_id = ?";
+    $match_stmt = $conn->prepare($check_match_query);
+    $match_stmt->bind_param("ii", $user_id, $startup_id);
+    $match_stmt->execute();
+    $match_result = $match_stmt->get_result();
+    $is_matched = $match_result->num_rows > 0;
+}
+
+// Fetch admin and owner details (for entrepreneurs only)
+$admin_details = null;
+$is_owner = false;
+if ($user_role === 'entrepreneur') {
+    // Fetch admin details
+    $admin_query = "SELECT a.admin_name FROM Admins a INNER JOIN Startups s ON a.admin_id = s.admin_id WHERE s.startup_id = ?";
+    $admin_stmt = $conn->prepare($admin_query);
+    $admin_stmt->bind_param("i", $startup_id);
+    $admin_stmt->execute();
+    $admin_result = $admin_stmt->get_result();
+    if ($admin_result->num_rows > 0) {
+        $admin_details = $admin_result->fetch_assoc();
+    }
+
+    // Check if the logged-in entrepreneur owns this startup
+    $owner_query = "SELECT * FROM Startups WHERE startup_id = ? AND entrepreneur_id = ?";
+    $owner_stmt = $conn->prepare($owner_query);
+    $owner_stmt->bind_param("ii", $startup_id, $user_id);
+    $owner_stmt->execute();
+    $owner_result = $owner_stmt->get_result();
+    $is_owner = $owner_result->num_rows > 0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -172,22 +199,35 @@ $is_matched = $match_result->num_rows > 0;
                     Not Provided
                 <?php endif; ?>
             </p>
+            <?php if ($admin_details): ?>
+                <p><strong>Approved By Admin:</strong> <?php echo htmlspecialchars($admin_details['admin_name']); ?></p>
+            <?php endif; ?>
         </div>
 
-        <!-- Match/Unmatch Button -->
-        <?php if ($is_matched): ?>
-            <form method="POST" action="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup_id); ?>">
-                <input type="hidden" name="unmatch_startup_id" value="<?php echo htmlspecialchars($startup_id); ?>">
-                <button type="submit">Unmatch</button>
-            </form>
-        <?php else: ?>
-            <form method="POST" action="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup_id); ?>">
-                <input type="hidden" name="match_startup_id" value="<?php echo htmlspecialchars($startup_id); ?>">
-                <button type="submit">Match</button>
+        <!-- Match/Unmatch Button for Investors -->
+        <?php if ($user_role === 'investor'): ?>
+            <?php if ($is_matched): ?>
+                <form method="POST" action="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup_id); ?>">
+                    <input type="hidden" name="unmatch_startup_id" value="<?php echo htmlspecialchars($startup_id); ?>">
+                    <button type="submit">Unmatch</button>
+                </form>
+            <?php else: ?>
+                <form method="POST" action="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup_id); ?>">
+                    <input type="hidden" name="match_startup_id" value="<?php echo htmlspecialchars($startup_id); ?>">
+                    <button type="submit">Match</button>
+                </form>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <!-- Edit Startup Button for Entrepreneurs -->
+        <?php if ($is_owner): ?>
+            <form method="GET" action="edit_startup.php">
+                <input type="hidden" name="startup_id" value="<?php echo htmlspecialchars($startup_id); ?>">
+                <button type="submit">Edit Startup</button>
             </form>
         <?php endif; ?>
 
-        <button onclick="window.history.back();">Back to Startups</button>
+        <button onclick="window.location.href='<?php echo ($user_role === 'entrepreneur') ? 'entrepreneurs.php' : 'investors.php'; ?>';">Back to Dashboard</button>
     </div>
 </body>
 
