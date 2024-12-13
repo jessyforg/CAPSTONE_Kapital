@@ -1,6 +1,5 @@
 <?php
 session_start();
-include('navbar.php');
 include('db_connection.php');
 
 // Redirect if the user is not logged in or does not have the investor role
@@ -8,6 +7,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'investor') {
     header("Location: sign_in.php");
     exit("Redirecting to login page...");
 }
+include('navbar.php');
 
 $user_id = $_SESSION['user_id'];
 
