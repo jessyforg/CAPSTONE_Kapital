@@ -73,6 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 break;
 
+            case 'admin': // Handle admin signups
+                header("Location: admin-panel.php");
+                break;
+
             default:
                 echo "Invalid role.";
         }

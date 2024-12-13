@@ -40,6 +40,9 @@ if ($result->num_rows > 0) {
             case 'job_seeker':
                 header("Location: index.php");
                 break;
+            case 'admin': // Admin role
+                header("Location: admin-panel.php");
+                break;
             default:
                 echo "Invalid role.";
         }
