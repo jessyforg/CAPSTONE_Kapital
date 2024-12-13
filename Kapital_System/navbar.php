@@ -1,3 +1,10 @@
+<?php
+ob_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -184,7 +191,8 @@
             const currentPage = window.location.pathname;
             const navLinks = document.querySelectorAll('nav ul li a');
             navLinks.forEach(link => {
-                if (currentPage.includes(link.getAttribute('href'))) {
+                const linkPath = link.getAttribute('href');
+                if (currentPage.includes(linkPath)) {
                     link.classList.add('active');
                 } else {
                     link.classList.remove('active');
