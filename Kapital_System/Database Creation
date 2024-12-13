@@ -136,3 +136,15 @@ ALTER TABLE Startups
 ADD CONSTRAINT fk_entrepreneur_id
 FOREIGN KEY (entrepreneur_id) REFERENCES Entrepreneurs(entrepreneur_id)
 ON DELETE CASCADE;
+
+-- Update the Users table to include the 'admin' role
+ALTER TABLE Users
+MODIFY COLUMN role ENUM('entrepreneur', 'investor', 'job_seeker', 'admin') NOT NULL;
+
+-- Update the Startups table to include an approval status
+ALTER TABLE Startups
+ADD COLUMN approval_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+ADD COLUMN approved_by INT DEFAULT NULL,
+ADD COLUMN approval_comment TEXT DEFAULT NULL,
+ADD CONSTRAINT fk_approved_by FOREIGN KEY (approved_by) REFERENCES Users(user_id) ON DELETE SET NULL;
+
