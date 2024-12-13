@@ -71,23 +71,38 @@
             display: inline-block;
         }
 
-        .dropdown-btn {
-            background: linear-gradient(90deg, #f3c000, #ffab00);
-            color: #000;
-            font-weight: 600;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        /* Profile Button & Sign In/Sign Up Buttons */
+        .dropdown-btn,
+        .cta-buttons a.cta-btn {
+            background: linear-gradient(90deg, #f3c000, #ffab00); /* Same gradient for both */
+            color: #000; /* White text */
+            font-weight: 600; /* Same font weight */
+            padding: 10px 20px; /* Same padding */
+            margin-left: 10px; /* For sign-in/signup, margin-left, same as the profile dropdown button */
+            text-decoration: none; /* Remove text decoration */
+            border-radius: 5px; /* Same border-radius */
             transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
-        .dropdown-btn:hover {
-            background: linear-gradient(90deg, #ffab00, #f3c000);
-            transform: scale(1.05);
+        /* Hover effect for both profile and cta buttons */
+        .dropdown-btn:hover,
+        .cta-buttons a.cta-btn:hover {
+            background: linear-gradient(90deg, #ffab00, #f3c000); /* Reverse the gradient on hover */
+            transform: scale(1.05); /* Scale effect */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .dropdown-content {
+        /* Active and click effect for both */
+        .dropdown-btn:active,
+        .cta-buttons a.cta-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dropdown content */
+        .profile-dropdown .dropdown-content {
             display: none;
             position: absolute;
             background-color: #1e1e1e;
@@ -97,7 +112,7 @@
             border-radius: 5px;
         }
 
-        .dropdown-content a {
+        .profile-dropdown .dropdown-content a {
             color: white;
             padding: 12px 16px;
             text-decoration: none;
@@ -105,13 +120,20 @@
             transition: background 0.3s;
         }
 
-        .dropdown-content a:hover {
+        /* Hover for dropdown links */
+        .profile-dropdown .dropdown-content a:hover {
             background-color: #f3c000;
             color: black;
         }
 
         .profile-dropdown:hover .dropdown-content {
             display: block;
+        }
+
+        /* Adjust button container spacing */
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
@@ -144,7 +166,7 @@
                 <div class="profile-dropdown">
                     <button class="dropdown-btn">Profile</button>
                     <div class="dropdown-content">
-                        <a href="profile.php">Edit Profile</a>
+                        <a href="edit_profile.php">Edit Profile</a>
                         <a href="settings.php">Settings</a>
                         <a href="logout.php">Log Out</a>
                     </div>
