@@ -118,7 +118,7 @@ include 'navbar.php';
                     <!-- Job Description -->
                     <p><strong>Requirements:</strong> <?php echo htmlspecialchars($job['requirements']); ?></p>
                     <!-- Job Requirements -->
-                    <a href="job-details.php?job_id=<?php echo $job['job_id']; ?>">View Details</a>
+                    <a href="apply-job.php?job_id=<?php echo $job['job_id']; ?>">Apply</a>
                     <!-- Link to job details page -->
                 </div>
             <?php endwhile; ?>
