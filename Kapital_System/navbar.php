@@ -166,7 +166,7 @@
                 <div class="profile-dropdown">
                     <button class="dropdown-btn">Profile</button>
                     <div class="dropdown-content">
-                        <a href="edit_profile.php">Edit Profile</a>
+                        <a href="profile.php">Edit Profile</a>
                         <a href="settings.php">Settings</a>
                         <a href="logout.php">Log Out</a>
                     </div>
