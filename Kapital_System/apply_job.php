@@ -31,6 +31,9 @@ if (isset($_GET['job_id'])) {
     exit;
 }
 
+// Flag to check if the application was successful
+$application_status = '';
+
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the application data from the form
@@ -64,20 +67,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           VALUES ('$job_id', '$user_id', 'applied')";
 
                 if (mysqli_query($conn, $query)) {
-                    // Redirect to job-seekers.php after successful application
-                    header('Location: job-seekers.php');
-                    exit;
+                    $application_status = 'success'; // Mark as success
                 } else {
-                    echo "Error submitting application: " . mysqli_error($conn);
+                    $application_status = 'failed'; // Mark as failed
                 }
             } else {
-                echo "Error uploading resume. Please try again.";
+                $application_status = 'failed'; // Mark as failed
             }
         } else {
-            echo "Invalid file type or file size exceeds the limit.";
+            $application_status = 'invalid_file'; // Invalid file type or size
         }
     } else {
-        echo "Please upload your resume.";
+        $application_status = 'no_resume'; // No resume uploaded
     }
 }
 ?>
@@ -149,6 +150,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: red;
         }
     </style>
+
+    <script>
+        // Show the alert based on PHP status
+        <?php if ($application_status == 'success'): ?>
+            alert('Your application has been submitted successfully!');
+            window.location.href = 'job-seekers.php'; // Redirect to investors page
+        <?php elseif ($application_status == 'failed'): ?>
+            alert('There was an error submitting your application. Please try again.');
+        <?php elseif ($application_status == 'invalid_file'): ?>
+            alert('Invalid file type or file size exceeds the limit. Please upload a valid resume.');
+        <?php elseif ($application_status == 'no_resume'): ?>
+            alert('Please upload your resume.');
+        <?php endif; ?>
+    </script>
 </head>
 
 <body>
