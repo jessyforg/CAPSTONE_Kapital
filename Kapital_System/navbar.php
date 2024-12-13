@@ -65,29 +65,53 @@
             border-radius: 5px;
         }
 
-        /* CTA Buttons */
-        .cta-buttons a {
+        /* Dropdown Menu */
+        .profile-dropdown {
+            position: relative;
             display: inline-block;
+        }
+
+        .dropdown-btn {
             background: linear-gradient(90deg, #f3c000, #ffab00);
             color: #000;
             font-weight: 600;
             padding: 10px 20px;
-            margin-left: 10px;
-            text-decoration: none;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .cta-buttons a:hover {
+        .dropdown-btn:hover {
             background: linear-gradient(90deg, #ffab00, #f3c000);
             transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .cta-buttons a:active {
-            transform: scale(0.95);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1e1e1e;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f3c000;
+            color: black;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            display: block;
         }
     </style>
 </head>
@@ -117,7 +141,14 @@
         </nav>
         <div class="cta-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="logout.php" id="logOutBtn">Log Out</a>
+                <div class="profile-dropdown">
+                    <button class="dropdown-btn">Profile</button>
+                    <div class="dropdown-content">
+                        <a href="profile.php">Edit Profile</a>
+                        <a href="settings.php">Settings</a>
+                        <a href="logout.php">Log Out</a>
+                    </div>
+                </div>
             <?php else: ?>
                 <a href="sign_in.php" class="cta-btn">Sign In</a>
                 <a href="sign_up.php" class="cta-btn">Sign Up</a>
