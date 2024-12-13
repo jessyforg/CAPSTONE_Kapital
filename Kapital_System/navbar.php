@@ -106,6 +106,12 @@
                 <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'job_seeker'): ?>
                     <li><a href="job-seekers.php">For Job Seekers</a></li>
                 <?php endif; ?>
+
+                <!-- Admin Panel link -->
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <li><a href="admin-panel.php">Admin Panel</a></li>
+                <?php endif; ?>
+
                 <li><a href="about-us.php">About Us</a></li>
             </ul>
         </nav>
