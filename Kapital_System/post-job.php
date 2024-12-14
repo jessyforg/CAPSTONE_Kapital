@@ -13,29 +13,44 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'entrepreneur') {
 
 // Fetch the startup_id of the logged-in entrepreneur
 $user_id = $_SESSION['user_id'];
-$query = "SELECT startup_id FROM Startups WHERE entrepreneur_id = '$user_id'";
-$result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
-$startup_id = $row['startup_id']; // Use this startup_id in the job posting form
+$query = "SELECT startup_id FROM Startups WHERE entrepreneur_id = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+if ($result && $row = mysqli_fetch_assoc($result)) {
+    $startup_id = $row['startup_id'];
+} else {
+    echo "Error: Startup not found for this entrepreneur.";
+    exit;
+}
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the data from the form
-    $role = $_POST['role'];
-    $description = $_POST['description'];
-    $requirements = $_POST['requirements'];
-    $location = $_POST['location'];
-    $salary_range_min = $_POST['salary_range_min'];
-    $salary_range_max = $_POST['salary_range_max'];
+    // Retrieve and trim form inputs
+    $role = trim($_POST['role']);
+    $description = trim($_POST['description']);
+    $requirements = trim($_POST['requirements']);
+    $location = trim($_POST['location']);
+    $salary_range_min = (float)$_POST['salary_range_min'];
+    $salary_range_max = (float)$_POST['salary_range_max'];
+
+    // Validate salary range
+    if ($salary_range_min > $salary_range_max) {
+        echo "Error: Minimum salary cannot exceed maximum salary.";
+        exit;
+    }
 
     // Insert the new job into the database
-    $query = "INSERT INTO Jobs (startup_id, role, description, requirements, location, salary_range_min, salary_range_max)
-              VALUES ('$startup_id', '$role', '$description', '$requirements', '$location', '$salary_range_min', '$salary_range_max')";
+    $query = "INSERT INTO Jobs (startup_id, role, description, requirements, location, salary_range_min, salary_range_max) 
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "issssdd", $startup_id, $role, $description, $requirements, $location, $salary_range_min, $salary_range_max);
 
-    if (mysqli_query($conn, $query)) {
-        // Redirect to entrepreneurs.php after successfully posting the job
-        header('Location: entrepreneurs.php'); 
-        exit(); // Ensure no further code is executed
+    if (mysqli_stmt_execute($stmt)) {
+        header('Location: entrepreneurs.php'); // Redirect after posting the job
+        exit;
     } else {
         echo "Error posting job: " . mysqli_error($conn);
     }
