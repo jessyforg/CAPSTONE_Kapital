@@ -111,12 +111,12 @@ include 'navbar.php';
                     <!-- Startup Industry -->
                     <p><strong>Location:</strong> <?php echo htmlspecialchars($job['location']); ?></p>
                     <!-- Job Location -->
-                    <p><strong>Salary:</strong> <?php echo htmlspecialchars($job['salary_range_min']); ?> -
-                        <?php echo htmlspecialchars($job['salary_range_max']); ?>
+                    <p><strong>Salary:</strong> <?php echo '₱' . number_format($job['salary_range_min'], 2); ?> - 
+                        <?php echo '₱' . number_format($job['salary_range_max'], 2); ?>
                     </p> <!-- Salary Range -->
-                    <p><strong>Description:</strong> <?php echo htmlspecialchars($job['description']); ?></p>
+                    <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($job['description'])); ?></p>
                     <!-- Job Description -->
-                    <p><strong>Requirements:</strong> <?php echo htmlspecialchars($job['requirements']); ?></p>
+                    <p><strong>Requirements:</strong> <?php echo nl2br(htmlspecialchars($job['requirements'])); ?></p>
                     <!-- Job Requirements -->
                     <a href="apply-job.php?job_id=<?php echo $job['job_id']; ?>">Apply</a>
                     <!-- Link to job details page -->
