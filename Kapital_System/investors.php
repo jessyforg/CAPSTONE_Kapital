@@ -82,7 +82,7 @@ if (isset($_POST['unmatch_startup_id'])) {
 <div class="container">
     <h1>Welcome, <span class="investor-name">Investor!</span></h1>
 
-    <h2>Saved Startups</h2>
+    <h2>Matched Startups</h2>
     <?php if (mysqli_num_rows($saved_startups_result) > 0): ?>
         <?php while ($startup = mysqli_fetch_assoc($saved_startups_result)): ?>
             <div class="startup-post">
