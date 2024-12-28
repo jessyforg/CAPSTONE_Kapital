@@ -26,6 +26,17 @@
                 adminNotice.style.display = "block";
             }
         }
+
+        function showOtherIndustryField(selectId, otherFieldId) {
+            var industrySelect = document.getElementById(selectId);
+            var otherIndustryField = document.getElementById(otherFieldId);
+
+            if (industrySelect.value === "other") {
+                otherIndustryField.style.display = "block";
+            } else {
+                otherIndustryField.style.display = "none";
+            }
+        }
     </script>
 </head>
 
@@ -61,8 +72,22 @@
                 <label for="investment_range_max">Investment Range (Max)</label>
                 <input type="number" id="investment_range_max" name="investment_range_max" step="0.01">
 
-                <label for="preferred_industries">Preferred Industries (Comma-separated)</label>
-                <input type="text" id="preferred_industries" name="preferred_industries">
+                <label for="preferred_industries_dropdown">Preferred Industries</label>
+                <select id="preferred_industries_dropdown" name="preferred_industries_dropdown"
+                    onchange="showOtherIndustryField('preferred_industries_dropdown', 'investorOtherIndustryField')"
+                    required>
+                    <option value="" disabled>Choose here</option>
+                    <option value="technology">Technology</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="finance">Finance</option>
+                    <option value="education">Education</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <div id="investorOtherIndustryField" style="display:none; margin-top: 10px;">
+                    <label for="other_industry">Please Specify</label>
+                    <input type="text" id="other_industry" name="other_industry">
+                </div>
 
                 <label for="bio">Bio</label>
                 <textarea id="bio" name="bio"></textarea>
@@ -70,6 +95,23 @@
 
             <!-- Job Seeker Specific Fields -->
             <div id="jobSeekerFields" style="display:none;">
+                <label for="jobSeekerPreferredIndustries">Preferred Industries</label>
+                <select id="jobSeekerPreferredIndustries" name="job_seeker_preferred_industries"
+                    onchange="showOtherIndustryField('jobSeekerPreferredIndustries', 'jobSeekerOtherIndustryField')"
+                    required>
+                    <option value="" disabled>Choose here</option>
+                    <option value="technology">Technology</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="finance">Finance</option>
+                    <option value="education">Education</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <div id="jobSeekerOtherIndustryField" style="display:none; margin-top: 10px;">
+                    <label for="job_seeker_other_industry">Please Specify</label>
+                    <input type="text" id="job_seeker_other_industry" name="job_seeker_other_industry">
+                </div>
+
                 <label for="desired_role">Desired Role</label>
                 <input type="text" id="desired_role" name="desired_role">
 
@@ -92,7 +134,8 @@
 
             <!-- Admin Notice -->
             <div id="adminNotice" style="display:none; color: red; margin-top: 10px;">
-                <p>Admins will have access to the admin panel. Please ensure this account is authorized for administrative purposes.</p>
+                <p>Admins will have access to the admin panel. Please ensure this account is authorized for
+                    administrative purposes.</p>
             </div>
 
             <button type="submit">Sign Up</button>

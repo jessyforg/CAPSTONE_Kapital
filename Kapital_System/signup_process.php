@@ -41,15 +41,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo "Error inserting into Entrepreneurs table: " . $conn->error;
                 }
                 break;
-
             case 'investor':
                 $investment_range_min = $conn->real_escape_string($_POST['investment_range_min']);
                 $investment_range_max = $conn->real_escape_string($_POST['investment_range_max']);
-                $preferred_industries = $conn->real_escape_string(json_encode(explode(',', $_POST['preferred_industries'])));
+                $preferred_industries = $_POST['preferred_industries']; // Get array of industries
+                $custom_industry = $conn->real_escape_string($_POST['custom_industry'] ?? '');
+
+                // Include custom industry if provided
+                if (!empty($custom_industry)) {
+                    $preferred_industries[] = $custom_industry;
+                }
+
+                $preferred_industries_json = $conn->real_escape_string(json_encode($preferred_industries));
                 $bio = $conn->real_escape_string($_POST['bio']);
 
                 $sql_investor = "INSERT INTO Investors (investor_id, investment_range_min, investment_range_max, preferred_industries, bio)
-                                 VALUES ('$user_id', '$investment_range_min', '$investment_range_max', '$preferred_industries', '$bio')";
+                                 VALUES ('$user_id', '$investment_range_min', '$investment_range_max', '$preferred_industries_json', '$bio')";
                 if ($conn->query($sql_investor) === TRUE) {
                     header("Location: investors.php");
                 } else {
@@ -73,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 break;
 
-            case 'admin': // Handle admin signups
+            case 'admin':
                 header("Location: admin-panel.php");
                 break;
 
