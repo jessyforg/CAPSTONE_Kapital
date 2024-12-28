@@ -148,3 +148,18 @@ ADD COLUMN approved_by INT DEFAULT NULL,
 ADD COLUMN approval_comment TEXT DEFAULT NULL,
 ADD CONSTRAINT fk_approved_by FOREIGN KEY (approved_by) REFERENCES Users(user_id) ON DELETE SET NULL;
 
+CREATE TABLE Notifications (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL, -- Recipient of the notification
+    sender_id INT DEFAULT NULL, -- Optional: Who triggered the notification
+    type ENUM('message', 'application_status', 'investment_match', 'job_offer', 'system_alert') NOT NULL,
+    message TEXT NOT NULL,
+    status ENUM('unread', 'read') DEFAULT 'unread',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES Users(user_id) ON DELETE SET NULL
+);
+
+ALTER TABLE Messages
+ADD COLUMN status ENUM('unread', 'read') DEFAULT 'unread';
+
