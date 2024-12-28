@@ -123,7 +123,6 @@ if (isset($_SESSION['user_id'])) {
             align-items: center;
         }
 
-        /* Profile Button */
         .profile-dropdown {
             position: relative;
             display: inline-block;
