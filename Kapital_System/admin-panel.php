@@ -17,11 +17,13 @@ $query = "SELECT s.startup_id, s.name, s.industry, s.description, u.name AS entr
           JOIN Entrepreneurs e ON s.entrepreneur_id = e.entrepreneur_id
           JOIN Users u ON e.entrepreneur_id = u.user_id
           WHERE s.approval_status = 'pending'";
+
 $result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +38,7 @@ $result = mysqli_query($conn, $query);
             color: #f9f9f9;
             line-height: 1.6;
         }
+
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -44,26 +47,32 @@ $result = mysqli_query($conn, $query);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
             text-align: center;
             color: #7289DA;
             margin-bottom: 20px;
         }
+
         .startup {
             border-bottom: 1px solid #444;
             padding: 15px 0;
         }
+
         .startup:last-child {
             border-bottom: none;
         }
+
         .startup h2 {
             margin: 0;
             font-size: 20px;
             color: #FFB74D;
         }
+
         .startup p {
             margin: 5px 0;
         }
+
         .btn {
             padding: 10px 20px;
             border: none;
@@ -74,47 +83,34 @@ $result = mysqli_query($conn, $query);
             margin: 5px 2px 0 0;
             transition: all 0.3s ease;
         }
+
         .approve {
             background-color: #4CAF50;
             color: #fff;
         }
+
         .reject {
             background-color: #F44336;
             color: #fff;
         }
-        .add-comment {
-            background-color: #FF9800;
+
+        .view-details {
+            background-color: #3F51B5;
             color: #fff;
         }
+
         .btn:hover {
             transform: translateY(-2px);
         }
-        .comment-box {
-            display: none;
-            margin-top: 10px;
-        }
-        p {
-            color: #ddd;
-        }
-        a {
-            color: #7289DA;
+
+        .view-details a {
+            color: #fff;
             text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+            /* Remove underline */
         }
     </style>
-    <script>
-        function toggleCommentBox(startupId) {
-            const commentBox = document.getElementById(`comment-box-${startupId}`);
-            if (commentBox.style.display === 'none' || commentBox.style.display === '') {
-                commentBox.style.display = 'block';
-            } else {
-                commentBox.style.display = 'none';
-            }
-        }
-    </script>
 </head>
+
 <body>
     <!-- Include Navbar -->
     <?php include 'navbar.php'; ?>
@@ -128,6 +124,7 @@ $result = mysqli_query($conn, $query);
                     <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
                     <p><strong>Entrepreneur:</strong> <?php echo htmlspecialchars($startup['entrepreneur_name']); ?></p>
                     <p><?php echo nl2br(htmlspecialchars($startup['description'])); ?></p>
+
                     <form action="process-startup.php" method="post" style="display: inline;">
                         <input type="hidden" name="startup_id" value="<?php echo $startup['startup_id']; ?>">
                         <button type="submit" name="action" value="approve" class="btn approve">Approve</button>
@@ -136,14 +133,20 @@ $result = mysqli_query($conn, $query);
                         <input type="hidden" name="startup_id" value="<?php echo $startup['startup_id']; ?>">
                         <button type="submit" name="action" value="reject" class="btn reject">Reject</button>
                     </form>
-                    <button class="btn add-comment" onclick="toggleCommentBox(<?php echo $startup['startup_id']; ?>)">Add Comment</button>
-                    <div class="comment-box" id="comment-box-<?php echo $startup['startup_id']; ?>">
-                        <form action="process-comment.php" method="post">
-                            <input type="hidden" name="startup_id" value="<?php echo $startup['startup_id']; ?>">
-                            <textarea name="approval_comment" rows="4" cols="50" placeholder="Enter your comment here..." required></textarea><br>
-                            <button type="submit" class="btn approve">Submit Comment</button>
-                        </form>
-                    </div>
+
+                    <!-- View Details Button -->
+                    <button class="btn view-details">
+                        <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>">View Details</a>
+                    </button>
+
+                    <!-- Admin Comments Section -->
+                    <form action="process-startup.php" method="post" style="margin-top: 10px;">
+                        <input type="hidden" name="startup_id" value="<?php echo $startup['startup_id']; ?>">
+                        <textarea name="approval_comment" rows="4" cols="50"
+                            placeholder="Leave your comment here..."></textarea>
+                        <br>
+                        <button type="submit" name="action" value="comment" class="btn view-details">Add Comment</button>
+                    </form>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>
@@ -151,4 +154,5 @@ $result = mysqli_query($conn, $query);
         <?php endif; ?>
     </div>
 </body>
+
 </html>
