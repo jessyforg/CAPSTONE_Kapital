@@ -1,7 +1,36 @@
 <?php
-ob_start();
+// Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
+}
+
+// Include the database connection file
+require_once 'db_connection.php';
+
+// Ensure the user is logged in
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // Fetch unread notifications for the user
+    $stmt_notifications = $conn->prepare("SELECT * FROM Notifications WHERE user_id = ? AND status = 'unread'");
+    $stmt_notifications->bind_param('i', $user_id);
+    $stmt_notifications->execute();
+    $result_notifications = $stmt_notifications->get_result();
+    $notifications = $result_notifications->fetch_all(MYSQLI_ASSOC);
+
+    // Fetch the total count of unread notifications
+    $notification_count = count($notifications);
+
+    // Fetch the user's messages (sent and received)
+    $stmt_messages = $conn->prepare("SELECT * FROM Messages WHERE sender_id = ? OR receiver_id = ?");
+    $stmt_messages->bind_param('ii', $user_id, $user_id);
+    $stmt_messages->execute();
+    $result_messages = $stmt_messages->get_result();
+    $messages = $result_messages->fetch_all(MYSQLI_ASSOC);
+
+    // Fetch the total count of unread messages
+    $unread_messages = array_filter($messages, fn($msg) => $msg['status'] == 'unread');
+    $message_count = count($unread_messages);
 }
 ?>
 
@@ -10,17 +39,17 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar</title>
+    <title>Navbar with Notifications</title>
     <style>
         /* General Reset */
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            color: #fff;
             background-color: #1e1e1e;
-            line-height: 1.6;
+            color: #fff;
         }
 
         /* Header and Navbar */
@@ -44,15 +73,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
         nav ul {
             list-style: none;
-            margin: 0;
-            padding: 0;
             display: flex;
             gap: 30px;
-            align-items: center;
-        }
-
-        nav ul li {
-            display: inline-block;
         }
 
         nav ul li a {
@@ -72,43 +94,68 @@ if (session_status() == PHP_SESSION_NONE) {
             border-radius: 5px;
         }
 
-        /* Dropdown Menu */
+        /* Notifications and Messaging */
+        .icon-btn {
+            position: relative;
+            margin-left: 20px;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5em;
+        }
+
+        .icon-btn .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: #f3c000;
+            color: #000;
+            border-radius: 50%;
+            padding: 3px 6px;
+            font-size: 0.7em;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: scale(0.85);
+        }
+
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Profile Button */
         .profile-dropdown {
             position: relative;
             display: inline-block;
         }
 
-        /* Profile Button & Sign In/Sign Up Buttons */
         .dropdown-btn,
         .cta-buttons a.cta-btn {
-            background: linear-gradient(90deg, #f3c000, #ffab00); /* Same gradient for both */
-            color: #000; /* White text */
-            font-weight: 600; /* Same font weight */
-            padding: 10px 20px; /* Same padding */
-            margin-left: 10px; /* For sign-in/signup, margin-left, same as the profile dropdown button */
-            text-decoration: none; /* Remove text decoration */
-            border-radius: 5px; /* Same border-radius */
+            background: linear-gradient(90deg, #f3c000, #ffab00);
+            color: #000;
+            font-weight: 600;
+            padding: 10px 20px;
+            margin-left: 10px;
+            text-decoration: none;
+            border-radius: 5px;
             transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
         }
 
-        /* Hover effect for both profile and cta buttons */
         .dropdown-btn:hover,
         .cta-buttons a.cta-btn:hover {
-            background: linear-gradient(90deg, #ffab00, #f3c000); /* Reverse the gradient on hover */
-            transform: scale(1.05); /* Scale effect */
+            background: linear-gradient(90deg, #ffab00, #f3c000);
+            transform: scale(1.05);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Active and click effect for both */
         .dropdown-btn:active,
         .cta-buttons a.cta-btn:active {
             transform: scale(0.95);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Dropdown content */
         .profile-dropdown .dropdown-content {
             display: none;
             position: absolute;
@@ -127,7 +174,6 @@ if (session_status() == PHP_SESSION_NONE) {
             transition: background 0.3s;
         }
 
-        /* Hover for dropdown links */
         .profile-dropdown .dropdown-content a:hover {
             background-color: #f3c000;
             color: black;
@@ -137,10 +183,39 @@ if (session_status() == PHP_SESSION_NONE) {
             display: block;
         }
 
-        /* Adjust button container spacing */
-        .cta-buttons {
-            display: flex;
-            gap: 10px;
+        /* Dropdown content for notifications and messages */
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1e1e1e;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            width: 300px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #333;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f3c000;
+            color: black;
+        }
+
+        .dropdown-container:hover .dropdown-content {
+            display: block;
         }
     </style>
 </head>
@@ -151,7 +226,6 @@ if (session_status() == PHP_SESSION_NONE) {
         <nav>
             <ul>
                 <li><a href="index.php" class="active">Home</a></li>
-                <!-- Role-based navigation -->
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'entrepreneur'): ?>
                     <li><a href="entrepreneurs.php">For Entrepreneurs</a></li>
                 <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'investor'): ?>
@@ -159,7 +233,6 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'job_seeker'): ?>
                     <li><a href="job-seekers.php">For Job Seekers</a></li>
                 <?php endif; ?>
-
                 <!-- Admin Panel link -->
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                     <li><a href="admin-panel.php">Admin Panel</a></li>
@@ -169,6 +242,43 @@ if (session_status() == PHP_SESSION_NONE) {
             </ul>
         </nav>
         <div class="cta-buttons">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <!-- Notifications Dropdown -->
+                <div class="dropdown-container">
+                    <a class="icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge"><?php echo $notification_count; ?></span>
+                    </a>
+                    <div class="dropdown-content">
+                        <?php if (!empty($notifications)): ?>
+                            <?php foreach ($notifications as $notification): ?>
+                                <a href="#"><?php echo htmlspecialchars($notification['message']); ?></a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <a href="#">No new notifications</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Messages Dropdown -->
+                <div class="dropdown-container">
+                    <a href="messages.php" class="icon-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="badge"><?php echo $message_count; ?></span>
+                    </a>
+                    <div class="dropdown-content">
+                        <?php if (!empty($messages)): ?>
+                            <?php foreach ($messages as $message): ?>
+                                <a href="#"><?php echo htmlspecialchars($message['content']); ?></a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <a href="#">No new messages</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- User Profile or Login/Sign-up -->
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-dropdown">
                     <button class="dropdown-btn">Profile</button>
@@ -184,7 +294,6 @@ if (session_status() == PHP_SESSION_NONE) {
             <?php endif; ?>
         </div>
     </header>
-
     <script>
         // Function to set active class on the current page
         function setActiveLink() {
