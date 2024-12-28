@@ -163,3 +163,7 @@ CREATE TABLE Notifications (
 ALTER TABLE Messages
 ADD COLUMN status ENUM('unread', 'read') DEFAULT 'unread';
 
+ALTER TABLE Job_Seekers
+ADD COLUMN preferred_industries JSON;
+
+
