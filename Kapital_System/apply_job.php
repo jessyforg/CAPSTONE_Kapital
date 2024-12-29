@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the application data from the form
     $user_id = $_SESSION['user_id']; // This is the job seeker's ID
     $cover_letter = mysqli_real_escape_string($conn, $_POST['cover_letter']);
-    
+
     // Handle file upload (resume)
     if (isset($_FILES['resume']) && $_FILES['resume']['error'] == 0) {
         $resume_name = $_FILES['resume']['name'];
@@ -62,9 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Check if the file is uploaded successfully
             if (move_uploaded_file($resume_tmp_name, $resume_path)) {
-                // Insert the job application into the database
-                $query = "INSERT INTO Applications (job_id, job_seeker_id, status) 
-                          VALUES ('$job_id', '$user_id', 'applied')";
+                // Insert the job application into the database, including the cover letter and resume
+                $query = "INSERT INTO Applications (job_id, job_seeker_id, status, cover_letter) 
+                          VALUES ('$job_id', '$user_id', 'applied', '$cover_letter')";
 
                 if (mysqli_query($conn, $query)) {
                     $application_status = 'success'; // Mark as success
