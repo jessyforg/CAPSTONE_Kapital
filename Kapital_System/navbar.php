@@ -1,4 +1,5 @@
 <?php
+ob_start();
 // Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -296,6 +297,26 @@ if (isset($_SESSION['user_id'])) {
             <?php endif; ?>
         </div>
     </header>
+    <script>
+        // Function to set active class on the current page
+        function setActiveLink() {
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (currentPage.includes(linkPath)) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Call the function when the page loads
+        window.onload = () => {
+            setActiveLink();
+        };
+    </script>
 </body>
 
 </html>

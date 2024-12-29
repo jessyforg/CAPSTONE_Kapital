@@ -39,7 +39,7 @@ if ($result->num_rows > 0) {
             header("Location: application_status.php?application_id=" . $notification['application_id']);
             break;
         case 'investment_match':
-            header("Location: match_details.php?startup_id=" . $notification['sender_id']);
+            header("Location: match_details.php?startup_id=" . $notification['startup_id']);
             break;
         case 'job_offer':
             header("Location: job_offer_details.php?job_id=" . $notification['sender_id']);

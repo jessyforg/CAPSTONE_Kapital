@@ -76,6 +76,11 @@ if (isset($_POST['match_startup_id'])) {
             VALUES ('" . $entrepreneur['user_id'] . "', '$user_id', 'investment_match', '$notification_message')";
         mysqli_query($conn, $insert_notification_query);
 
+        // Fetch startup details for the investor notification
+        $startup_query = "SELECT name FROM Startups WHERE startup_id = '$startup_id'";
+        $startup_result = mysqli_query($conn, $startup_query);
+        $startup = mysqli_fetch_assoc($startup_result);
+
         // Insert a notification for the investor
         $notification_message_investor = "You have successfully matched with the startup: " . htmlspecialchars($startup['name']);
         $insert_notification_investor_query = "
