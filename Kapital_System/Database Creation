@@ -166,4 +166,56 @@ ADD COLUMN status ENUM('unread', 'read') DEFAULT 'unread';
 ALTER TABLE Job_Seekers
 ADD COLUMN preferred_industries JSON;
 
+-- Add a new notification type for Job Applications
+ALTER TABLE Notifications
+    ADD COLUMN job_id INT NULL, -- The Job ID for which the notification is related
+    ADD CONSTRAINT fk_job_id FOREIGN KEY (job_id) REFERENCES Jobs(job_id) ON DELETE SET NULL;
 
+-- Trigger to add notification when a job seeker applies
+DELIMITER $$
+
+CREATE TRIGGER job_application_notification
+AFTER INSERT ON Applications
+FOR EACH ROW
+BEGIN
+    -- Insert notification for the entrepreneur when a job seeker applies
+    INSERT INTO Notifications (user_id, sender_id, type, message, job_id, status)
+    VALUES (
+        (SELECT entrepreneur_id FROM Startups WHERE startup_id = (SELECT startup_id FROM Jobs WHERE job_id = NEW.job_id)), -- entrepreneur_id
+        NEW.job_seeker_id, -- job_seeker's user_id as sender
+        'application_status', -- type of notification
+        CONCAT('Job seeker ', (SELECT name FROM Users WHERE user_id = NEW.user_id), ' applied for your job: ', (SELECT title FROM Jobs WHERE job_id = NEW.job_id)), -- message
+        NEW.job_id, -- related job_id
+        'unread' -- status of the notification
+    );
+END $$
+
+DELIMITER ;
+
+ALTER TABLE Notifications
+ADD COLUMN application_id INT NULL, 
+ADD CONSTRAINT fk_application_id FOREIGN KEY (application_id) REFERENCES Applications(application_id) ON DELETE SET NULL;
+
+DELIMITER $$
+
+CREATE TRIGGER job_application_notification
+AFTER INSERT ON Applications
+FOR EACH ROW
+BEGIN
+    -- Insert notification for the entrepreneur when a job seeker applies
+    INSERT INTO Notifications (user_id, sender_id, type, message, job_id, application_id, status)
+    VALUES (
+        (SELECT entrepreneur_id FROM Startups WHERE startup_id = (SELECT startup_id FROM Jobs WHERE job_id = NEW.job_id)), -- entrepreneur_id
+        NEW.job_seeker_id, -- job_seeker's user_id as sender
+        'application_status', -- type of notification
+        CONCAT('Job seeker ', (SELECT name FROM Users WHERE user_id = NEW.job_seeker_id), ' applied for your job: ', (SELECT role FROM Jobs WHERE job_id = NEW.job_id)), -- message
+        NEW.job_id, -- related job_id
+        NEW.application_id, -- related application_id
+        'unread' -- status of the notification
+    );
+END $$
+
+DELIMITER ;
+
+ALTER TABLE Applications
+ADD COLUMN cover_letter TEXT;
