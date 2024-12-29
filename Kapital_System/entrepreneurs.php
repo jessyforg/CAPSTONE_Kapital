@@ -37,24 +37,23 @@ $startups_result = mysqli_query($conn, $startups_query);
     <a href="post-job.php" class="btn btn-primary">Post a Job</a>
 
     <h2>News Feed</h2>
-    <?php
-    while ($startup = mysqli_fetch_assoc($startups_result)):
-        // Check if the current user is the one who posted the startup
-        $is_entrepreneur_post = $startup['entrepreneur_id'] == $user_id;
-        ?>
+    <?php while ($startup = mysqli_fetch_assoc($startups_result)): ?>
+        <!-- Check if the current user is the one who posted the startup -->
+        <?php $is_entrepreneur_post = $startup['entrepreneur_id'] == $user_id; ?>
         <div class="startup-post">
-            <h3><?php echo isset($startup['name']) ? $startup['name'] : 'Startup Name'; ?></h3>
-            <p><strong>Industry:</strong> <?php echo isset($startup['industry']) ? $startup['industry'] : 'Not Provided'; ?>
-            </p>
-            <p><strong>Funding Stage:</strong>
-                <?php echo isset($startup['funding_stage']) ? $startup['funding_stage'] : 'Not Provided'; ?></p>
-            <p><strong>Description:</strong>
-                <?php echo isset($startup['description']) ? $startup['description'] : 'No description provided'; ?></p>
+            <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
+            <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
+            <p><strong>Funding Stage:</strong> <?php echo htmlspecialchars($startup['funding_stage']); ?></p>
+            <p><strong>Description:</strong> <?php echo htmlspecialchars($startup['description']); ?></p>
 
             <!-- Show the edit button only if the logged-in entrepreneur posted the startup -->
             <?php if ($is_entrepreneur_post): ?>
                 <a href="edit_startup.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-warning">Edit
                     Startup</a>
+
+                <!-- View Applicants button -->
+                <a href="view_applicants.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View
+                    Applicants</a>
             <?php endif; ?>
 
             <!-- Show the view details button for everyone -->
@@ -80,7 +79,6 @@ $startups_result = mysqli_query($conn, $startups_query);
 
     .entrepreneur-name {
         color: #D8A25E;
-        /* Updated color for Entrepreneur's name */
     }
 
     h2 {
