@@ -42,7 +42,7 @@ if (isset($_SESSION['user_id'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar with Notifications</title>
+    <title>Navbar</title>
     <style>
         /* General Reset */
         body {
@@ -232,7 +232,7 @@ if (isset($_SESSION['user_id'])) {
                 <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'job_seeker'): ?>
                     <li><a href="job-seekers.php">For Job Seekers</a></li>
                 <?php endif; ?>
-                <!-- Admin Panel link -->
+
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                     <li><a href="admin-panel.php">Admin Panel</a></li>
                 <?php endif; ?>
@@ -251,7 +251,9 @@ if (isset($_SESSION['user_id'])) {
                     <div class="dropdown-content">
                         <?php if (!empty($notifications)): ?>
                             <?php foreach ($notifications as $notification): ?>
-                                <a href="#"><?php echo htmlspecialchars($notification['message']); ?></a>
+                                <a href="notification_redirect.php?notification_id=<?php echo $notification['notification_id']; ?>">
+                                    <?php echo htmlspecialchars($notification['message']); ?>
+                                </a>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <a href="#">No new notifications</a>
@@ -268,7 +270,9 @@ if (isset($_SESSION['user_id'])) {
                     <div class="dropdown-content">
                         <?php if (!empty($messages)): ?>
                             <?php foreach ($messages as $message): ?>
-                                <a href="#"><?php echo htmlspecialchars($message['content']); ?></a>
+                                <a href="#">
+                                    <?php echo htmlspecialchars(substr($message['content'], 0, 30)) . '...'; ?>
+                                </a>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <a href="#">No new messages</a>
@@ -277,7 +281,6 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             <?php endif; ?>
 
-            <!-- User Profile or Login/Sign-up -->
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-dropdown">
                     <button class="dropdown-btn">Profile</button>
@@ -293,26 +296,6 @@ if (isset($_SESSION['user_id'])) {
             <?php endif; ?>
         </div>
     </header>
-    <script>
-        // Function to set active class on the current page
-        function setActiveLink() {
-            const currentPage = window.location.pathname;
-            const navLinks = document.querySelectorAll('nav ul li a');
-            navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href');
-                if (currentPage.includes(linkPath)) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-        }
-
-        // Call the function when the page loads
-        window.onload = () => {
-            setActiveLink();
-        };
-    </script>
 </body>
 
 </html>
