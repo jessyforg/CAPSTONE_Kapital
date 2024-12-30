@@ -1,43 +1,47 @@
 <?php
 ob_start();
-// Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
-// Include the database connection file
 require_once 'db_connection.php';
 
-// Ensure the user is logged in
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
-    // Fetch unread notifications for the user
+    // Fetch unread notifications
     $stmt_notifications = $conn->prepare("SELECT * FROM Notifications WHERE user_id = ? AND status = 'unread'");
     $stmt_notifications->bind_param('i', $user_id);
     $stmt_notifications->execute();
     $result_notifications = $stmt_notifications->get_result();
     $notifications = $result_notifications->fetch_all(MYSQLI_ASSOC);
-
-    // Fetch the total count of unread notifications
     $notification_count = count($notifications);
 
-    // Fetch the user's messages (sent and received)
-    $stmt_messages = $conn->prepare("SELECT * FROM Messages WHERE sender_id = ? OR receiver_id = ?");
-    $stmt_messages->bind_param('ii', $user_id, $user_id);
+    // Fetch messages where the user is either the sender or receiver
+    $stmt_messages = $conn->prepare(
+        "SELECT m.message_id, m.sender_id, m.receiver_id, m.content, m.status, u.name AS sender_name
+        FROM Messages m
+        JOIN Users u ON u.user_id = m.sender_id
+        WHERE (m.sender_id = ? OR m.receiver_id = ?) AND (m.receiver_id = ? OR m.sender_id = ?)"
+    );
+    $stmt_messages->bind_param('iiii', $user_id, $user_id, $user_id, $user_id);
     $stmt_messages->execute();
     $result_messages = $stmt_messages->get_result();
     $messages = $result_messages->fetch_all(MYSQLI_ASSOC);
 
-    // Fetch the total count of unread messages
-    $unread_messages = array_filter($messages, fn($msg) => $msg['status'] == 'unread');
-    $message_count = count($unread_messages);
+    // Get distinct senders who have sent unread messages to the user
+    $stmt_unread_senders = $conn->prepare(
+        "SELECT DISTINCT m.sender_id
+        FROM Messages m
+        WHERE (m.sender_id = ? OR m.receiver_id = ?) AND m.status = 'unread' AND m.receiver_id = ?"
+    );
+    $stmt_unread_senders->bind_param('iii', $user_id, $user_id, $user_id);
+    $stmt_unread_senders->execute();
+    $result_unread_senders = $stmt_unread_senders->get_result();
+    $unread_sender_count = $result_unread_senders->num_rows;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -217,9 +221,19 @@ if (isset($_SESSION['user_id'])) {
         .dropdown-container:hover .dropdown-content {
             display: block;
         }
+
+        /* Highlight unread messages */
+        .message-item.unread {
+            background-color: #2e2e2e;
+            font-weight: bold;
+        }
+
+        .message-item.read {
+            background-color: #1e1e1e;
+            color: gray;
+        }
     </style>
 </head>
-
 <body>
     <header>
         <div class="logo">Kapital</div>
@@ -233,17 +247,14 @@ if (isset($_SESSION['user_id'])) {
                 <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'job_seeker'): ?>
                     <li><a href="job-seekers.php">For Job Seekers</a></li>
                 <?php endif; ?>
-
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                     <li><a href="admin-panel.php">Admin Panel</a></li>
                 <?php endif; ?>
-
                 <li><a href="about-us.php">About Us</a></li>
             </ul>
         </nav>
         <div class="cta-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <!-- Notifications Dropdown -->
                 <div class="dropdown-container">
                     <a class="icon-btn">
                         <i class="fas fa-bell"></i>
@@ -261,43 +272,59 @@ if (isset($_SESSION['user_id'])) {
                         <?php endif; ?>
                     </div>
                 </div>
-
-                <!-- Messages Dropdown -->
                 <div class="dropdown-container">
                     <a href="messages.php" class="icon-btn">
                         <i class="fas fa-envelope"></i>
-                        <span class="badge"><?php echo $message_count; ?></span>
+                        <span class="badge"><?php echo $unread_sender_count; ?></span>
                     </a>
                     <div class="dropdown-content">
                         <?php if (!empty($messages)): ?>
                             <?php foreach ($messages as $message): ?>
-                                <a href="#">
-                                    <?php echo htmlspecialchars(substr($message['content'], 0, 30)) . '...'; ?>
+                                <a href="messages.php?chat_with=<?php echo ($message['sender_id'] == $user_id) ? $message['receiver_id'] : $message['sender_id']; ?>" class="message-item <?php echo ($message['status'] == 'unread') ? 'unread' : 'read'; ?>" data-message-id="<?php echo $message['message_id']; ?>">
+                                    <?php echo ($message['sender_id'] == $user_id ? 'To: ' : 'From: ') . htmlspecialchars($message['sender_name']) . " | " . htmlspecialchars(substr($message['content'], 0, 30)) . '...'; ?>
                                 </a>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <a href="#">No new messages</a>
+                            <a href="#">No messages</a>
                         <?php endif; ?>
                     </div>
                 </div>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-dropdown">
                     <button class="dropdown-btn">Profile</button>
                     <div class="dropdown-content">
-                        <a href="profile.php">Edit Profile</a>
-                        <a href="settings.php">Settings</a>
-                        <a href="logout.php">Log Out</a>
+                        <a href="profile.php">View Profile</a>
+                        <a href="logout.php">Logout</a>
                     </div>
                 </div>
             <?php else: ?>
-                <a href="sign_in.php" class="cta-btn">Sign In</a>
-                <a href="sign_up.php" class="cta-btn">Sign Up</a>
+                <a href="login.php" class="cta-btn">Login</a>
+                <a href="register.php" class="cta-btn">Sign Up</a>
             <?php endif; ?>
         </div>
     </header>
+
     <script>
+        // Function to mark the message as read
+        document.querySelectorAll('.message-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                const messageId = this.getAttribute('data-message-id');
+                
+                fetch('mark_message_read.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message_id: messageId }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.style.color = 'gray'; // Update the message color to indicate it's read
+                    }
+                });
+            });
+        });
+
         // Function to set active class on the current page
         function setActiveLink() {
             const currentPage = window.location.pathname;
@@ -312,11 +339,8 @@ if (isset($_SESSION['user_id'])) {
             });
         }
 
-        // Call the function when the page loads
-        window.onload = () => {
-            setActiveLink();
-        };
+        // Call the function after the page loads
+        window.onload = setActiveLink;
     </script>
 </body>
-
 </html>
