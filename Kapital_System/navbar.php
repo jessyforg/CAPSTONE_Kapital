@@ -297,8 +297,8 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             <?php else: ?>
-                <a href="login.php" class="cta-btn">Login</a>
-                <a href="register.php" class="cta-btn">Sign Up</a>
+                <a href="sign_in.php" class="cta-btn">Login</a>
+                <a href="sign_up.php" class="cta-btn">Sign Up</a>
             <?php endif; ?>
         </div>
     </header>
