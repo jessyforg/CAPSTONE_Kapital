@@ -227,7 +227,17 @@ if ($user_role === 'entrepreneur') {
             </form>
         <?php endif; ?>
 
-        <button onclick="window.location.href='<?php echo ($user_role === 'entrepreneur') ? 'entrepreneurs.php' : 'investors.php'; ?>';">Back to Dashboard</button>
+        <button onclick="window.location.href='<?php 
+    if ($user_role === 'entrepreneur') {
+        echo 'entrepreneurs.php';
+    } elseif ($user_role === 'investor') {
+        echo 'investors.php';
+    } elseif ($user_role === 'admin') {
+        echo 'admin-panel.php';
+    } else {
+        echo 'index.php'; // Default fallback
+    }
+?>';">Back to Dashboard</button>
     </div>
 </body>
 
