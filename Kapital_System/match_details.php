@@ -15,16 +15,28 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
+// Fetch the role of the logged-in user
+$role_query = "SELECT role FROM Users WHERE user_id = ?";
+$role_stmt = $conn->prepare($role_query);
+$role_stmt->bind_param('i', $user_id);
+$role_stmt->execute();
+$role_result = $role_stmt->get_result();
+$user_role = $role_result->fetch_assoc()['role'];
+
 // Fetch match details using the provided match ID
 if (isset($_GET['match_id'])) {
     $match_id = intval($_GET['match_id']);
 
     $stmt = $conn->prepare("
-        SELECT m.match_id, m.match_type, m.details, m.created_at, 
-               u.full_name AS matched_user, u.email AS matched_email
-        FROM Matches m
-        JOIN Users u ON m.matched_user_id = u.user_id
-        WHERE m.match_id = ? AND (m.user_id = ? OR m.matched_user_id = ?)
+    SELECT m.match_id, m.match_score, m.created_at, 
+           s.name AS startup_name, s.description AS startup_description,
+           u.name AS investor_name, u.email AS investor_email,
+           s.entrepreneur_id, i.investor_id
+    FROM Matches m
+    JOIN Startups s ON m.startup_id = s.startup_id
+    JOIN Investors i ON m.investor_id = i.investor_id
+    JOIN Users u ON i.investor_id = u.user_id
+    WHERE m.match_id = ? AND (s.entrepreneur_id = ? OR i.investor_id = ?)
     ");
     $stmt->bind_param('iii', $match_id, $user_id, $user_id);
     $stmt->execute();
@@ -134,24 +146,32 @@ if (isset($_GET['match_id'])) {
                 <h1>Match Details</h1>
             </div>
             <div class="details">
-                <h2>Matched User:</h2>
-                <p><?php echo htmlspecialchars($match['matched_user']); ?></p>
+                <h2>Startup Name:</h2>
+                <p><?php echo htmlspecialchars($match['startup_name']); ?></p>
 
-                <h2>Match Type:</h2>
-                <p><?php echo htmlspecialchars(ucfirst($match['match_type'])); ?></p>
+                <h2>Startup Description:</h2>
+                <p><?php echo htmlspecialchars($match['startup_description']); ?></p>
 
-                <h2>Details:</h2>
-                <p><?php echo htmlspecialchars($match['details']); ?></p>
+                <h2>Investor Name:</h2>
+                <p><?php echo htmlspecialchars($match['investor_name']); ?></p>
 
-                <h2>Contact Email:</h2>
-                <p><?php echo htmlspecialchars($match['matched_email']); ?></p>
+                <h2>Investor Email:</h2>
+                <p><?php echo htmlspecialchars($match['investor_email']); ?></p>
+
+                <h2>Match Score:</h2>
+                <p><?php echo htmlspecialchars($match['match_score']); ?></p>
 
                 <h2>Created At:</h2>
                 <p><?php echo htmlspecialchars($match['created_at']); ?></p>
             </div>
             <div class="cta-buttons">
-                <a href="messages.php?recipient_id=<?php echo $match['matched_user_id']; ?>">Send Message</a>
-                <a href="dashboard.php">Back to Dashboard</a>
+                <?php if ($user_role === 'entrepreneur'): ?>
+                    <a href="messages.php?chat_with=<?php echo $match['investor_id']; ?>">Send Message to Investor</a>
+                    <a href="entrepreneurs.php">Back to Dashboard</a>
+                <?php elseif ($user_role === 'investor'): ?>
+                    <a href="messages.php?chat_with=<?php echo $match['entrepreneur_id']; ?>">Send Message to Entrepreneur</a>
+                    <a href="investors.php">Back to Dashboard</a>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
     </div>
