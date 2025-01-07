@@ -18,7 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin_id = $_SESSION['user_id'];
 
     // Fetch the entrepreneur's user_id and email for notification
-    $entrepreneur_query = "SELECT entrepreneur_id, entrepreneur_email FROM Startups WHERE startup_id = '$startup_id'";
+    $entrepreneur_query = "
+    SELECT u.email AS entrepreneur_email, e.entrepreneur_id 
+    FROM Entrepreneurs e
+    JOIN Users u ON e.entrepreneur_id = u.user_id
+    JOIN Startups s ON e.entrepreneur_id = s.entrepreneur_id
+    WHERE s.startup_id = '$startup_id'";
     $entrepreneur_result = mysqli_query($conn, $entrepreneur_query);
     $entrepreneur = mysqli_fetch_assoc($entrepreneur_result);
     $entrepreneur_id = $entrepreneur['entrepreneur_id'];
@@ -46,7 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $startup_industry_result = mysqli_query($conn, $startup_industry_query);
         $startup_industry = mysqli_fetch_assoc($startup_industry_result)['industry'];
 
-        $investors_query = "SELECT email FROM Investors WHERE preferred_industries LIKE '%$startup_industry%'";
+        $investors_query = "
+    SELECT u.email 
+    FROM Investors i
+    JOIN Users u ON i.investor_id = u.user_id
+    WHERE i.preferred_industries LIKE '%$startup_industry%'";
         $investors_result = mysqli_query($conn, $investors_query);
         while ($investor = mysqli_fetch_assoc($investors_result)) {
             mail($investor['email'], "New Startup Match", "A new startup matching your preferences has been approved.");
