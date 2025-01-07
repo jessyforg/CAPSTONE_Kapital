@@ -202,4 +202,5 @@ ADD COLUMN cover_letter TEXT;
 ALTER TABLE Notifications
 ADD COLUMN match_id INT NULL,
 ADD CONSTRAINT fk_match_id FOREIGN KEY (match_id) REFERENCES Matches(match_id) ON DELETE SET NULL;
+ADD COLUMN url VARCHAR(255) NULL;
 
