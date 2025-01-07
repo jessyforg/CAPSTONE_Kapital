@@ -8,13 +8,15 @@ require_once 'db_connection.php';
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
-    // Fetch unread notifications
-    $stmt_notifications = $conn->prepare("SELECT * FROM Notifications WHERE user_id = ? AND status = 'unread'");
+    // Fetch all notifications, including read and unread, sorted by created_at
+    $stmt_notifications = $conn->prepare("SELECT * FROM Notifications WHERE user_id = ? ORDER BY created_at DESC");
     $stmt_notifications->bind_param('i', $user_id);
     $stmt_notifications->execute();
     $result_notifications = $stmt_notifications->get_result();
     $notifications = $result_notifications->fetch_all(MYSQLI_ASSOC);
-    $notification_count = count($notifications);
+    $notification_count = count(array_filter($notifications, function($notification) {
+        return $notification['status'] == 'unread';
+    }));
 
     // Fetch messages where the user is either the sender or receiver
     $stmt_messages = $conn->prepare(
@@ -42,6 +44,7 @@ if (isset($_SESSION['user_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -160,14 +163,21 @@ if (isset($_SESSION['user_id'])) {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
+        /* Profile dropdown content */
         .profile-dropdown .dropdown-content {
             display: none;
             position: absolute;
             background-color: #1e1e1e;
             min-width: 160px;
+            width: auto;
+            max-width: 300px;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
             border-radius: 5px;
+            left: 0;
+            top: 100%;
+            word-wrap: break-word;
+            white-space: normal;
         }
 
         .profile-dropdown .dropdown-content a {
@@ -175,7 +185,7 @@ if (isset($_SESSION['user_id'])) {
             padding: 12px 16px;
             text-decoration: none;
             display: block;
-            transition: background 0.3s;
+            border-bottom: 1px solid #333;
         }
 
         .profile-dropdown .dropdown-content a:hover {
@@ -200,9 +210,13 @@ if (isset($_SESSION['user_id'])) {
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
             border-radius: 5px;
-            width: 300px;
+            min-width: 160px;
+            max-width: 300px;
+            width: auto;
             max-height: 300px;
             overflow-y: auto;
+            left: 0;
+            top: 100%;
         }
 
         .dropdown-content a {
@@ -232,8 +246,39 @@ if (isset($_SESSION['user_id'])) {
             background-color: #1e1e1e;
             color: gray;
         }
+
+        /* Highlight unread notifications */
+        .notification-item.unread {
+            background-color: #2e2e2e;
+            font-weight: bold;
+        }
+
+        .notification-item.read {
+            background-color: #1e1e1e;
+            color: gray;
+        }
+
+        /* Handle positioning based on screen height to avoid overflow */
+        .dropdown-container .dropdown-content {
+            top: 100%;
+            bottom: auto;
+        }
+
+        .dropdown-container .dropdown-content-upward {
+            top: auto;
+            bottom: 100%;
+        }
+
+        /* Adjustments for responsiveness */
+        @media (max-height: 600px) {
+            .dropdown-container .dropdown-content {
+                top: auto;
+                bottom: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
     <header>
         <div class="logo">Kapital</div>
@@ -263,7 +308,9 @@ if (isset($_SESSION['user_id'])) {
                     <div class="dropdown-content">
                         <?php if (!empty($notifications)): ?>
                             <?php foreach ($notifications as $notification): ?>
-                                <a href="notification_redirect.php?notification_id=<?php echo $notification['notification_id']; ?>">
+                                <a href="notification_redirect.php?notification_id=<?php echo $notification['notification_id']; ?>"
+                                    class="notification-item <?php echo ($notification['status'] == 'unread') ? 'unread' : 'read'; ?>"
+                                    data-notification-id="<?php echo $notification['notification_id']; ?>">
                                     <?php echo htmlspecialchars($notification['message']); ?>
                                 </a>
                             <?php endforeach; ?>
@@ -280,7 +327,9 @@ if (isset($_SESSION['user_id'])) {
                     <div class="dropdown-content">
                         <?php if (!empty($messages)): ?>
                             <?php foreach ($messages as $message): ?>
-                                <a href="messages.php?chat_with=<?php echo ($message['sender_id'] == $user_id) ? $message['receiver_id'] : $message['sender_id']; ?>" class="message-item <?php echo ($message['status'] == 'unread') ? 'unread' : 'read'; ?>" data-message-id="<?php echo $message['message_id']; ?>">
+                                <a href="messages.php?chat_with=<?php echo ($message['sender_id'] == $user_id) ? $message['receiver_id'] : $message['sender_id']; ?>"
+                                    class="message-item <?php echo ($message['status'] == 'unread') ? 'unread' : 'read'; ?> "
+                                    data-message-id="<?php echo $message['message_id']; ?>">
                                     <?php echo ($message['sender_id'] == $user_id ? 'To: ' : 'From: ') . htmlspecialchars($message['sender_name']) . " | " . htmlspecialchars(substr($message['content'], 0, 30)) . '...'; ?>
                                 </a>
                             <?php endforeach; ?>
@@ -305,10 +354,10 @@ if (isset($_SESSION['user_id'])) {
 
     <script>
         // Function to mark the message as read
-        document.querySelectorAll('.message-item').forEach(function(item) {
-            item.addEventListener('click', function() {
+        document.querySelectorAll('.message-item').forEach(function (item) {
+            item.addEventListener('click', function () {
                 const messageId = this.getAttribute('data-message-id');
-                
+
                 fetch('mark_message_read.php', {
                     method: 'POST',
                     headers: {
@@ -316,10 +365,33 @@ if (isset($_SESSION['user_id'])) {
                     },
                     body: JSON.stringify({ message_id: messageId }),
                 })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            this.classList.remove('unread');
+                            this.classList.add('read');
+                        }
+                    });
+            });
+        });
+
+        // Function to mark the notification as read
+        document.querySelectorAll('.notification-item').forEach(function (item) {
+            item.addEventListener('click', function () {
+                const notificationId = this.getAttribute('data-notification-id');
+
+                fetch('mark_notification_read.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ notification_id: notificationId }),
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        this.style.color = 'gray'; // Update the message color to indicate it's read
+                        this.classList.remove('unread');
+                        this.classList.add('read');
                     }
                 });
             });
@@ -339,8 +411,28 @@ if (isset($_SESSION['user_id'])) {
             });
         }
 
-        // Call the function after the page loads
-        window.onload = setActiveLink;
+        // Adjust dropdown positioning based on screen height
+        function adjustDropdownPosition() {
+            const dropdowns = document.querySelectorAll('.dropdown-container');
+            dropdowns.forEach(function (dropdown) {
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                const rect = dropdown.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                // If the dropdown overflows the bottom of the window, show it above
+                if (rect.bottom + dropdownContent.offsetHeight > windowHeight) {
+                    dropdownContent.classList.add('dropdown-content-upward');
+                } else {
+                    dropdownContent.classList.remove('dropdown-content-upward');
+                }
+            });
+        }
+
+        // Call the function after the page loads or when resizing
+        window.addEventListener('resize', adjustDropdownPosition);
+        window.addEventListener('load', adjustDropdownPosition);
+        setActiveLink(); // Set active class on page load
     </script>
 </body>
+
 </html>
