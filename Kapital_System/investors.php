@@ -59,7 +59,10 @@ if (isset($_POST['match_startup_id'])) {
             INSERT INTO Matches (investor_id, startup_id, created_at) 
             VALUES ('$user_id', '$startup_id', NOW())";
         mysqli_query($conn, $insert_match_query);
-
+        
+        // Get the last inserted match_id
+        $match_id = mysqli_insert_id($conn); // Get the match_id from the Matches table
+    
         // Fetch the entrepreneur's user_id and email for the notification
         $entrepreneur_query = "
             SELECT Users.email, Users.user_id
@@ -68,28 +71,28 @@ if (isset($_POST['match_startup_id'])) {
             WHERE Startups.startup_id = '$startup_id'";
         $entrepreneur_result = mysqli_query($conn, $entrepreneur_query);
         $entrepreneur = mysqli_fetch_assoc($entrepreneur_result);
-
-        // Insert a notification for the entrepreneur
+    
+        // Insert the notification for the entrepreneur
         $notification_message = "Your startup has been matched with an investor!";
-        $notification_url = "match_details.php?match_id=" . mysqli_insert_id($conn); // Get the last inserted match_id
+        $notification_url = "match_details.php?match_id=$match_id"; // Use the match_id here
         $insert_notification_query = "
-    INSERT INTO Notifications (user_id, sender_id, type, message, url) 
-    VALUES ('" . $entrepreneur['user_id'] . "', '$user_id', 'investment_match', '$notification_message', '$notification_url')";
+            INSERT INTO Notifications (user_id, sender_id, type, message, url, match_id) 
+            VALUES ('" . $entrepreneur['user_id'] . "', '$user_id', 'investment_match', '$notification_message', '$notification_url', '$match_id')";
         mysqli_query($conn, $insert_notification_query);
-
-
+    
         // Fetch startup details for the investor notification
         $startup_query = "SELECT name FROM Startups WHERE startup_id = '$startup_id'";
         $startup_result = mysqli_query($conn, $startup_query);
         $startup = mysqli_fetch_assoc($startup_result);
-
-        // Insert a notification for the investor
+    
+        // Insert the notification for the investor
         $notification_message_investor = "You have successfully matched with the startup: " . htmlspecialchars($startup['name']);
         $insert_notification_investor_query = "
-            INSERT INTO Notifications (user_id, sender_id, type, message) 
-            VALUES ('$user_id', NULL, 'investment_match', '$notification_message_investor')";
+            INSERT INTO Notifications (user_id, sender_id, type, message, match_id) 
+            VALUES ('$user_id', NULL, 'investment_match', '$notification_message_investor', '$match_id')";
         mysqli_query($conn, $insert_notification_investor_query);
     }
+    
 
     // After the match is processed, redirect to avoid resubmission
     header("Location: investors.php");  // Redirect to the same page
