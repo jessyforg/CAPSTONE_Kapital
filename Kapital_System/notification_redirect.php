@@ -35,18 +35,37 @@ if ($result->num_rows > 0) {
     // Redirect based on the notification type
     switch ($notification['type']) {
         case 'application_status':
-            // Use application_id for the URL
-            header("Location: application_status.php?application_id=" . $notification['application_id']);
+            if (!empty($notification['application_id'])) {
+                header("Location: application_status.php?application_id=" . $notification['application_id']);
+            } else {
+                echo "No application ID provided for this notification.";
+            }
             break;
+
         case 'investment_match':
-            header("Location: match_details.php?startup_id=" . $notification['startup_id']);
+            if (!empty($notification['match_id'])) {
+                header("Location: match_details.php?match_id=" . $notification['match_id']);
+            } else {
+                echo "No match ID provided for this notification.";
+            }
             break;
+
         case 'job_offer':
-            header("Location: job_offer_details.php?job_id=" . $notification['sender_id']);
+            if (!empty($notification['job_id'])) {
+                header("Location: job_offer_details.php?job_id=" . $notification['job_id']);
+            } else {
+                echo "No job ID provided for this notification.";
+            }
             break;
+
         case 'message':
-            header("Location: messages.php?conversation_id=" . $notification['sender_id']);
+            if (!empty($notification['sender_id'])) {
+                header("Location: messages.php?conversation_id=" . $notification['sender_id']);
+            } else {
+                echo "No sender ID provided for this notification.";
+            }
             break;
+
         default:
             // If the notification type is unknown, redirect to the homepage
             header("Location: index.php");

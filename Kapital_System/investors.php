@@ -71,10 +71,12 @@ if (isset($_POST['match_startup_id'])) {
 
         // Insert a notification for the entrepreneur
         $notification_message = "Your startup has been matched with an investor!";
+        $notification_url = "match_details.php?match_id=" . mysqli_insert_id($conn); // Get the last inserted match_id
         $insert_notification_query = "
-            INSERT INTO Notifications (user_id, sender_id, type, message) 
-            VALUES ('" . $entrepreneur['user_id'] . "', '$user_id', 'investment_match', '$notification_message')";
+    INSERT INTO Notifications (user_id, sender_id, type, message, url) 
+    VALUES ('" . $entrepreneur['user_id'] . "', '$user_id', 'investment_match', '$notification_message', '$notification_url')";
         mysqli_query($conn, $insert_notification_query);
+
 
         // Fetch startup details for the investor notification
         $startup_query = "SELECT name FROM Startups WHERE startup_id = '$startup_id'";
