@@ -8,6 +8,23 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$user_id = $_SESSION['user_id'];
+
+// Query to fetch the user's role
+$user_query = "SELECT role FROM Users WHERE user_id = ?";
+$user_stmt = $conn->prepare($user_query);
+$user_stmt->bind_param("i", $user_id);
+$user_stmt->execute();
+$user_result = $user_stmt->get_result();
+
+if ($user_result->num_rows > 0) {
+    $user = $user_result->fetch_assoc();
+    $role = $user['role'];
+} else {
+    echo "User not found.";
+    exit;
+}
+
 // Check if notification_id is set
 if (!isset($_GET['notification_id'])) {
     header("Location: index.php");
@@ -32,29 +49,47 @@ if ($result->num_rows > 0) {
     $update_stmt->bind_param("i", $notification_id);
     $update_stmt->execute();
 
-    // Redirect based on the notification type
+    // Role-based redirection
+    if ($role == 'entrepreneur') {
+        // If it's a system alert, redirect to index.php
+        if ($notification['type'] == 'system_alert') {
+            header("Location: index.php");
+            exit;
+        }
+
+        // For investment match, redirect to match-details.php
+        if ($notification['type'] == 'investment_match' && !empty($notification['match_id'])) {
+            header("Location: match_details.php?match_id=" . $notification['match_id']);
+            exit;
+        }
+        
+        // For other types, redirect to application status page if application_id exists
+        if (!empty($notification['application_id'])) {
+            $application_id = $notification['application_id'];
+            header("Location: application_status.php?application_id=" . $application_id);
+            exit;
+        } else {
+            echo "No application ID for this notification.";
+            exit;
+        }
+    } elseif ($role == 'job_seeker') {
+        // Redirect job seeker to specific job details page
+        if (!empty($notification['job_id'])) {
+            $job_id = $notification['job_id'];
+            header("Location: job-details.php?job_id=" . $job_id);
+            exit;
+        } else {
+            echo "No job ID for this notification.";
+            exit;
+        }
+    }
+
+    // Redirect based on the notification type if role-based redirection hasn't been triggered
     switch ($notification['type']) {
         case 'application_status':
             if (!empty($notification['application_id'])) {
-                // Get the application ID
                 $application_id = $notification['application_id'];
-
-                // Query to fetch the associated job details for the application
-                $application_query = "SELECT job_id FROM Applications WHERE application_id = ?";
-                $application_stmt = $conn->prepare($application_query);
-                $application_stmt->bind_param("i", $application_id);
-                $application_stmt->execute();
-                $application_result = $application_stmt->get_result();
-
-                if ($application_result->num_rows > 0) {
-                    $application = $application_result->fetch_assoc();
-                    $job_id = $application['job_id'];
-
-                    // Redirect to the job details page
-                    header("Location: job-details.php?job_id=" . $job_id);
-                } else {
-                    echo "Application not found.";
-                }
+                header("Location: application_status.php?application_id=" . $application_id);
             } else {
                 echo "No application ID provided for this notification.";
             }
@@ -106,15 +141,13 @@ if ($result->num_rows > 0) {
             break;
 
         case 'system_alert':
-            // For system alerts, you can either redirect to a general alert page
-            // or handle it as needed. For now, redirecting to homepage:
+            // For system alerts, redirect to the homepage (index.php)
             header("Location: index.php");
             break;
 
         default:
             // If the notification type is unknown, check for the 'url' field and redirect
             if (!empty($notification['url'])) {
-                // Use the URL from the notification table for redirection
                 header("Location: " . $notification['url']);
             } else {
                 header("Location: index.php");
