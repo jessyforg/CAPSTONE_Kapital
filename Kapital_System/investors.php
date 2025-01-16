@@ -41,7 +41,13 @@ if (isset($_GET['funding_stage']) && $_GET['funding_stage'] != "") {
 $startups_query = "
     SELECT * 
     FROM Startups
-    WHERE approval_status = 'approved' $filter_conditions
+    WHERE approval_status = 'approved' 
+    AND startup_id NOT IN (
+        SELECT startup_id 
+        FROM Matches 
+        WHERE investor_id = '$user_id'
+    )
+    $filter_conditions
     ORDER BY created_at DESC";
 $startups_result = mysqli_query($conn, $startups_query);
 
@@ -59,10 +65,10 @@ if (isset($_POST['match_startup_id'])) {
             INSERT INTO Matches (investor_id, startup_id, created_at) 
             VALUES ('$user_id', '$startup_id', NOW())";
         mysqli_query($conn, $insert_match_query);
-        
+
         // Get the last inserted match_id
         $match_id = mysqli_insert_id($conn); // Get the match_id from the Matches table
-    
+
         // Fetch the entrepreneur's user_id and email for the notification
         $entrepreneur_query = "
             SELECT Users.email, Users.user_id
@@ -71,7 +77,7 @@ if (isset($_POST['match_startup_id'])) {
             WHERE Startups.startup_id = '$startup_id'";
         $entrepreneur_result = mysqli_query($conn, $entrepreneur_query);
         $entrepreneur = mysqli_fetch_assoc($entrepreneur_result);
-    
+
         // Insert the notification for the entrepreneur
         $notification_message = "Your startup has been matched with an investor!";
         $notification_url = "match_details.php?match_id=$match_id"; // Use the match_id here
@@ -79,12 +85,12 @@ if (isset($_POST['match_startup_id'])) {
             INSERT INTO Notifications (user_id, sender_id, type, message, url, match_id) 
             VALUES ('" . $entrepreneur['user_id'] . "', '$user_id', 'investment_match', '$notification_message', '$notification_url', '$match_id')";
         mysqli_query($conn, $insert_notification_query);
-    
+
         // Fetch startup details for the investor notification
         $startup_query = "SELECT name FROM Startups WHERE startup_id = '$startup_id'";
         $startup_result = mysqli_query($conn, $startup_query);
         $startup = mysqli_fetch_assoc($startup_result);
-    
+
         // Insert the notification for the investor
         $notification_message_investor = "You have successfully matched with the startup: " . htmlspecialchars($startup['name']);
         $insert_notification_investor_query = "
@@ -92,7 +98,6 @@ if (isset($_POST['match_startup_id'])) {
             VALUES ('$user_id', NULL, 'investment_match', '$notification_message_investor', '$match_id')";
         mysqli_query($conn, $insert_notification_investor_query);
     }
-    
 
     // After the match is processed, redirect to avoid resubmission
     header("Location: investors.php");  // Redirect to the same page
@@ -183,12 +188,10 @@ if (isset($_POST['unmatch_startup_id'])) {
             border: none;
             cursor: pointer;
             text-decoration: none;
-            /* Remove the underline */
         }
 
         .btn-info:hover {
             text-decoration: none;
-            /* Ensure no underline on hover */
         }
 
         .btn-success {
@@ -230,6 +233,24 @@ if (isset($_POST['unmatch_startup_id'])) {
     <div class="container">
         <h1>Welcome, <span class="investor-name">Investor!</span></h1>
 
+        <h2>Search & Filter Startups</h2>
+        <!-- Search & Filter form -->
+        <form id="search-filter-form" method="GET" action="investors.php">
+            <input type="text" name="industry" placeholder="Industry" class="form-control"
+                value="<?php echo isset($_GET['industry']) ? htmlspecialchars($_GET['industry']) : ''; ?>">
+            <input type="text" name="location" placeholder="Location" class="form-control"
+                value="<?php echo isset($_GET['location']) ? htmlspecialchars($_GET['location']) : ''; ?>">
+            <select name="funding_stage" class="form-control">
+                <option value="">Funding Stage</option>
+                <option value="seed" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'seed' ? 'selected' : ''; ?>>Seed</option>
+                <option value="series_a" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_a' ? 'selected' : ''; ?>>Series A</option>
+                <option value="series_b" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_b' ? 'selected' : ''; ?>>Series B</option>
+                <option value="series_c" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_c' ? 'selected' : ''; ?>>Series C</option>
+                <option value="exit" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'exit' ? 'selected' : ''; ?>>Exit</option>
+            </select>
+            <button type="submit" class="btn btn-secondary">Apply Filters</button>
+        </form>
+
         <h2>Matched Startups</h2>
         <?php if (mysqli_num_rows($saved_startups_result) > 0): ?>
             <?php while ($startup = mysqli_fetch_assoc($saved_startups_result)): ?>
@@ -256,23 +277,6 @@ if (isset($_POST['unmatch_startup_id'])) {
         <?php endif; ?>
 
         <h2>Explore Startups</h2>
-        <!-- Search & Filter form -->
-        <form id="search-filter-form" method="GET" action="investors.php">
-            <input type="text" name="industry" placeholder="Industry" class="form-control"
-                value="<?php echo isset($_GET['industry']) ? htmlspecialchars($_GET['industry']) : ''; ?>">
-            <input type="text" name="location" placeholder="Location" class="form-control"
-                value="<?php echo isset($_GET['location']) ? htmlspecialchars($_GET['location']) : ''; ?>">
-            <select name="funding_stage" class="form-control">
-                <option value="">Funding Stage</option>
-                <option value="seed" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'seed' ? 'selected' : ''; ?>>Seed</option>
-                <option value="series_a" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_a' ? 'selected' : ''; ?>>Series A</option>
-                <option value="series_b" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_b' ? 'selected' : ''; ?>>Series B</option>
-                <option value="series_c" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_c' ? 'selected' : ''; ?>>Series C</option>
-                <option value="exit" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'exit' ? 'selected' : ''; ?>>Exit</option>
-            </select>
-            <button type="submit" class="btn btn-secondary">Apply Filters</button>
-        </form>
-
         <?php if (mysqli_num_rows($startups_result) > 0): ?>
             <?php while ($startup = mysqli_fetch_assoc($startups_result)): ?>
                 <div class="startup-post">
