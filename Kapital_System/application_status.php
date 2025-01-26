@@ -61,14 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status'])) {
     $notification_message = "Your application for the $job_role role has been updated to $new_status.";
 
     // Optionally, create a notification for the job seeker
-    $notification_query = "INSERT INTO Notifications (user_id, sender_id, type, message, status) 
-                            VALUES (?, ?, 'application_status', ?, 'unread')";
+    $notification_query = "INSERT INTO Notifications (user_id, sender_id, type, application_id, job_id, message, status) 
+                            VALUES (?, ?, 'application_status', ?, ?, ?, 'unread')";
     $notification_stmt = $conn->prepare($notification_query);
     $notification_stmt->bind_param(
-        "iis",
-        $application['job_seeker_id'],
-        $_SESSION['user_id'],
-        $notification_message
+        "iiiss", // Bind parameters
+        $application['job_seeker_id'], // Job seeker ID
+        $_SESSION['user_id'],           // Entrepreneur ID (sender)
+        $application_id,                // Application ID
+        $application['job_id'],         // Job ID (from the job associated with the application)
+        $notification_message           // The notification message
     );
     $notification_stmt->execute();
 
@@ -180,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status'])) {
 <body>
 
     <div class="container">
-        <h2>Application Status for <?php echo htmlspecialchars($job_seeker_name); ?> -
+        <h2>Application Status for <?php echo htmlspecialchars($job_seeker_name); ?> - 
             <?php echo htmlspecialchars($job_role); ?>
         </h2>
         <div class="status-info">
@@ -196,16 +198,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status'])) {
             class="status-form">
             <label for="status">Change Status:</label>
             <select name="status" id="status" required>
-                <option value="reviewed" <?php if ($application_status == 'reviewed')
-                    echo 'selected'; ?>>Reviewed
+                <option value="reviewed" <?php if ($application_status == 'reviewed') echo 'selected'; ?>>Reviewed
                 </option>
-                <option value="interviewed" <?php if ($application_status == 'interviewed')
-                    echo 'selected'; ?>>
+                <option value="interviewed" <?php if ($application_status == 'interviewed') echo 'selected'; ?>>
                     Interviewed</option>
-                <option value="hired" <?php if ($application_status == 'hired')
-                    echo 'selected'; ?>>Hired</option>
-                <option value="rejected" <?php if ($application_status == 'rejected')
-                    echo 'selected'; ?>>Rejected
+                <option value="hired" <?php if ($application_status == 'hired') echo 'selected'; ?>>Hired</option>
+                <option value="rejected" <?php if ($application_status == 'rejected') echo 'selected'; ?>>Rejected
                 </option>
             </select>
             <button type="submit" class="btn-update">Update Status</button>

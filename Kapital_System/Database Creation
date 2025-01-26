@@ -202,4 +202,51 @@ ADD COLUMN cover_letter TEXT;
 ALTER TABLE Notifications
 ADD COLUMN match_id INT NULL,
 ADD CONSTRAINT fk_match_id FOREIGN KEY (match_id) REFERENCES Matches(match_id) ON DELETE SET NULL;
+ADD COLUMN url VARCHAR(255) NULL;
 
+DELIMITER $$
+
+CREATE TRIGGER application_status_update_notification
+AFTER UPDATE ON Applications
+FOR EACH ROW
+BEGIN
+    -- Insert notification for the job seeker when the entrepreneur updates application status
+    INSERT INTO Notifications (user_id, sender_id, type, message, application_id, status)
+    VALUES (
+        NEW.job_seeker_id, -- job_seeker is the recipient
+        (SELECT entrepreneur_id FROM Startups WHERE startup_id = (SELECT startup_id FROM Jobs WHERE job_id = NEW.job_id)), -- sender is the entrepreneur
+        'application_status', -- notification type
+        CONCAT('The status of your application for job: ', (SELECT role FROM Jobs WHERE job_id = NEW.job_id), ' has been updated to: ', NEW.status), -- message
+        NEW.application_id, -- correct application_id
+        'unread' -- status of the notification
+    );
+END $$
+
+DELIMITER ;
+
+
+-- Alter the Notifications table to add 'startup_status' type
+ALTER TABLE Notifications
+MODIFY COLUMN type ENUM('message', 'application_status', 'investment_match', 'job_offer', 'system_alert', 'startup_status') NOT NULL;
+
+DELIMITER $$
+
+CREATE TRIGGER startup_status_update_notification
+AFTER UPDATE ON Startups
+FOR EACH ROW
+BEGIN
+    -- Insert notification for the user when startup approval status changes
+    IF OLD.approval_status != NEW.approval_status THEN
+        INSERT INTO Notifications (user_id, sender_id, type, message, startup_id, status)
+        VALUES (
+            (SELECT entrepreneur_id FROM Startups WHERE startup_id = NEW.startup_id), -- entrepreneur_id
+            NULL, -- No sender ID needed
+            'startup_status', -- notification type
+            CONCAT('Your startup ', NEW.name, ' has been updated to: ', NEW.approval_status), -- message
+            NEW.startup_id, -- related startup_id
+            'unread' -- status of the notification
+        );
+    END IF;
+END $$
+
+DELIMITER ;

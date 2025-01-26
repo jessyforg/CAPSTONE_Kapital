@@ -43,9 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiver_id'], $_POST
     exit();
 }
 
-// Fetch chat messages
+// Fetch chat messages and user details for the selected conversation
 $chat_with = isset($_GET['chat_with']) ? (int)$_GET['chat_with'] : null;
 $messages = [];
+$chat_user = null;  // To store the chat user's details (name, role)
 if ($chat_with) {
     $messages_query = "
         SELECT *
@@ -61,6 +62,14 @@ if ($chat_with) {
     while ($row = $messages_result->fetch_assoc()) {
         $messages[] = $row;
     }
+
+    // Fetch user details (name and role) of the person you're chatting with
+    $user_query = "SELECT name, role FROM Users WHERE user_id = ?";
+    $user_stmt = $conn->prepare($user_query);
+    $user_stmt->bind_param('i', $chat_with);
+    $user_stmt->execute();
+    $user_result = $user_stmt->get_result();
+    $chat_user = $user_result->fetch_assoc();
 }
 
 // Handle user search
@@ -85,28 +94,39 @@ if ($search_query) {
     <title>Messages</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* General Layout */
         .container {
             display: flex;
             height: calc(100vh - 60px); /* Adjust for navbar height */
+            border-radius: 15px; /* Rounded corners for the entire container */
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for the container */
         }
 
+        /* Sidebar */
         .sidebar {
             width: 30%;
             background-color: #f8f9fa;
             overflow-y: auto;
             border-right: 1px solid #ddd;
+            border-radius: 15px 0 0 15px; /* Rounded corners for the left sidebar */
+            padding: 20px 15px;
         }
 
         .chat-area {
             width: 70%;
             display: flex;
             flex-direction: column;
+            border-radius: 0 15px 15px 0; /* Rounded corners for the right chat area */
         }
 
+        /* Conversations and Search Results */
         .conversation, .search-result {
-            padding: 10px 15px;
+            padding: 12px 15px;
             cursor: pointer;
-            border-bottom: 1px solid #ddd;
+            border-radius: 10px; /* Rounded corners for each conversation */
+            margin-bottom: 5px;
+            transition: background-color 0.3s;
         }
 
         .conversation:hover, .search-result:hover {
@@ -118,51 +138,75 @@ if ($search_query) {
             color: #fff;
         }
 
+        /* Message Styles */
         .messages {
             flex-grow: 1;
-            padding: 15px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
         }
 
         .message {
-            max-width: 60%;
-            padding: 10px;
-            border-radius: 15px;
-            margin-bottom: 10px;
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: 20px;
+            margin-bottom: 12px;
             word-wrap: break-word;
             display: inline-block;
+            font-size: 16px;
         }
 
         .message.sent {
             background-color: #007bff;
             color: white;
             align-self: flex-end; /* Align to the right */
-            border-radius: 15px 15px 0 15px; /* Rounded corners for the right side */
+            border-radius: 20px 20px 0 20px; /* Rounded corners for the right side */
         }
 
         .message.received {
             background-color: #f1f1f1;
             align-self: flex-start; /* Align to the left */
-            border-radius: 15px 15px 15px 0; /* Rounded corners for the left side */
+            border-radius: 20px 20px 20px 0; /* Rounded corners for the left side */
         }
 
+        /* Message Input */
         .message-input {
             display: flex;
             padding: 10px;
             border-top: 1px solid #ddd;
+            background-color: #fff;
         }
 
         .message-input textarea {
             flex-grow: 1;
-            border-radius: 5px;
-            padding: 10px;
+            border-radius: 15px;
+            padding: 12px;
+            border: 1px solid #ddd;
         }
 
         .message-input button {
             margin-left: 10px;
-            border-radius: 5px;
+            border-radius: 15px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .message-input button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Conversation Header */
+        .conversation-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            border-radius: 15px 15px 0 0; /* Rounded top corners */
+            text-align: center;
         }
     </style>
 </head>
@@ -196,6 +240,12 @@ if ($search_query) {
 
         <!-- Chat Area -->
         <div class="chat-area">
+            <?php if ($chat_with && $chat_user): ?>
+                <div class="conversation-header">
+                    <?php echo htmlspecialchars($chat_user['name']) . " (" . ucfirst($chat_user['role']) . ")"; ?>
+                </div>
+            <?php endif; ?>
+
             <div class="messages">
                 <?php if ($chat_with): ?>
                     <?php foreach ($messages as $message): ?>
