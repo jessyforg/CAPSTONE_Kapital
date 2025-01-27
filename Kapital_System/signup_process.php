@@ -41,22 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo "Error inserting into Entrepreneurs table: " . $conn->error;
                 }
                 break;
+
             case 'investor':
                 $investment_range_min = $conn->real_escape_string($_POST['investment_range_min']);
                 $investment_range_max = $conn->real_escape_string($_POST['investment_range_max']);
-                $preferred_industries = $_POST['preferred_industries']; // Get array of industries
-                $custom_industry = $conn->real_escape_string($_POST['custom_industry'] ?? '');
 
-                // Include custom industry if provided
-                if (!empty($custom_industry)) {
-                    $preferred_industries[] = $custom_industry;
-                }
-
-                $preferred_industries_json = $conn->real_escape_string(json_encode($preferred_industries));
-                $bio = $conn->real_escape_string($_POST['bio']);
-
-                $sql_investor = "INSERT INTO Investors (investor_id, investment_range_min, investment_range_max, preferred_industries, bio)
-                                 VALUES ('$user_id', '$investment_range_min', '$investment_range_max', '$preferred_industries_json', '$bio')";
+                $sql_investor = "INSERT INTO Investors (investor_id, investment_range_min, investment_range_max)
+                                 VALUES ('$user_id', '$investment_range_min', '$investment_range_max')";
                 if ($conn->query($sql_investor) === TRUE) {
                     header("Location: investors.php");
                 } else {
@@ -65,14 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
 
             case 'job_seeker':
-                $desired_role = $conn->real_escape_string($_POST['desired_role']);
-                $bio = $conn->real_escape_string($_POST['bio']);
-                $skills = $conn->real_escape_string(json_encode(explode(',', $_POST['skills'])));
-                $experience_level = $conn->real_escape_string($_POST['experience_level']);
-                $location_preference = $conn->real_escape_string($_POST['location_preference']);
+                $experience_level = $conn->real_escape_string($_POST['experience_level'] ?? null);
 
-                $sql_job_seeker = "INSERT INTO Job_Seekers (job_seeker_id, desired_role, bio, skills, experience_level, location_preference)
-                                   VALUES ('$user_id', '$desired_role', '$bio', '$skills', '$experience_level', '$location_preference')";
+                $sql_job_seeker = "INSERT INTO Job_Seekers (job_seeker_id, experience_level)
+                                   VALUES ('$user_id', " . ($experience_level ? "'$experience_level'" : "NULL") . ")";
                 if ($conn->query($sql_job_seeker) === TRUE) {
                     header("Location: job-seekers.php");
                 } else {
