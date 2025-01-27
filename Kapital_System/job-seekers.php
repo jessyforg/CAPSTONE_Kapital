@@ -20,70 +20,79 @@ include 'navbar.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Seekers</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 0 auto;
         }
 
-        .section-title {
-            font-size: 1.8em;
-            font-weight: 600;
-            color: #000;
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .filter-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
-        .job-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+        .filter-form input,
+        .filter-form select,
+        .filter-form button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
-        .job-card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .filter-form button {
+            background-color: #6c757d;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        .filter-form button:hover {
+            background-color: #5a6268;
+        }
+
+        .job-post {
+            background-color: #ffffff;
             padding: 20px;
-            flex: 1 1 calc(33% - 20px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
         }
 
-        .job-card h3 {
-            margin: 0 0 10px;
-            font-size: 1.5em;
-            color: #000;
+        .job-post:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        .job-card p {
-            margin: 5px 0;
-            font-size: 0.9em;
+        .job-post h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .job-post p {
+            font-size: 1rem;
             color: #555;
+            margin: 5px 0;
         }
 
-        .job-card a {
+        .btn-apply {
             display: inline-block;
-            margin-top: 10px;
-            padding: 8px 16px;
+            padding: 10px 15px;
             background-color: #f3c000;
             color: #000;
             text-decoration: none;
             border-radius: 5px;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
         }
 
-        .job-card a:hover {
+        .btn-apply:hover {
             background-color: #ffab00;
         }
     </style>
@@ -91,38 +100,71 @@ include 'navbar.php';
 
 <body>
     <div class="container">
-        <h1 class="section-title">Available Jobs</h1>
-        <div class="job-list">
-            <?php
-            // Query to fetch job details and related startup details
-            $query = "SELECT Jobs.job_id, Jobs.role, Jobs.description, Jobs.requirements, Jobs.location, Jobs.salary_range_min, Jobs.salary_range_max, 
-                      Startups.name AS startup_name, Startups.industry 
-                      FROM Jobs 
-                      JOIN Startups ON Jobs.startup_id = Startups.startup_id";
-            $result = mysqli_query($conn, $query);
+        <h1>Available Jobs</h1>
 
-            // Loop through the result and display job cards
+        <!-- Filter Form -->
+        <form class="filter-form" method="GET" action="job-seekers.php">
+            <input type="text" name="industry" placeholder="Industry"
+                value="<?php echo isset($_GET['industry']) ? htmlspecialchars($_GET['industry']) : ''; ?>">
+            <input type="text" name="location" placeholder="Location"
+                value="<?php echo isset($_GET['location']) ? htmlspecialchars($_GET['location']) : ''; ?>">
+            <input type="text" name="role" placeholder="Role"
+                value="<?php echo isset($_GET['role']) ? htmlspecialchars($_GET['role']) : ''; ?>">
+            <input type="number" name="salary_min" placeholder="Min Salary"
+                value="<?php echo isset($_GET['salary_min']) ? htmlspecialchars($_GET['salary_min']) : ''; ?>">
+            <button type="submit">Apply Filters</button>
+        </form>
+
+        <!-- Job Listings -->
+        <?php
+        // Build query with filters
+        $filter_conditions = "1=1"; // Default condition to simplify concatenation
+        if (isset($_GET['industry']) && $_GET['industry'] != "") {
+            $industry = mysqli_real_escape_string($conn, $_GET['industry']);
+            $filter_conditions .= " AND Startups.industry = '$industry'";
+        }
+        if (isset($_GET['location']) && $_GET['location'] != "") {
+            $location = mysqli_real_escape_string($conn, $_GET['location']);
+            $filter_conditions .= " AND Jobs.location = '$location'";
+        }
+        if (isset($_GET['role']) && $_GET['role'] != "") {
+            $role = mysqli_real_escape_string($conn, $_GET['role']);
+            $filter_conditions .= " AND Jobs.role = '$role'";
+        }
+        if (isset($_GET['salary_min']) && $_GET['salary_min'] != "") {
+            $salary_min = (int) $_GET['salary_min'];
+            $filter_conditions .= " AND Jobs.salary_range_max >= $salary_min";
+        }
+
+        // Query to fetch job details
+        $query = "
+            SELECT Jobs.job_id, Jobs.role, Jobs.description, Jobs.requirements, Jobs.location, Jobs.salary_range_min, Jobs.salary_range_max, 
+                   Startups.name AS startup_name, Startups.industry 
+            FROM Jobs 
+            JOIN Startups ON Jobs.startup_id = Startups.startup_id
+            WHERE $filter_conditions
+        ";
+        $result = mysqli_query($conn, $query);
+
+        // Display jobs
+        if (mysqli_num_rows($result) > 0) {
             while ($job = mysqli_fetch_assoc($result)): ?>
-                <div class="job-card">
-                    <h3><?php echo htmlspecialchars($job['role']); ?></h3> <!-- Job Title -->
+                <div class="job-post">
+                    <h3><?php echo htmlspecialchars($job['role']); ?></h3>
                     <p><strong>Startup:</strong> <?php echo htmlspecialchars($job['startup_name']); ?></p>
-                    <!-- Startup Name -->
                     <p><strong>Industry:</strong> <?php echo htmlspecialchars($job['industry']); ?></p>
-                    <!-- Startup Industry -->
                     <p><strong>Location:</strong> <?php echo htmlspecialchars($job['location']); ?></p>
-                    <!-- Job Location -->
-                    <p><strong>Salary:</strong> <?php echo '₱' . number_format($job['salary_range_min'], 2); ?> -
-                        <?php echo '₱' . number_format($job['salary_range_max'], 2); ?>
-                    </p> <!-- Salary Range -->
+                    <p><strong>Salary:</strong> ₱<?php echo number_format($job['salary_range_min'], 2); ?> -
+                        ₱<?php echo number_format($job['salary_range_max'], 2); ?></p>
                     <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($job['description'])); ?></p>
-                    <!-- Job Description -->
                     <p><strong>Requirements:</strong> <?php echo nl2br(htmlspecialchars($job['requirements'])); ?></p>
-                    <!-- Job Requirements -->
-                    <a href="apply-button.php?job_id=<?php echo $job['job_id']; ?>">Apply</a>
-                    <!-- Link to job details page -->
+                    <a href="apply_job.php?job_id=<?php echo $job['job_id']; ?>" class="btn-apply">Apply</a>
                 </div>
-            <?php endwhile; ?>
-        </div>
+            <?php endwhile;
+        } else {
+            echo "<p>No jobs found with the current filters.</p>";
+        }
+        ?>
     </div>
 </body>
 
