@@ -250,3 +250,9 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+ALTER TABLE startups 
+ADD COLUMN logo VARCHAR(255) NULL,
+ADD COLUMN video VARCHAR(255) NULL,
+ADD CONSTRAINT unique_startup_name UNIQUE (name);
+
