@@ -20,6 +20,27 @@ if (mysqli_num_rows($result) === 0) {
     die("Entrepreneur profile not found. Please ensure you have registered as an entrepreneur.");
 }
 
+// Function to handle file uploads
+function uploadFile($file, $upload_dir, $allowed_types) {
+    if (!empty($file["name"])) {
+        $file_name = basename($file["name"]);
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        $new_file_name = uniqid() . "_" . $file_name;
+        $target_file = $upload_dir . $new_file_name;
+
+        if (!in_array($file_ext, $allowed_types)) {
+            return ["success" => false, "message" => "Invalid file type: " . $file_ext];
+        }
+
+        if (move_uploaded_file($file["tmp_name"], $target_file)) {
+            return ["success" => true, "path" => $target_file];
+        } else {
+            return ["success" => false, "message" => "File upload failed."];
+        }
+    }
+    return ["success" => true, "path" => ""]; // No file uploaded
+}
+
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Sanitize and retrieve the form data
@@ -31,37 +52,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $website = mysqli_real_escape_string($conn, $_POST['website']);
     $pitch_deck_url = mysqli_real_escape_string($conn, $_POST['pitch_deck_url']);
     $business_plan_url = mysqli_real_escape_string($conn, $_POST['business_plan_url']);
-
-    // Insert a new record into Startups table
-    $query_insert_startup = "
-        INSERT INTO Startups (
-            entrepreneur_id, 
-            name, 
-            industry, 
-            funding_stage, 
-            description, 
-            location, 
-            website, 
-            pitch_deck_url, 
-            business_plan_url
-        ) VALUES (
-            '$user_id', 
-            '$startup_name', 
-            '$industry', 
-            '$funding_stage', 
-            '$description', 
-            '$location', 
-            '$website', 
-            '$pitch_deck_url', 
-            '$business_plan_url'
-        )
-    ";
-    $result_insert_startup = mysqli_query($conn, $query_insert_startup);
-
-    if ($result_insert_startup) {
-        echo "<script>alert('Startup profile created successfully!');</script>";
+    
+    // Ensure the startup name is unique
+    $check_query = "SELECT * FROM Startups WHERE name = '$startup_name'";
+    $check_result = mysqli_query($conn, $check_query);
+    if (mysqli_num_rows($check_result) > 0) {
+        echo "<script>alert('Startup name already exists. Please choose a different name.');</script>";
     } else {
-        echo "<script>alert('Error creating startup profile: " . mysqli_error($conn) . "');</script>";
+        // Handle logo upload
+        $logo_upload = uploadFile($_FILES["logo"], "uploads/logos/", ["jpg", "jpeg", "png"]);
+        if (!$logo_upload["success"]) {
+            echo "<script>alert('" . $logo_upload["message"] . "');</script>";
+        }
+        $logo_path = $logo_upload["path"];
+
+        // Handle file upload (Video Pitch / General File)
+        $file_upload = uploadFile($_FILES["file"], "uploads/files/", ["mp4", "avi", "mov", "pdf", "docx", "pptx"]);
+        if (!$file_upload["success"]) {
+            echo "<script>alert('" . $file_upload["message"] . "');</script>";
+        }
+        $file_path = $file_upload["path"];
+
+        // Insert a new record into Startups table
+        $query_insert_startup = "
+            INSERT INTO Startups (
+                entrepreneur_id, 
+                name, 
+                industry, 
+                funding_stage, 
+                description, 
+                location, 
+                website, 
+                pitch_deck_url, 
+                business_plan_url,
+                logo_url,
+                video_url
+            ) VALUES (
+                '$user_id', 
+                '$startup_name', 
+                '$industry', 
+                '$funding_stage', 
+                '$description', 
+                '$location', 
+                '$website', 
+                '$pitch_deck_url', 
+                '$business_plan_url',
+                '$logo_path',
+                '$file_path'
+            )
+        ";
+        $result_insert_startup = mysqli_query($conn, $query_insert_startup);
+
+        if ($result_insert_startup) {
+            echo "<script>alert('Startup profile created successfully!');</script>";
+        } else {
+            echo "<script>alert('Error creating startup profile: " . mysqli_error($conn) . "');</script>";
+        }
     }
 }
 ?>
@@ -89,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative; /* Added for absolute positioning of logo upload */
         }
 
         h1 {
@@ -179,13 +226,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .error {
             color: #f44336;
         }
+
+        .logo-upload {
+            position: absolute;
+            top: 20px; /* Adjusted for better visibility */
+            right: 20px; /* Adjusted for better visibility */
+            cursor: pointer;
+            text-align: center; /* Center the label text */
+        }
+
+        .logo-upload img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 5px;
+        }
+
+        .logo-upload input {
+            display: none;
+        }
+
+        .logo-label {
+            font-size: 14px; /* Adjust font size */
+            color: #ddd; /* Label color */
+            margin-top: 5px; /* Space between icon and label */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Create Your Startup Profile</h1>
-        <form method="POST">
+        <div class="logo-upload">
+            <label for="logo">
+                <img src="assets/upload_icon.png" alt="Upload Logo">
+            </label>
+            <span class="logo-label">Upload Startup Logo</span>
+            <input type="file" id="logo" name="logo" accept="image/png, image/jpeg">
+        </div>
+        <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="startup_name">Startup Name</label>
                 <input type="text" id="startup_name" name="startup_name" placeholder="Enter your startup's name" required>
@@ -215,6 +295,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location" placeholder="Enter your location">
+            </div>
+
+            <div class="form-group">
+                <label for="file">Video Pitch / File Upload</label>
+                <input type="file" id="file" name="file" accept="video/mp4, video/avi, video/mov, application/pdf, application/msword, application/vnd.ms-powerpoint">
             </div>
 
             <div class="form-group">
