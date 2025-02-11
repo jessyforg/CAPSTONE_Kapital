@@ -13,10 +13,16 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'job_seeker') {
 
 // Check if a job ID is passed in the URL
 if (isset($_GET['job_id'])) {
-    $job_id = $_GET['job_id'];
+    $job_id = mysqli_real_escape_string($conn, $_GET['job_id']);
 
-    // Fetch the job details from the Jobs table
-    $query = "SELECT * FROM Jobs WHERE job_id = '$job_id'";
+    // Fetch the job details along with startup details
+    $query = "
+        SELECT Jobs.job_id, Jobs.role, Jobs.description, Jobs.requirements, Jobs.location, Jobs.salary_range_min, Jobs.salary_range_max, 
+               Startups.name AS startup_name, Startups.industry 
+        FROM Jobs 
+        JOIN Startups ON Jobs.startup_id = Startups.startup_id
+        WHERE job_id = '$job_id'
+    ";
     $result = mysqli_query($conn, $query);
 
     // If the job exists, fetch and display the details
@@ -114,6 +120,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 20px;
         }
 
+        .job-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .job-details p {
+            margin: 5px 0;
+        }
+
         form label {
             display: block;
             font-weight: bold;
@@ -155,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Show the alert based on PHP status
         <?php if ($application_status == 'success'): ?>
             alert('Your application has been submitted successfully!');
-            window.location.href = 'job-seekers.php'; // Redirect to investors page
+            window.location.href = 'job-seekers.php'; // Redirect to job seekers page
         <?php elseif ($application_status == 'failed'): ?>
             alert('There was an error submitting your application. Please try again.');
         <?php elseif ($application_status == 'invalid_file'): ?>
@@ -168,8 +185,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <div class="container">
-        <h1 class="section-title">Apply for <?php echo $job['role']; ?></h1>
+        <h1 class="section-title">Apply for <?php echo htmlspecialchars($job['role']); ?></h1>
 
+        <!-- Job Details Section -->
+        <div class="job-details">
+            <p><strong>Startup:</strong> <?php echo htmlspecialchars($job['startup_name']); ?></p>
+            <p><strong>Industry:</strong> <?php echo htmlspecialchars($job['industry']); ?></p>
+            <p><strong>Location:</strong> <?php echo htmlspecialchars($job['location']); ?></p>
+            <p><strong>Salary:</strong> ₱<?php echo number_format($job['salary_range_min'], 2); ?> - ₱<?php echo number_format($job['salary_range_max'], 2); ?></p>
+            <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($job['description'])); ?></p>
+            <p><strong>Requirements:</strong> <?php echo nl2br(htmlspecialchars($job['requirements'])); ?></p>
+        </div>
+
+        <!-- Application Form -->
         <form method="POST" enctype="multipart/form-data">
             <label for="cover_letter">Cover Letter:</label>
             <textarea name="cover_letter" rows="5" required></textarea><br>
