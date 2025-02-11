@@ -21,7 +21,8 @@ if (mysqli_num_rows($result) === 0) {
 }
 
 // Function to handle file uploads
-function uploadFile($file, $upload_dir, $allowed_types) {
+function uploadFile($file, $upload_dir, $allowed_types)
+{
     if (!empty($file["name"])) {
         $file_name = basename($file["name"]);
         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $website = mysqli_real_escape_string($conn, $_POST['website']);
     $pitch_deck_url = mysqli_real_escape_string($conn, $_POST['pitch_deck_url']);
     $business_plan_url = mysqli_real_escape_string($conn, $_POST['business_plan_url']);
-    
+
     // Ensure the startup name is unique
     $check_query = "SELECT * FROM Startups WHERE name = '$startup_name'";
     $check_result = mysqli_query($conn, $check_query);
@@ -60,14 +61,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Startup name already exists. Please choose a different name.');</script>";
     } else {
         // Handle logo upload
-        $logo_upload = uploadFile($_FILES["logo"], "uploads/logos/", ["jpg", "jpeg", "png"]);
+        if (isset($_FILES["logo"]) && $_FILES["logo"]["error"] === UPLOAD_ERR_OK) {
+            $logo_upload = uploadFile($_FILES["logo"], "uploads/logos/", ["jpg", "jpeg", "png"]);
+        } else {
+            $logo_upload = ["success" => true, "path" => ""]; // No file uploaded or error occurred
+        }
+
         if (!$logo_upload["success"]) {
             echo "<script>alert('" . $logo_upload["message"] . "');</script>";
         }
         $logo_path = $logo_upload["path"];
-
         // Handle file upload (Video Pitch / General File)
-        $file_upload = uploadFile($_FILES["file"], "uploads/files/", ["mp4", "avi", "mov", "pdf", "docx", "pptx"]);
+        if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK) {
+            $file_upload = uploadFile($_FILES["file"], "uploads/files/", ["mp4", "avi", "mov", "pdf", "docx", "pptx"]);
+        } else {
+            $file_upload = ["success" => true, "path" => ""]; // No file uploaded or error occurred
+        }
+
         if (!$file_upload["success"]) {
             echo "<script>alert('" . $file_upload["message"] . "');</script>";
         }
@@ -135,7 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: relative; /* Added for absolute positioning of logo upload */
+            position: relative;
+            /* Added for absolute positioning of logo upload */
         }
 
         h1 {
@@ -229,10 +240,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .logo-upload {
             position: absolute;
-            top: 20px; /* Adjusted for better visibility */
-            right: 20px; /* Adjusted for better visibility */
+            top: 20px;
+            /* Adjusted for better visibility */
+            right: 20px;
+            /* Adjusted for better visibility */
             cursor: pointer;
-            text-align: center; /* Center the label text */
+            text-align: center;
+            /* Center the label text */
         }
 
         .logo-upload img {
@@ -248,9 +262,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .logo-label {
-            font-size: 14px; /* Adjust font size */
-            color: #ddd; /* Label color */
-            margin-top: 5px; /* Space between icon and label */
+            font-size: 14px;
+            /* Adjust font size */
+            color: #ddd;
+            /* Label color */
+            margin-top: 5px;
+            /* Space between icon and label */
         }
     </style>
 </head>
@@ -263,17 +280,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <img src="assets/upload_icon.png" alt="Upload Logo">
             </label>
             <span class="logo-label">Upload Startup Logo</span>
-            <input type="file" id="logo" name="logo" accept="image/png, image/jpeg">
+            <input type="file" id="logo" name="logo" accept="image/png, image/jpeg" required>
         </div>
         <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="startup_name">Startup Name</label>
-                <input type="text" id="startup_name" name="startup_name" placeholder="Enter your startup's name" required>
+                <input type="text" id="startup_name" name="startup_name" placeholder="Enter your startup's name"
+                    required>
             </div>
 
             <div class="form-group">
                 <label for="industry">Industry</label>
-                <input type="text" id="industry" name="industry" placeholder="Enter your industry (e.g., Technology, Health)" required>
+                <input type="text" id="industry" name="industry"
+                    placeholder="Enter your industry (e.g., Technology, Health)" required>
             </div>
 
             <div class="form-group">
@@ -289,7 +308,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="description">Startup Description</label>
-                <textarea id="description" name="description" placeholder="Provide a brief description of your startup" required></textarea>
+                <textarea id="description" name="description" placeholder="Provide a brief description of your startup"
+                    required></textarea>
             </div>
 
             <div class="form-group">
@@ -299,7 +319,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="file">Video Pitch / File Upload</label>
-                <input type="file" id="file" name="file" accept="video/mp4, video/avi, video/mov, application/pdf, application/msword, application/vnd.ms-powerpoint">
+                <input type="file" id="file" name="file"
+                    accept="video/mp4, video/avi, video/mov, application/pdf, application/msword, application/vnd.ms-powerpoint">
             </div>
 
             <div class="form-group">
@@ -309,12 +330,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="pitch_deck_url">Pitch Deck URL</label>
-                <input type="text" id="pitch_deck_url" name="pitch_deck_url" placeholder="Enter the URL to your pitch deck">
+                <input type="text" id="pitch_deck_url" name="pitch_deck_url"
+                    placeholder="Enter the URL to your pitch deck">
             </div>
 
             <div class="form-group">
                 <label for="business_plan_url">Business Plan URL</label>
-                <input type="text" id="business_plan_url" name="business_plan_url" placeholder="Enter the URL to your business plan">
+                <input type="text" id="business_plan_url" name="business_plan_url"
+                    placeholder="Enter the URL to your business plan">
             </div>
 
             <button type="submit">Submit</button>
