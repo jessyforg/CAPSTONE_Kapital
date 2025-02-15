@@ -21,8 +21,6 @@
                 investorFields.style.display = "block";
             } else if (role === "job_seeker") {
                 jobSeekerFields.style.display = "block";
-            } else if (role === "admin") {
-                adminNotice.style.display = "block";
             }
         }
     </script>
@@ -49,7 +47,6 @@
                 <option value="entrepreneur">Entrepreneur</option>
                 <option value="investor">Investor</option>
                 <option value="job_seeker">Job Seeker</option>
-                <option value="admin">Admin</option>
             </select>
 
             <!-- Investor Specific Fields -->
@@ -71,13 +68,6 @@
                     <option value="senior">Senior</option>
                 </select>
             </div>
-
-            <!-- Admin Notice -->
-            <div id="adminNotice" style="display:none; color: red; margin-top: 10px;">
-                <p>Admins will have access to the admin panel. Please ensure this account is authorized for
-                    administrative purposes.</p>
-            </div>
-
             <button type="submit">Sign Up</button>
         </form>
 
