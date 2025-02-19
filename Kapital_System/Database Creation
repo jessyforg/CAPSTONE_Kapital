@@ -258,3 +258,5 @@ ADD CONSTRAINT unique_startup_name UNIQUE (name);
 
 ALTER TABLE Startups ADD COLUMN logo_url VARCHAR(255);
 ALTER TABLE Startups ADD COLUMN video_url VARCHAR(255);
+
+ALTER TABLE Users ADD COLUMN firebase_uid VARCHAR(255) UNIQUE NOT NULL;

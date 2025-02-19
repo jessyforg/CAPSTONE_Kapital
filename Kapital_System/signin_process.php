@@ -1,56 +1,64 @@
 <?php
 session_start();
+require __DIR__ . '/vendor/autoload.php';
 
-// Database connection
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Auth;
+
+$firebase = (new Factory)
+    ->withServiceAccount('C:\xampp\htdocs\CAPSTONE_Kapital\Kapital_System\config\kapital-a798a-firebase-adminsdk-fbsvc-f02430e5fa.json');
+
+$auth = $firebase->createAuth();
+
 $servername = "localhost";
-$username = "root"; // Your MySQL username
-$password = ""; // Your MySQL password
+$username = "root";
+$password = "";
 $dbname = "StartupConnect";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(["error" => "Database connection failed: " . $conn->connect_error]));
 }
 
-// Sanitize and get the form data
-$email = $conn->real_escape_string($_POST['email']);
-$password = $_POST['password'];
+$data = json_decode(file_get_contents("php://input"), true);
+$firebase_token = $data['firebase_token'];
 
-// Check if the user exists in the Users table
-$sql = "SELECT user_id, password, role FROM Users WHERE email = '$email'";
-$result = $conn->query($sql);
+try {
+    // Verify Firebase token
+    $verifiedIdToken = $auth->verifyIdToken($firebase_token);
+    $uid = $verifiedIdToken->claims()->get('sub');
 
-if ($result->num_rows > 0) {
-    // User found, now verify password
+    // Get user from MySQL
+    $sql = "SELECT user_id, role FROM Users WHERE firebase_uid = '$uid'";
+    $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    if (password_verify($password, $row['password'])) {
-        // Password is correct, start session
+
+    if ($row) {
         $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['role'] = $row['role'];
 
         // Redirect based on role
-        switch ($_SESSION['role']) {
+        switch ($row['role']) {
             case 'entrepreneur':
-                header("Location: index.php");
+                echo json_encode(["success" => true, "redirect" => "entrepreneurs.php"]);
                 break;
             case 'investor':
-                header("Location: index.php");
+                echo json_encode(["success" => true, "redirect" => "investors.php"]);
                 break;
             case 'job_seeker':
-                header("Location: index.php");
+                echo json_encode(["success" => true, "redirect" => "job-seekers.php"]);
                 break;
-            case 'admin': // Admin role
-                header("Location: admin-panel.php");
+            case 'admin':
+                echo json_encode(["success" => true, "redirect" => "admin-panel.php"]);
                 break;
             default:
-                echo "Invalid role.";
+                echo json_encode(["error" => "Invalid role."]);
         }
     } else {
-        echo "Incorrect password.";
+        echo json_encode(["error" => "User not found"]);
     }
-} else {
-    echo "No user found with that email.";
+} catch (Exception $e) {
+    echo json_encode(["error" => "Firebase Authentication Failed: " . $e->getMessage()]);
 }
 
 $conn->close();
