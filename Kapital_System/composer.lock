@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b68356ac91884b50af4726801dcafdf7",
+    "content-hash": "4718094d073cfb0f21bd13b606652eea",
     "packages": [
         {
             "name": "brick/math",
@@ -313,6 +313,63 @@
             "time": "2024-02-23T23:49:35+00:00"
         },
         {
+            "name": "google/cloud-firestore",
+            "version": "v1.41.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/googleapis/google-cloud-php-firestore.git",
+                "reference": "155e45d6212cbab4556e8a52098df00f6fb66702"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-firestore/zipball/155e45d6212cbab4556e8a52098df00f6fb66702",
+                "reference": "155e45d6212cbab4556e8a52098df00f6fb66702",
+                "shasum": ""
+            },
+            "require": {
+                "ext-grpc": "*",
+                "google/cloud-core": "^1.52.7",
+                "google/gax": "^1.26.0",
+                "php": ">=7.4",
+                "ramsey/uuid": "^3.0|^4.0"
+            },
+            "require-dev": {
+                "erusev/parsedown": "^1.6",
+                "phpdocumentor/reflection": "^5.3.3",
+                "phpdocumentor/reflection-docblock": "^5.3",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.0",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "suggest": {
+                "ext-protobuf": "Provides a significant increase in throughput over the pure PHP protobuf implementation. See https://cloud.google.com/php/grpc for installation instructions."
+            },
+            "type": "library",
+            "extra": {
+                "component": {
+                    "id": "cloud-firestore",
+                    "path": "Firestore",
+                    "entry": "src/FirestoreClient.php",
+                    "target": "googleapis/google-cloud-php-firestore.git"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Google\\Cloud\\Firestore\\": "src",
+                    "GPBMetadata\\Google\\Firestore\\": "metadata"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Cloud Firestore Client for PHP",
+            "support": {
+                "source": "https://github.com/googleapis/google-cloud-php-firestore/tree/v1.41.1"
+            },
+            "time": "2024-02-09T19:51:53+00:00"
+        },
+        {
             "name": "google/cloud-storage",
             "version": "v1.44.0",
             "source": {
@@ -618,16 +675,16 @@
         },
         {
             "name": "grpc/grpc",
-            "version": "1.57.0",
+            "version": "1.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/grpc/grpc-php.git",
-                "reference": "b610c42022ed3a22f831439cb93802f2a4502fdf"
+                "reference": "e1687963fb0b087d0c70e75d3bfff9062eaeb215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/b610c42022ed3a22f831439cb93802f2a4502fdf",
-                "reference": "b610c42022ed3a22f831439cb93802f2a4502fdf",
+                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/e1687963fb0b087d0c70e75d3bfff9062eaeb215",
+                "reference": "e1687963fb0b087d0c70e75d3bfff9062eaeb215",
                 "shasum": ""
             },
             "require": {
@@ -656,9 +713,9 @@
                 "rpc"
             ],
             "support": {
-                "source": "https://github.com/grpc/grpc-php/tree/v1.57.0"
+                "source": "https://github.com/grpc/grpc-php/tree/v1.38.0"
             },
-            "time": "2023-08-14T23:57:54+00:00"
+            "time": "2021-05-24T20:45:41+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

@@ -75,6 +75,7 @@ class ComposerStaticInita9cfa8b5d1d5a587bb5e2355faa68ea6
             'Google\\LongRunning\\' => 19,
             'Google\\Iam\\' => 11,
             'Google\\Cloud\\Storage\\' => 21,
+            'Google\\Cloud\\Firestore\\' => 23,
             'Google\\Cloud\\Core\\' => 18,
             'Google\\Cloud\\' => 13,
             'Google\\Auth\\' => 12,
@@ -87,6 +88,7 @@ class ComposerStaticInita9cfa8b5d1d5a587bb5e2355faa68ea6
             'GPBMetadata\\Google\\Longrunning\\' => 31,
             'GPBMetadata\\Google\\Logging\\' => 27,
             'GPBMetadata\\Google\\Iam\\' => 23,
+            'GPBMetadata\\Google\\Firestore\\' => 29,
             'GPBMetadata\\Google\\Cloud\\' => 25,
             'GPBMetadata\\Google\\Api\\' => 23,
             'GPBMetadata\\ApiCore\\' => 20,
@@ -233,6 +235,10 @@ class ComposerStaticInita9cfa8b5d1d5a587bb5e2355faa68ea6
         array (
             0 => __DIR__ . '/..' . '/google/cloud-storage/src',
         ),
+        'Google\\Cloud\\Firestore\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/cloud-firestore/src',
+        ),
         'Google\\Cloud\\Core\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/cloud-core/src',
@@ -280,6 +286,10 @@ class ComposerStaticInita9cfa8b5d1d5a587bb5e2355faa68ea6
         'GPBMetadata\\Google\\Iam\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/common-protos/metadata/Iam',
+        ),
+        'GPBMetadata\\Google\\Firestore\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/cloud-firestore/metadata',
         ),
         'GPBMetadata\\Google\\Cloud\\' => 
         array (
