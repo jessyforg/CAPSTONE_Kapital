@@ -101,6 +101,16 @@ if ($user['role'] === 'entrepreneur') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile and Manage Startups</title>
+    <script>
+        function toggleSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section.style.display === "none" || section.style.display === "") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         /* Container and layout */
@@ -241,41 +251,47 @@ if ($user['role'] === 'entrepreneur') {
 
 <body>
     <div class="container">
-        <h1>Edit Profile</h1>
+        <h1>User Profile</h1>
         <?php if (isset($success_message)): ?>
             <p class="success"><?php echo $success_message; ?></p>
         <?php elseif (isset($error_message)): ?>
             <p class="error"><?php echo $error_message; ?></p>
         <?php endif; ?>
 
-        <form method="POST">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-            </div>
-            <button type="submit" name="update_profile">Save Changes</button>
-        </form>
+        <button onclick="toggleSection('editProfile')">Edit Profile</button>
+        <div id="editProfile" style="display: none;">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                </div>
+                <button type="submit" name="update_profile">Save Changes</button>
+            </form>
+        </div>
 
-        <h2>Change Password</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label for="current_password">Current Password</label>
-                <input type="password" id="current_password" name="current_password" required>
-            </div>
-            <div class="form-group">
-                <label for="new_password">New Password</label>
-                <input type="password" id="new_password" name="new_password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">Confirm New Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
-            </div>
-            <button type="submit" name="change_password">Change Password</button>
-        </form>
+        <button onclick="toggleSection('changePassword')">Change Password</button>
+        <div id="changePassword" style="display: none;">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="current_password">Current Password</label>
+                    <input type="password" id="current_password" name="current_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_password">New Password</label>
+                    <input type="password" id="new_password" name="new_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm New Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit" name="change_password">Change Password</button>
+            </form>
+        </div>
+
 
         <!-- Display Matched Startups (for Investors) -->
         <?php if ($user['role'] === 'investor'): ?>
@@ -300,6 +316,11 @@ if ($user['role'] === 'entrepreneur') {
 
         <!-- Display Job Applications (for Job Seekers) -->
         <?php if ($user['role'] === 'job_seeker'): ?>
+            <h2>Upload Resume</h2>
+            <form method="POST" enctype="multipart/form-data" action="upload_resume.php">
+                <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
+                <button type="submit" name="upload_resume">Upload Resume</button>
+            </form>
             <div class="job-application-list">
                 <h2>Your Job Applications</h2>
                 <?php if (!empty($applications)): ?>
