@@ -1,1 +1,3 @@
 Kapital_System/config/*.json
+Kapital_System/config.php
+Kapital_System/db_connection.php
