@@ -9,46 +9,72 @@ if (!isset($_SESSION['user_id'])) {
     exit("Redirecting to login page...");
 }
 
-$user_id = $_SESSION['user_id'];
+// Determine which user's profile to show
+$viewing_user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
+$is_own_profile = $viewing_user_id == $_SESSION['user_id'];
 
 // Retrieve user details from the database
-$query_user = "SELECT * FROM Users WHERE user_id = '$user_id'";
-$result_user = mysqli_query($conn, $query_user);
+$stmt = $conn->prepare("SELECT * FROM Users WHERE user_id = ?");
+$stmt->bind_param("i", $viewing_user_id);
+$stmt->execute();
+$result_user = $stmt->get_result();
 
-if ($result_user && mysqli_num_rows($result_user) > 0) {
-    $user = mysqli_fetch_assoc($result_user);
+if ($result_user && $result_user->num_rows > 0) {
+    $user = $result_user->fetch_assoc();
 } else {
     die("User not found in the database.");
 }
 
-// Handle profile updates
-if (isset($_POST['update_profile'])) {
+// Handle profile updates - only if it's the user's own profile
+if ($is_own_profile && isset($_POST['update_profile'])) {
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-
-    $query_update = "UPDATE Users SET name = '$name', email = '$email' WHERE user_id = '$user_id'";
-    if (mysqli_query($conn, $query_update)) {
-        $success_message = "Profile updated successfully!";
-        header("Refresh:0");
+    
+    // Check if email already exists for another user
+    $check_email = $conn->prepare("SELECT user_id FROM Users WHERE email = ? AND user_id != ?");
+    $check_email->bind_param("si", $email, $viewing_user_id);
+    $check_email->execute();
+    $email_result = $check_email->get_result();
+    
+    if ($email_result->num_rows > 0) {
+        $error_message = "This email is already in use by another account.";
     } else {
-        $error_message = "Error updating profile: " . mysqli_error($conn);
+        $query_update = "UPDATE Users SET name = ?, email = ? WHERE user_id = ?";
+        $update_stmt = $conn->prepare($query_update);
+        $update_stmt->bind_param("ssi", $name, $email, $viewing_user_id);
+        
+        if ($update_stmt->execute()) {
+            $success_message = "Profile updated successfully!";
+            // Update session variables
+            $_SESSION['name'] = $name;
+            $_SESSION['email'] = $email;
+            header("Refresh:2"); // Refresh after 2 seconds
+        } else {
+            $error_message = "Error updating profile: " . $conn->error;
+        }
     }
 }
 
-// Handle password change
-if (isset($_POST['change_password'])) {
-    $current_password = mysqli_real_escape_string($conn, $_POST['current_password']);
-    $new_password = mysqli_real_escape_string($conn, $_POST['new_password']);
-    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
+// Handle password change - only if it's the user's own profile
+if ($is_own_profile && isset($_POST['change_password'])) {
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
 
     if (password_verify($current_password, $user['password'])) {
-        if ($new_password === $confirm_password) {
+        if (strlen($new_password) < 8) {
+            $error_message = "New password must be at least 8 characters long.";
+        } elseif ($new_password === $confirm_password) {
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $query_password = "UPDATE Users SET password = '$hashed_password' WHERE user_id = '$user_id'";
-            if (mysqli_query($conn, $query_password)) {
+            $query_password = "UPDATE Users SET password = ? WHERE user_id = ?";
+            $pwd_stmt = $conn->prepare($query_password);
+            $pwd_stmt->bind_param("si", $hashed_password, $viewing_user_id);
+            
+            if ($pwd_stmt->execute()) {
                 $success_message = "Password changed successfully!";
+                header("Refresh:2"); // Refresh after 2 seconds
             } else {
-                $error_message = "Error changing password: " . mysqli_error($conn);
+                $error_message = "Error changing password: " . $conn->error;
             }
         } else {
             $error_message = "New password and confirmation do not match.";
@@ -58,39 +84,53 @@ if (isset($_POST['change_password'])) {
     }
 }
 
-// Fetch investor's matched startups (if investor)
+// Fetch role-specific data
 if ($user['role'] === 'investor') {
     $query_startups = "
         SELECT s.* 
         FROM Startups s
         JOIN Matches m ON s.startup_id = m.startup_id
-        WHERE m.investor_id = '$user_id'";
-    $result_startups = mysqli_query($conn, $query_startups);
-    $startups = mysqli_fetch_all($result_startups, MYSQLI_ASSOC);
+        WHERE m.investor_id = ? AND s.approval_status = 'approved'";
+    $stmt = $conn->prepare($query_startups);
+    $stmt->bind_param("i", $viewing_user_id);
+    $stmt->execute();
+    $result_startups = $stmt->get_result();
+    $startups = $result_startups->fetch_all(MYSQLI_ASSOC);
 }
 
-// Fetch job applications (if job seeker)
 if ($user['role'] === 'job_seeker') {
     $query_applications = "
-        SELECT j.*, s.name AS startup_name, a.status 
+        SELECT j.*, s.name AS startup_name, a.status, a.created_at
         FROM Jobs j
         JOIN Applications a ON j.job_id = a.job_id
         JOIN Startups s ON j.startup_id = s.startup_id
-        WHERE a.job_seeker_id = '$user_id'";
-    $result_applications = mysqli_query($conn, $query_applications);
-    $applications = mysqli_fetch_all($result_applications, MYSQLI_ASSOC);
+        WHERE a.job_seeker_id = ?
+        ORDER BY a.created_at DESC";
+    $stmt = $conn->prepare($query_applications);
+    $stmt->bind_param("i", $viewing_user_id);
+    $stmt->execute();
+    $result_applications = $stmt->get_result();
+    $applications = $result_applications->fetch_all(MYSQLI_ASSOC);
 }
 
-// Fetch entrepreneur's listed startups (if entrepreneur)
 if ($user['role'] === 'entrepreneur') {
-    // Entrepreneurs table has entrepreneur_id, not linked directly to Users
     $query_listed_startups = "
-        SELECT s.* 
+        SELECT s.*, 
+               COUNT(DISTINCT m.investor_id) as match_count,
+               COUNT(DISTINCT j.job_id) as job_count,
+               COUNT(DISTINCT a.application_id) as application_count
         FROM Startups s
-        JOIN Entrepreneurs e ON s.entrepreneur_id = e.entrepreneur_id
-        WHERE e.entrepreneur_id = '$user_id'";
-    $result_listed_startups = mysqli_query($conn, $query_listed_startups);
-    $listed_startups = mysqli_fetch_all($result_listed_startups, MYSQLI_ASSOC);
+        LEFT JOIN Matches m ON s.startup_id = m.startup_id
+        LEFT JOIN Jobs j ON s.startup_id = j.startup_id
+        LEFT JOIN Applications a ON j.job_id = a.job_id
+        WHERE s.entrepreneur_id = ?
+        GROUP BY s.startup_id
+        ORDER BY s.created_at DESC";
+    $stmt = $conn->prepare($query_listed_startups);
+    $stmt->bind_param("i", $viewing_user_id);
+    $stmt->execute();
+    $result_listed_startups = $stmt->get_result();
+    $listed_startups = $result_listed_startups->fetch_all(MYSQLI_ASSOC);
 }
 ?>
 
@@ -100,268 +140,467 @@ if ($user['role'] === 'entrepreneur') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile and Manage Startups</title>
-    <script>
-        function toggleSection(sectionId) {
-            var section = document.getElementById(sectionId);
-            if (section.style.display === "none" || section.style.display === "") {
-                section.style.display = "block";
-            } else {
-                section.style.display = "none";
-            }
-        }
-    </script>
+    <title><?php echo $is_own_profile ? "Your Profile" : htmlspecialchars($user['name']) . "'s Profile"; ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Container and layout */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        h1, h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: 600;
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e1e1e;
             color: #fff;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .profile-header {
+            background: linear-gradient(45deg, rgba(243, 192, 0, 0.1), rgba(0, 0, 0, 0.2));
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(243, 192, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: #f3c000;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: rgba(243, 192, 0, 0.2);
+            color: #f3c000;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .profile-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            background: linear-gradient(45deg, #f3c000, #ffab00);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 192, 0, 0.3);
+        }
+
+        .action-button i {
+            font-size: 1.1em;
+        }
+
+        .profile-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-section h2 {
+            color: #f3c000;
+            margin-top: 0;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #f3c000;
             font-weight: 500;
         }
 
         .form-group input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(243, 192, 0, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            transition: all 0.3s ease;
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .form-group input:focus {
+            outline: none;
+            border-color: #f3c000;
+            box-shadow: 0 0 0 2px rgba(243, 192, 0, 0.2);
         }
 
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .success, .error {
-            font-size: 16px;
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
+            animation: fadeIn 0.5s ease;
         }
 
-        .success {
-            background-color: #dff0d8;
-            color: #3c763d;
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid #28a745;
+            color: #28a745;
         }
 
-        .error {
-            background-color: #f2dede;
-            color: #a94442;
+        .alert-error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
         }
 
-        /* Listed Startups Section (for Entrepreneurs) */
-        .listed-startup-list {
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             margin-top: 30px;
         }
 
-        .listed-startup-item {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            padding: 20px;
-            margin-bottom: 15px;
+        .grid-item {
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(243, 192, 0, 0.2);
         }
 
-        .listed-startup-item:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        .grid-item:hover {
+            transform: translateY(-5px);
         }
 
-        .listed-startup-item h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #333;
+        .grid-item h3 {
+            color: #f3c000;
+            margin-top: 0;
         }
 
-        .listed-startup-item p {
-            margin: 5px 0;
-            font-size: 16px;
-            color: #555;
+        .grid-item p {
+            margin: 10px 0;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .listed-startup-item .startup-actions {
+        .stats {
+            display: flex;
+            gap: 15px;
             margin-top: 15px;
         }
 
-        .listed-startup-item .startup-actions a {
+        .stat-item {
+            background: rgba(243, 192, 0, 0.1);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .view-more {
+            color: #f3c000;
             text-decoration: none;
-            color: #007bff;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .listed-startup-item .startup-actions a:hover {
-            text-decoration: underline;
-        }
-
-        /* Additional styles */
-        .startup-list, .job-application-list {
-            margin-top: 30px;
-        }
-
-        .startup-item, .job-application-item {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-        }
-
-        .startup-actions, .job-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             margin-top: 10px;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
-        .startup-actions a, .job-actions a {
-            text-decoration: none;
-            color: #007bff;
+        .view-more:hover {
+            color: #ffab00;
         }
 
-        .startup-actions a:hover, .job-actions a:hover {
-            text-decoration: underline;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+            }
+
+            .profile-header {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>User Profile</h1>
+        <div class="profile-header">
+            <h1><?php echo $is_own_profile ? "Your Profile" : htmlspecialchars($user['name']) . "'s Profile"; ?></h1>
+            <div class="role-badge">
+                <i class="fas <?php
+                    switch($user['role']) {
+                        case 'entrepreneur':
+                            echo 'fa-lightbulb';
+                            break;
+                        case 'investor':
+                            echo 'fa-chart-line';
+                            break;
+                        case 'job_seeker':
+                            echo 'fa-briefcase';
+                            break;
+                        default:
+                            echo 'fa-user';
+                    }
+                ?>"></i>
+                <?php echo ucfirst(htmlspecialchars($user['role'])); ?>
+            </div>
+            
+            <?php if ($is_own_profile): ?>
+            <div class="profile-actions">
+                <button class="action-button" onclick="toggleSection('editProfile')">
+                    <i class="fas fa-user-edit"></i> Edit Profile
+                </button>
+                <button class="action-button" onclick="toggleSection('changePassword')">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+                <?php if ($user['role'] === 'entrepreneur'): ?>
+                <a href="startup_ai_advisor.php" class="action-button">
+                    <i class="fas fa-robot"></i> AI Startup Advisor
+                </a>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
+        </div>
+
         <?php if (isset($success_message)): ?>
-            <p class="success"><?php echo $success_message; ?></p>
-        <?php elseif (isset($error_message)): ?>
-            <p class="error"><?php echo $error_message; ?></p>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
+            </div>
         <?php endif; ?>
 
-        <button onclick="toggleSection('editProfile')">Edit Profile</button>
-        <div id="editProfile" style="display: none;">
-            <form method="POST">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-                </div>
-                <button type="submit" name="update_profile">Save Changes</button>
-            </form>
-        </div>
+        <?php if (isset($error_message)): ?>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i> <?php echo $error_message; ?>
+            </div>
+        <?php endif; ?>
 
-        <button onclick="toggleSection('changePassword')">Change Password</button>
-        <div id="changePassword" style="display: none;">
-            <form method="POST">
-                <div class="form-group">
-                    <label for="current_password">Current Password</label>
-                    <input type="password" id="current_password" name="current_password" required>
-                </div>
-                <div class="form-group">
-                    <label for="new_password">New Password</label>
-                    <input type="password" id="new_password" name="new_password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm_password">Confirm New Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
-                </div>
-                <button type="submit" name="change_password">Change Password</button>
-            </form>
-        </div>
+        <?php if ($is_own_profile): ?>
+            <div id="editProfile" class="profile-section" style="display: none;">
+                <h2><i class="fas fa-user-edit"></i> Edit Profile</h2>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                    </div>
+                    <button type="submit" name="update_profile" class="action-button">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
 
+            <div id="changePassword" class="profile-section" style="display: none;">
+                <h2><i class="fas fa-key"></i> Change Password</h2>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="current_password">Current Password</label>
+                        <input type="password" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        <input type="password" id="new_password" name="new_password" required 
+                               pattern=".{8,}" title="Password must be at least 8 characters long">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm New Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" name="change_password" class="action-button">
+                        <i class="fas fa-check"></i> Update Password
+                    </button>
+                </form>
+            </div>
+        <?php endif; ?>
 
-        <!-- Display Matched Startups (for Investors) -->
         <?php if ($user['role'] === 'investor'): ?>
-            <div class="startup-list">
-                <h2>Your Matched Startups</h2>
-                <?php if (!empty($startups)): ?>
-                    <?php foreach ($startups as $startup): ?>
-                        <div class="startup-item">
-                            <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
-                            <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
-                            <p><strong>Description:</strong> <?php echo htmlspecialchars($startup['description']); ?></p>
-                            <div class="startup-actions">
-                                <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>">View Details</a>
+            <div class="profile-section">
+                <h2><i class="fas fa-handshake"></i> Matched Startups</h2>
+                <div class="grid-container">
+                    <?php if (!empty($startups)): ?>
+                        <?php foreach ($startups as $startup): ?>
+                            <div class="grid-item">
+                                <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
+                                <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
+                                <p><?php echo htmlspecialchars(substr($startup['description'], 0, 100)) . '...'; ?></p>
+                                <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="view-more">
+                                    View Details <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No matched startups.</p>
-                <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No matched startups yet.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php endif; ?>
 
-        <!-- Display Job Applications (for Job Seekers) -->
-        <?php if ($user['role'] === 'job_seeker'): ?>
-            <h2>Upload Resume</h2>
-            <form method="POST" enctype="multipart/form-data" action="upload_resume.php">
-                <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
-                <button type="submit" name="upload_resume">Upload Resume</button>
-            </form>
-            <div class="job-application-list">
-                <h2>Your Job Applications</h2>
-                <?php if (!empty($applications)): ?>
-                    <?php foreach ($applications as $application): ?>
-                        <div class="job-application-item">
-                            <h3><?php echo htmlspecialchars($application['role']); ?></h3>
-                            <p><strong>Status:</strong> <?php echo htmlspecialchars($application['status']); ?></p>
-                            <p><strong>Company:</strong> <?php echo htmlspecialchars($application['startup_name']); ?></p>
-                            <div class="job-actions">
-                                <a href="job-details.php?job_id=<?php echo $application['job_id']; ?>">View Details</a>
+        <?php if ($user['role'] === 'job_seeker' && $is_own_profile): ?>
+            <div class="profile-section">
+                <h2><i class="fas fa-file-alt"></i> Resume</h2>
+                <form method="POST" enctype="multipart/form-data" action="upload_resume.php">
+                    <div class="form-group">
+                        <label for="resume">Upload Resume (PDF, DOC, DOCX)</label>
+                        <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
+                    </div>
+                    <button type="submit" name="upload_resume" class="action-button">
+                        <i class="fas fa-upload"></i> Upload Resume
+                    </button>
+                </form>
+            </div>
+
+            <div class="profile-section">
+                <h2><i class="fas fa-briefcase"></i> Job Applications</h2>
+                <div class="grid-container">
+                    <?php if (!empty($applications)): ?>
+                        <?php foreach ($applications as $application): ?>
+                            <div class="grid-item">
+                                <h3><?php echo htmlspecialchars($application['role']); ?></h3>
+                                <p><strong>Company:</strong> <?php echo htmlspecialchars($application['startup_name']); ?></p>
+                                <p><strong>Status:</strong> 
+                                    <span class="role-badge">
+                                        <?php echo ucfirst(htmlspecialchars($application['status'])); ?>
+                                    </span>
+                                </p>
+                                <p><strong>Applied:</strong> 
+                                    <?php echo date('M d, Y', strtotime($application['created_at'])); ?>
+                                </p>
+                                <a href="job-details.php?job_id=<?php echo $application['job_id']; ?>" class="view-more">
+                                    View Job Details <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No job applications.</p>
-                <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No job applications yet.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php endif; ?>
 
-        <!-- Display Listed Startups (for Entrepreneurs) -->
         <?php if ($user['role'] === 'entrepreneur'): ?>
-            <div class="listed-startup-list">
-                <h2>Your Listed Startups</h2>
-                <?php if (!empty($listed_startups)): ?>
-                    <?php foreach ($listed_startups as $startup): ?>
-                        <div class="listed-startup-item">
-                            <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
-                            <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
-                            <p><strong>Description:</strong> <?php echo htmlspecialchars($startup['description']); ?></p>
-                            <div class="startup-actions">
-                                <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>">View Details</a>
+            <div class="profile-section">
+                <h2><i class="fas fa-building"></i> Listed Startups</h2>
+                <div class="grid-container">
+                    <?php if (!empty($listed_startups)): ?>
+                        <?php foreach ($listed_startups as $startup): ?>
+                            <div class="grid-item">
+                                <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
+                                <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
+                                <p><?php echo htmlspecialchars(substr($startup['description'], 0, 100)) . '...'; ?></p>
+                                <div class="stats">
+                                    <span class="stat-item">
+                                        <i class="fas fa-handshake"></i> <?php echo $startup['match_count']; ?> matches
+                                    </span>
+                                    <span class="stat-item">
+                                        <i class="fas fa-briefcase"></i> <?php echo $startup['job_count']; ?> jobs
+                                    </span>
+                                    <span class="stat-item">
+                                        <i class="fas fa-users"></i> <?php echo $startup['application_count']; ?> applications
+                                    </span>
+                                </div>
+                                <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="view-more">
+                                    View Details <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No listed startups.</p>
-                <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No startups listed yet.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php endif; ?>
-
     </div>
-</body>
 
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const isHidden = section.style.display === "none" || section.style.display === "";
+            
+            // Only hide editable sections (Edit Profile and Change Password)
+            const editableSections = ['editProfile', 'changePassword'];
+            editableSections.forEach(id => {
+                const editableSection = document.getElementById(id);
+                if (editableSection) {
+                    editableSection.style.display = 'none';
+                }
+            });
+            
+            // Then show the selected section if it was hidden
+            if (isHidden) {
+                section.style.display = "block";
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Password confirmation validation
+        const newPasswordInput = document.getElementById('new_password');
+        const confirmPasswordInput = document.getElementById('confirm_password');
+
+        if (confirmPasswordInput) {
+            confirmPasswordInput.addEventListener('input', function() {
+                if (this.value !== newPasswordInput.value) {
+                    this.setCustomValidity('Passwords do not match');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+
+            newPasswordInput.addEventListener('input', function() {
+                if (confirmPasswordInput.value !== '') {
+                    if (this.value !== confirmPasswordInput.value) {
+                        confirmPasswordInput.setCustomValidity('Passwords do not match');
+                    } else {
+                        confirmPasswordInput.setCustomValidity('');
+                    }
+                }
+            });
+        }
+
+        // Show sections if there were validation errors
+        <?php if (isset($_POST['update_profile'])): ?>
+            toggleSection('editProfile');
+        <?php endif; ?>
+        
+        <?php if (isset($_POST['change_password'])): ?>
+            toggleSection('changePassword');
+        <?php endif; ?>
+    </script>
+</body>
 </html>

@@ -43,7 +43,6 @@ $startups_result = mysqli_query($conn, $startups_query);
         <div class="startup-post">
             <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
             <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
-            <p><strong>Funding Stage:</strong> <?php echo htmlspecialchars($startup['funding_stage']); ?></p>
             <p><strong>Description:</strong> <?php echo htmlspecialchars($startup['description']); ?></p>
 
             <!-- Show the edit button only if the logged-in entrepreneur posted the startup -->
