@@ -73,10 +73,135 @@ if (isset($_SESSION['user_id'])) {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
+        .logo-search-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         header .logo {
             font-size: 1.8em;
             font-weight: bold;
             color: #f3c000;
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 8px 35px 8px 15px;
+            border: 2px solid #f3c000;
+            border-radius: 20px;
+            background-color: rgba(243, 192, 0, 0.1);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            background-color: rgba(243, 192, 0, 0.15);
+            box-shadow: 0 0 5px rgba(243, 192, 0, 0.3);
+        }
+
+        .search-container input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-container .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f3c000;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #1e1e1e;
+            border: 2px solid #f3c000;
+            border-radius: 10px;
+            margin-top: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-results .result-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-results .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-results .result-item:hover {
+            background-color: rgba(243, 192, 0, 0.1);
+        }
+
+        .search-results .result-item a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .search-results .result-item .result-icon {
+            color: #f3c000;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .search-results .result-item .result-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .search-results .result-item .result-title {
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .search-results .result-item .result-subtitle {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.6);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .search-results .result-item .result-type {
+            font-size: 0.8em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background-color: rgba(243, 192, 0, 0.2);
+            color: #f3c000;
+            flex-shrink: 0;
+            margin-left: auto;
         }
 
         nav ul {
@@ -281,7 +406,14 @@ if (isset($_SESSION['user_id'])) {
 
 <body>
     <header>
-        <div class="logo">Kapital</div>
+        <div class="logo-search-container">
+            <div class="logo">Kapital</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search users, startups, jobs..." aria-label="Search">
+                <i class="fas fa-search search-icon"></i>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
         <nav>
             <ul>
                 <li><a href="index.php" class="active">Home</a></li>
@@ -432,6 +564,110 @@ if (isset($_SESSION['user_id'])) {
         window.addEventListener('resize', adjustDropdownPosition);
         window.addEventListener('load', adjustDropdownPosition);
         setActiveLink(); // Set active class on page load
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        let searchTimeout;
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const query = this.value.trim();
+            
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                console.log('Searching for:', query); // Debug log
+                
+                fetch(`search.php?query=${encodeURIComponent(query)}`)
+                    .then(response => {
+                        console.log('Response status:', response.status); // Debug log
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Search results:', data); // Debug log
+                        if (data.error) {
+                            searchResults.innerHTML = `<div class="result-item"><div class="result-content">Error: ${data.error}</div></div>`;
+                            searchResults.style.display = 'block';
+                            return;
+                        }
+                        
+                        if (Array.isArray(data) && data.length > 0) {
+                            displaySearchResults(data);
+                        } else {
+                            searchResults.innerHTML = '<div class="result-item"><div class="result-content">No results found</div></div>';
+                            searchResults.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Search error:', error); // Debug log
+                        searchResults.innerHTML = `<div class="result-item"><div class="result-content">Error: ${error.message}</div></div>`;
+                        searchResults.style.display = 'block';
+                    });
+            }, 300);
+        });
+
+        function displaySearchResults(results) {
+            searchResults.innerHTML = '';
+            
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'result-item';
+                
+                let icon, title, subtitle, link;
+                
+                switch(result.type) {
+                    case 'user':
+                        icon = 'fa-user';
+                        title = result.name || 'Unknown User';
+                        subtitle = result.role || 'User';
+                        link = `profile.php?user_id=${result.user_id}`;
+                        break;
+                    case 'startup':
+                        icon = 'fa-building';
+                        title = result.name || 'Unknown Startup';
+                        subtitle = result.industry || 'Various Industries';
+                        link = `startup_detail.php?startup_id=${result.startup_id}`;
+                        break;
+                    case 'job':
+                        icon = 'fa-briefcase';
+                        title = result.title || 'Job Opening';
+                        subtitle = result.company ? (result.location ? `${result.company} - ${result.location}` : result.company) : 'Company';
+                        link = `job-details.php?job_id=${result.job_id}`;
+                        break;
+                }
+                
+                resultItem.innerHTML = `
+                    <a href="${link}" style="text-decoration: none; color: inherit;">
+                        <div class="result-icon">
+                            <i class="fas ${icon}"></i>
+                        </div>
+                        <div class="result-content">
+                            <div class="result-title">${title}</div>
+                            <div class="result-subtitle">${subtitle}</div>
+                        </div>
+                        <div class="result-type">${result.type}</div>
+                    </a>
+                `;
+                
+                searchResults.appendChild(resultItem);
+            });
+            
+            searchResults.style.display = 'block';
+        }
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!searchResults.contains(event.target) && event.target !== searchInput) {
+                searchResults.style.display = 'none';
+            }
+        });
     </script>
 </body>
 

@@ -1,0 +1,88 @@
+2025-03-12 23:06:19 - Total users in database: 3
+2025-03-12 23:06:19 - Search accessed
+2025-03-12 23:06:19 - Search query: startup
+2025-03-12 23:06:19 - Error: Unknown column 'profile_image' in 'field list'
+2025-03-12 23:08:24 - Total users in database: 3
+2025-03-12 23:08:24 - Search accessed
+2025-03-12 23:08:24 - Search query: star
+2025-03-12 23:08:24 - Error: Unknown column 'title' in 'field list'
+2025-03-12 23:08:25 - Total users in database: 3
+2025-03-12 23:08:25 - Search accessed
+2025-03-12 23:08:25 - Search query: startup
+2025-03-12 23:08:25 - Error: Unknown column 'title' in 'field list'
+2025-03-12 23:11:12 - Total users in database: 3
+2025-03-12 23:11:12 - Search accessed
+2025-03-12 23:11:12 - Search query: st
+2025-03-12 23:11:12 - Results found: 1
+2025-03-12 23:11:12 - Total users in database: 3
+2025-03-12 23:11:12 - Search accessed
+2025-03-12 23:11:12 - Search query: star
+2025-03-12 23:11:12 - Results found: 0
+2025-03-12 23:11:13 - Total users in database: 3
+2025-03-12 23:11:13 - Search accessed
+2025-03-12 23:11:13 - Search query: sta
+2025-03-12 23:11:13 - Results found: 0
+2025-03-12 23:11:14 - Total users in database: 3
+2025-03-12 23:11:14 - Search accessed
+2025-03-12 23:11:14 - Search query: inv
+2025-03-12 23:11:14 - Results found: 1
+2025-03-12 23:11:15 - Total users in database: 3
+2025-03-12 23:11:15 - Search accessed
+2025-03-12 23:11:15 - Search query: invest
+2025-03-12 23:11:15 - Results found: 1
+2025-03-12 23:11:19 - Total users in database: 3
+2025-03-12 23:11:19 - Search accessed
+2025-03-12 23:11:19 - Search query: sample
+2025-03-12 23:11:19 - Results found: 2
+2025-03-12 23:11:21 - Total users in database: 3
+2025-03-12 23:11:21 - Search accessed
+2025-03-12 23:11:21 - Search query: sampl
+2025-03-12 23:11:21 - Results found: 2
+2025-03-12 23:24:43 - Total users in database: 3
+2025-03-12 23:24:43 - Search accessed
+2025-03-12 23:24:43 - Search query: star
+2025-03-12 23:24:43 - Results found: 0
+2025-03-12 23:24:45 - Total users in database: 3
+2025-03-12 23:24:45 - Search accessed
+2025-03-12 23:24:45 - Search query: inv
+2025-03-12 23:24:45 - Results found: 1
+2025-03-12 23:29:00 - Total users in database: 3
+2025-03-12 23:29:00 - Search accessed
+2025-03-12 23:29:00 - Search query: sample
+2025-03-12 23:29:00 - Results found: 2
+2025-03-12 23:29:19 - Total users in database: 3
+2025-03-12 23:29:19 - Search accessed
+2025-03-12 23:29:19 - Search query: sample
+2025-03-12 23:29:19 - Results found: 2
+2025-03-12 23:33:47 - Total users in database: 3
+2025-03-12 23:33:47 - Search accessed
+2025-03-12 23:33:47 - Search query: sa
+2025-03-12 23:33:47 - Results found: 2
+2025-03-12 23:33:48 - Total users in database: 3
+2025-03-12 23:33:48 - Search accessed
+2025-03-12 23:33:48 - Search query: sample
+2025-03-12 23:33:48 - Results found: 2
+2025-03-12 23:33:58 - Total users in database: 3
+2025-03-12 23:33:58 - Search accessed
+2025-03-12 23:33:58 - Search query: sample
+2025-03-12 23:33:58 - Results found: 2
+2025-03-12 23:34:03 - Total users in database: 3
+2025-03-12 23:34:03 - Search accessed
+2025-03-12 23:34:03 - Search query: inv
+2025-03-12 23:34:03 - Results found: 1
+2025-03-12 23:41:25 - Total users in database: 3
+2025-03-12 23:41:25 - Search accessed
+2025-03-12 23:41:25 - Search query: samp
+2025-03-12 23:41:25 - Results found: 2
+2025-03-12 23:41:26 - Total users in database: 3
+2025-03-12 23:41:26 - Search accessed
+2025-03-12 23:41:26 - Search query: sample
+2025-03-12 23:41:26 - Results found: 2
+2025-03-12 23:41:31 - Total users in database: 3
+2025-03-12 23:41:31 - Search accessed
+2025-03-12 23:41:31 - Search query: inv
+2025-03-12 23:41:31 - Results found: 1
+2025-03-12 23:41:36 - Total users in database: 3
+2025-03-12 23:41:36 - Search accessed
+2025-03-12 23:41:36 - Search query: job
+2025-03-12 23:41:36 - Results found: 1
