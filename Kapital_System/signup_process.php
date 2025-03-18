@@ -1,83 +1,119 @@
 <?php
 session_start();
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "StartupConnect";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include('db_connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $conn->real_escape_string($_POST['name']);
-    $email = $conn->real_escape_string($_POST['email']);
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
     $retype_password = $_POST['retype_password'];
-    $role = $conn->real_escape_string($_POST['role']);
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
 
+    // Validate passwords match
     if ($password !== $retype_password) {
-        echo "Passwords do not match!";
-        exit;
+        $_SESSION['error'] = "Passwords do not match!";
+        header("Location: sign_up.php");
+        exit();
     }
 
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    // Check if email already exists
+    $check_email = $conn->prepare("SELECT user_id FROM Users WHERE email = ?");
+    $check_email->bind_param("s", $email);
+    $check_email->execute();
+    if ($check_email->get_result()->num_rows > 0) {
+        $_SESSION['error'] = "Email already exists!";
+        header("Location: sign_up.php");
+        exit();
+    }
 
-    $sql_user = "INSERT INTO Users (name, email, password, role) VALUES ('$name', '$email', '$password_hash', '$role')";
-    if ($conn->query($sql_user) === TRUE) {
+    // Hash password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Begin transaction
+    $conn->begin_transaction();
+
+    try {
+        // Insert into Users table
+        $stmt = $conn->prepare("INSERT INTO Users (name, email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $name, $email, $hashed_password, $role);
+        $stmt->execute();
         $user_id = $conn->insert_id;
-        $_SESSION['user_id'] = $user_id;
-        $_SESSION['role'] = $role;
 
-        switch ($role) {
-            case 'entrepreneur':
-                $sql_entrepreneur = "INSERT INTO Entrepreneurs (entrepreneur_id) VALUES ('$user_id')";
-                if ($conn->query($sql_entrepreneur) === TRUE) {
-                    header("Location: entrepreneurs.php");
-                } else {
-                    echo "Error inserting into Entrepreneurs table: " . $conn->error;
+        // Handle role-specific data
+        if ($role === 'job_seeker') {
+            // Insert into Job_Seekers table
+            $skills = isset($_POST['skills']) ? json_encode(array_map('trim', explode(',', $_POST['skills']))) : NULL;
+            $experience_level = mysqli_real_escape_string($conn, $_POST['experience_level']);
+            $desired_role = isset($_POST['desired_role']) ? mysqli_real_escape_string($conn, $_POST['desired_role']) : NULL;
+            $location_preference = isset($_POST['location_preference']) ? mysqli_real_escape_string($conn, $_POST['location_preference']) : NULL;
+
+            $stmt = $conn->prepare("INSERT INTO Job_Seekers (job_seeker_id, skills, desired_role, experience_level, location_preference) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("issss", $user_id, $skills, $desired_role, $experience_level, $location_preference);
+            $stmt->execute();
+
+            // Handle resume upload if provided
+            if (isset($_FILES['resume']) && $_FILES['resume']['error'] === UPLOAD_ERR_OK) {
+                $upload_dir = 'uploads/resumes/';
+                
+                // Create directory if it doesn't exist
+                if (!file_exists($upload_dir)) {
+                    mkdir($upload_dir, 0777, true);
                 }
-                break;
 
-            case 'investor':
-                $investment_range_min = $conn->real_escape_string($_POST['investment_range_min']);
-                $investment_range_max = $conn->real_escape_string($_POST['investment_range_max']);
+                // Validate file
+                $allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                $maxSize = 5 * 1024 * 1024; // 5MB
 
-                $sql_investor = "INSERT INTO Investors (investor_id)
-                                 VALUES ('$user_id')";
-                if ($conn->query($sql_investor) === TRUE) {
-                    header("Location: investors.php");
-                } else {
-                    echo "Error inserting into Investors table: " . $conn->error;
+                if ($_FILES['resume']['size'] > $maxSize) {
+                    throw new Exception("Resume file size must be less than 5MB");
                 }
-                break;
 
-            case 'job_seeker':
-                $experience_level = $conn->real_escape_string($_POST['experience_level'] ?? null);
-
-                $sql_job_seeker = "INSERT INTO Job_Seekers (job_seeker_id)
-                                   VALUES ('$user_id')";
-                if ($conn->query($sql_job_seeker) === TRUE) {
-                    header("Location: job-seekers.php");
-                } else {
-                    echo "Error inserting into Job Seekers table: " . $conn->error;
+                if (!in_array($_FILES['resume']['type'], $allowedTypes)) {
+                    throw new Exception("Only PDF, DOC, and DOCX files are allowed for resume");
                 }
-                break;
 
-            case 'admin':
-                header("Location: admin-panel.php");
-                break;
+                // Generate unique filename
+                $fileExtension = strtolower(pathinfo($_FILES['resume']['name'], PATHINFO_EXTENSION));
+                $newFilename = 'resume_' . uniqid() . '.' . $fileExtension;
+                $filePath = $upload_dir . $newFilename;
 
-            default:
-                echo "Invalid role.";
+                // Move uploaded file
+                if (move_uploaded_file($_FILES['resume']['tmp_name'], $filePath)) {
+                    // Insert into Resumes table
+                    $stmt = $conn->prepare("INSERT INTO Resumes (job_seeker_id, file_name, file_path, file_type, file_size, is_active) VALUES (?, ?, ?, ?, ?, TRUE)");
+                    $stmt->bind_param("isssi", 
+                        $user_id,
+                        $_FILES['resume']['name'],
+                        $filePath,
+                        $_FILES['resume']['type'],
+                        $_FILES['resume']['size']
+                    );
+                    $stmt->execute();
+                } else {
+                    throw new Exception("Error uploading resume file");
+                }
+            }
         }
-    } else {
-        echo "Error inserting into Users table: " . $conn->error;
+        // Add other role-specific handling here (entrepreneur, investor)
+
+        // Commit transaction
+        $conn->commit();
+
+        // Set session variables
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['name'] = $name;
+        $_SESSION['email'] = $email;
+        $_SESSION['role'] = $role;
+        
+        header("Location: profile.php");
+        exit();
+
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $conn->rollback();
+        $_SESSION['error'] = "Error during registration: " . $e->getMessage();
+        header("Location: sign_up.php");
+        exit();
     }
 }
-
-$conn->close();
 ?>
