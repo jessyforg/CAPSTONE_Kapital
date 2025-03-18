@@ -176,6 +176,188 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status'])) {
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+
+        /* Message section styles */
+        .message-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #2C2F33;
+            border-radius: 8px;
+            border: 1px solid #7289DA;
+        }
+
+        .message-history {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #23272A;
+            border-radius: 5px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .message.sent {
+            background-color: #7289DA;
+            margin-left: 20%;
+            color: white;
+        }
+
+        .message.received {
+            background-color: #40444B;
+            margin-right: 20%;
+        }
+
+        .message-meta {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+
+        .message-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #7289DA;
+            background-color: #40444B;
+            color: white;
+            font-family: inherit;
+        }
+
+        .send-button {
+            padding: 10px 20px;
+            background-color: #7289DA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .send-button:hover {
+            background-color: #5b6eae;
+        }
+
+        .view-full-chat {
+            color: #7289DA;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .view-full-chat:hover {
+            background-color: rgba(114, 137, 218, 0.1);
+            color: #5b6eae;
+        }
+
+        .btn-message {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 24px;
+            background-color: #7289DA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .btn-message:hover {
+            background-color: #5b6eae;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #23272A;
+            margin: 5% auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid #7289DA;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #7289DA;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        .modal-footer {
+            padding: 15px;
+            border-top: 1px solid #40444B;
+            text-align: right;
+        }
+
+        .message-history {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #2C2F33;
+        }
+
+        /* Update existing message styles for modal */
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+
+        .message.sent {
+            background-color: #7289DA;
+            margin-left: auto;
+            color: white;
+        }
+
+        .message.received {
+            background-color: #40444B;
+            margin-right: auto;
+        }
     </style>
 </head>
 
@@ -194,23 +376,137 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status'])) {
             <pre><?php echo nl2br(htmlspecialchars($cover_letter)); ?></pre>
         </div>
 
+        <!-- Message Button -->
+        <button id="openChatBtn" class="btn-message">Message <?php echo htmlspecialchars($job_seeker_name); ?></button>
+
+        <!-- Chat Modal -->
+        <div id="chatModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Chat with <?php echo htmlspecialchars($job_seeker_name); ?></h3>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="message-history" id="messageHistory">
+                    <?php
+                    // Fetch messages between entrepreneur and job seeker
+                    $message_query = "SELECT m.*, u.name as sender_name 
+                                    FROM Messages m 
+                                    JOIN Users u ON m.sender_id = u.user_id 
+                                    WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                                       OR (m.sender_id = ? AND m.receiver_id = ?)
+                                    ORDER BY m.sent_at ASC";
+                    $msg_stmt = $conn->prepare($message_query);
+                    $msg_stmt->bind_param("iiii", 
+                        $_SESSION['user_id'], 
+                        $application['job_seeker_id'],
+                        $application['job_seeker_id'],
+                        $_SESSION['user_id']
+                    );
+                    $msg_stmt->execute();
+                    $messages = $msg_stmt->get_result();
+
+                    while ($message = $messages->fetch_assoc()):
+                        $is_sent = $message['sender_id'] == $_SESSION['user_id'];
+                    ?>
+                        <div class="message <?php echo $is_sent ? 'sent' : 'received'; ?>">
+                            <div class="message-content"><?php echo nl2br(htmlspecialchars($message['content'])); ?></div>
+                            <div class="message-meta">
+                                <?php echo htmlspecialchars($message['sender_name']); ?> - 
+                                <?php echo date('M j, Y g:i A', strtotime($message['sent_at'])); ?>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+
+                <form method="POST" action="send_message.php" class="message-form" id="messageForm">
+                    <input type="hidden" name="receiver_id" value="<?php echo $application['job_seeker_id']; ?>">
+                    <input type="hidden" name="application_id" value="<?php echo $application_id; ?>">
+                    <textarea name="message" class="message-input" placeholder="Type your message here..." required></textarea>
+                    <button type="submit" class="send-button">Send</button>
+                </form>
+                
+                <div class="modal-footer">
+                    <a href="messages.php?chat_with=<?php echo $application['job_seeker_id']; ?>" class="view-full-chat">
+                        View Full Conversation <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <form method="POST" action="application_status.php?application_id=<?php echo $application_id; ?>"
             class="status-form">
             <label for="status">Change Status:</label>
             <select name="status" id="status" required>
-                <option value="reviewed" <?php if ($application_status == 'reviewed') echo 'selected'; ?>>Reviewed
-                </option>
-                <option value="interviewed" <?php if ($application_status == 'interviewed') echo 'selected'; ?>>
-                    Interviewed</option>
+                <option value="reviewed" <?php if ($application_status == 'reviewed') echo 'selected'; ?>>Reviewed</option>
+                <option value="interviewed" <?php if ($application_status == 'interviewed') echo 'selected'; ?>>Interviewed</option>
                 <option value="hired" <?php if ($application_status == 'hired') echo 'selected'; ?>>Hired</option>
-                <option value="rejected" <?php if ($application_status == 'rejected') echo 'selected'; ?>>Rejected
-                </option>
+                <option value="rejected" <?php if ($application_status == 'rejected') echo 'selected'; ?>>Rejected</option>
             </select>
             <button type="submit" class="btn-update">Update Status</button>
         </form>
 
         <a href="entrepreneurs.php" class="btn-back">Back to Dashboard</a>
     </div>
+
+    <script>
+        // Get modal elements
+        const modal = document.getElementById('chatModal');
+        const openBtn = document.getElementById('openChatBtn');
+        const closeBtn = document.querySelector('.close');
+        const messageHistory = document.getElementById('messageHistory');
+        const messageForm = document.getElementById('messageForm');
+
+        // Open modal
+        openBtn.onclick = function() {
+            modal.style.display = "block";
+            messageHistory.scrollTop = messageHistory.scrollHeight;
+        }
+
+        // Close modal
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Handle form submission with AJAX
+        messageForm.onsubmit = function(e) {
+            e.preventDefault();
+            const formData = new FormData(messageForm);
+            
+            fetch('send_message.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(() => {
+                // Clear the message input
+                messageForm.querySelector('textarea').value = '';
+                
+                // Refresh messages
+                updateMessages();
+            })
+            .catch(error => console.error('Error:', error));
+        };
+
+        // Function to update messages
+        function updateMessages() {
+            fetch('get_messages.php?application_id=<?php echo $application_id; ?>')
+                .then(response => response.text())
+                .then(html => {
+                    messageHistory.innerHTML = html;
+                    messageHistory.scrollTop = messageHistory.scrollHeight;
+                });
+        }
+
+        // Update messages every 10 seconds
+        setInterval(updateMessages, 10000);
+    </script>
 
 </body>
 

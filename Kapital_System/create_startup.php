@@ -235,22 +235,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .logo-upload {
-            position: absolute;
-            top: 20px;
-            /* Adjusted for better visibility */
-            right: 20px;
-            /* Adjusted for better visibility */
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
             cursor: pointer;
             text-align: center;
-            /* Center the label text */
         }
 
-        .logo-upload img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            padding: 5px;
+        .logo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px dashed #7289DA;
+            transition: all 0.3s ease;
+        }
+
+        .logo-preview:hover {
+            border-color: #5b6eae;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .logo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .logo-upload input {
@@ -259,11 +273,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .logo-label {
             font-size: 14px;
-            /* Adjust font size */
-            color: #ddd;
-            /* Label color */
-            margin-top: 5px;
-            /* Space between icon and label */
+            color: #7289DA;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        .default-logo-icon {
+            font-size: 50px;
+            color: #7289DA;
+        }
+
+        /* Add this at the end of your existing CSS */
+        @media (max-width: 768px) {
+            .logo-upload {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 20px;
+            }
+
+            .logo-preview {
+                width: 120px;
+                height: 120px;
+            }
         }
     </style>
 </head>
@@ -271,14 +303,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <h1>Create Your Startup Profile</h1>
-        <div class="logo-upload">
-            <label for="logo">
-                <img src="assets/upload_icon.png" alt="Upload Logo">
-            </label>
-            <span class="logo-label">Upload Startup Logo</span>
-            <input type="file" id="logo" name="logo" accept="image/png, image/jpeg" required>
-        </div>
         <form method="POST" enctype="multipart/form-data">
+            <div class="logo-upload">
+                <label for="logo">
+                    <div class="logo-preview" id="logoPreview">
+                        <i class="fas fa-building default-logo-icon"></i>
+                    </div>
+                </label>
+                <span class="logo-label">Click to Upload Logo</span>
+                <input type="file" id="logo" name="logo" accept="image/png, image/jpeg, image/jpg" onchange="previewLogo(this);">
+            </div>
             <div class="form-group">
                 <label for="startup_name">Startup Name</label>
                 <input type="text" id="startup_name" name="startup_name" placeholder="Enter your startup's name"
@@ -339,6 +373,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <button type="submit">Submit</button>
         </form>
     </div>
+
+    <script>
+        function previewLogo(input) {
+            const preview = document.getElementById('logoPreview');
+            const defaultIcon = preview.querySelector('.default-logo-icon');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    if (defaultIcon) {
+                        defaultIcon.style.display = 'none';
+                    }
+                    
+                    let img = preview.querySelector('img');
+                    if (!img) {
+                        img = document.createElement('img');
+                        preview.appendChild(img);
+                    }
+                    img.src = e.target.result;
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            } else if (defaultIcon) {
+                defaultIcon.style.display = 'block';
+                const img = preview.querySelector('img');
+                if (img) {
+                    img.remove();
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
