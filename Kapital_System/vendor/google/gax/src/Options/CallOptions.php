@@ -35,14 +35,14 @@ namespace Google\ApiCore\Options;
 use ArrayAccess;
 use Google\ApiCore\CredentialsWrapper;
 use Google\ApiCore\RetrySettings;
-use Google\ApiCore\TransportInterface;
 
 /**
  * The CallOptions class provides typing to the associative array of options
- * passed to transport RPC methods. See {@see TransportInterface::startUnaryCall()},
- * {@see TransportInterface::startBidiStreamingCall()},
- * {@see TransportInterface::startClientStreamingCall()}, and
- * {@see TransportInterface::startServerStreamingCall()}.
+ * passed to transport RPC methods. See
+ * {@see \Google\ApiCore\Transport\TransportInterface::startUnaryCall()},
+ * {@see \Google\ApiCore\Transport\TransportInterface::startBidiStreamingCall()},
+ * {@see \Google\ApiCore\Transport\TransportInterface::startClientStreamingCall()}, and
+ * {@see \Google\ApiCore\Transport\TransportInterface::startServerStreamingCall()}.
  */
 class CallOptions implements ArrayAccess
 {
@@ -59,8 +59,8 @@ class CallOptions implements ArrayAccess
      * @param array $options {
      *     Call options
      *
-     *     @type array $headers
-     *           Key-value array containing headers
+     *     @type array<string, array<string>> $headers
+     *           Key-value array containing headers.
      *     @type int $timeoutMillis
      *           The timeout in milliseconds for the call.
      *     @type array $transportOptions

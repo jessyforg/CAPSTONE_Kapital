@@ -18,20 +18,23 @@ class FirestoreAdmin
         \GPBMetadata\Google\Api\Client::initOnce();
         \GPBMetadata\Google\Api\FieldBehavior::initOnce();
         \GPBMetadata\Google\Api\Resource::initOnce();
+        \GPBMetadata\Google\Firestore\Admin\V1\Backup::initOnce();
         \GPBMetadata\Google\Firestore\Admin\V1\Database::initOnce();
         \GPBMetadata\Google\Firestore\Admin\V1\Field::initOnce();
         \GPBMetadata\Google\Firestore\Admin\V1\Index::initOnce();
         \GPBMetadata\Google\Firestore\Admin\V1\Operation::initOnce();
+        \GPBMetadata\Google\Firestore\Admin\V1\Schedule::initOnce();
         \GPBMetadata\Google\Longrunning\Operations::initOnce();
         \GPBMetadata\Google\Protobuf\GPBEmpty::initOnce();
         \GPBMetadata\Google\Protobuf\FieldMask::initOnce();
         \GPBMetadata\Google\Protobuf\Timestamp::initOnce();
         $pool->internalAddGeneratedFile(
             '
-È-
-/google/firestore/admin/v1/firestore_admin.protogoogle.firestore.admin.v1google/api/client.protogoogle/api/field_behavior.protogoogle/api/resource.proto(google/firestore/admin/v1/database.proto%google/firestore/admin/v1/field.proto%google/firestore/admin/v1/index.proto)google/firestore/admin/v1/operation.proto#google/longrunning/operations.protogoogle/protobuf/empty.proto google/protobuf/field_mask.protogoogle/protobuf/timestamp.proto"Q
+I
+/google/firestore/admin/v1/firestore_admin.protogoogle.firestore.admin.v1google/api/client.protogoogle/api/field_behavior.protogoogle/api/resource.proto&google/firestore/admin/v1/backup.proto(google/firestore/admin/v1/database.proto%google/firestore/admin/v1/field.proto%google/firestore/admin/v1/index.proto)google/firestore/admin/v1/operation.proto(google/firestore/admin/v1/schedule.proto#google/longrunning/operations.protogoogle/protobuf/empty.proto google/protobuf/field_mask.protogoogle/protobuf/timestamp.proto"g
 ListDatabasesRequest9
-parent (	B)àAúA#!firestore.googleapis.com/Database"¨
+parent (	B)àAúA#!firestore.googleapis.com/Database
+show_deleted ("¨
 CreateDatabaseRequest9
 parent (	B)àAúA#!firestore.googleapis.com/Database:
 database (2#.google.firestore.admin.v1.DatabaseBàA
@@ -51,7 +54,25 @@ class FirestoreAdmin
 name (	B)àAúA#
 !firestore.googleapis.com/Database
 etag (	"
-DeleteDatabaseMetadata"Œ
+DeleteDatabaseMetadata"¡
+CreateBackupScheduleRequest9
+parent (	B)àAúA#
+!firestore.googleapis.com/DatabaseG
+backup_schedule (2).google.firestore.admin.v1.BackupScheduleBàA"Y
+GetBackupScheduleRequest=
+name (	B/àAúA)
+\'firestore.googleapis.com/BackupSchedule"—
+UpdateBackupScheduleRequestG
+backup_schedule (2).google.firestore.admin.v1.BackupScheduleBàA/
+update_mask (2.google.protobuf.FieldMask"W
+ListBackupSchedulesRequest9
+parent (	B)àAúA#
+!firestore.googleapis.com/Database"b
+ListBackupSchedulesResponseC
+backup_schedules (2).google.firestore.admin.v1.BackupSchedule"\\
+DeleteBackupScheduleRequest=
+name (	B/àAúA)
+\'firestore.googleapis.com/BackupSchedule"Œ
 CreateIndexRequest@
 parent (	B0àAúA*
 (firestore.googleapis.com/CollectionGroup4
@@ -100,7 +121,32 @@ page_token (	"_
 !firestore.googleapis.com/Database
 collection_ids (	
 input_uri_prefix (	
-namespace_ids (	2©
+namespace_ids (	"
+BulkDeleteDocumentsRequest7
+name (	B)àAúA#
+!firestore.googleapis.com/Database
+collection_ids (	BàA
+namespace_ids (	BàA"
+BulkDeleteDocumentsResponse"I
+GetBackupRequest5
+name (	B\'àAúA!
+firestore.googleapis.com/Backup"_
+ListBackupsRequest9
+parent (	B)àAúA#
+!firestore.googleapis.com/Location
+filter (	"^
+ListBackupsResponse2
+backups (2!.google.firestore.admin.v1.Backup
+unreachable (	"L
+DeleteBackupRequest5
+name (	B\'àAúA!
+firestore.googleapis.com/Backup"ü
+RestoreDatabaseRequest9
+parent (	B)àAúA#!firestore.googleapis.com/Database
+database_id (	BàA7
+backup (	B\'àAúA!
+firestore.googleapis.com/BackupT
+encryption_config	 (24.google.firestore.admin.v1.Database.EncryptionConfigBàA2Ë%
 FirestoreAdminÛ
 CreateIndex-.google.firestore.admin.v1.CreateIndexRequest.google.longrunning.Operation"~ÊA
 IndexIndexOperationMetadataÚAparent,index‚Óä“G">/v1/{parent=projects/*/databases/*/collectionGroups/*}/indexes:index½
@@ -115,7 +161,9 @@ ListFields,.google.firestore.admin.v1.ListFieldsRequest-.google.firestore.admi
 ExportDocuments1.google.firestore.admin.v1.ExportDocumentsRequest.google.longrunning.Operation"xÊA2
 ExportDocumentsResponseExportDocumentsMetadataÚAname‚Óä“6"1/v1/{name=projects/*/databases/*}:exportDocuments:*Û
 ImportDocuments1.google.firestore.admin.v1.ImportDocumentsRequest.google.longrunning.Operation"vÊA0
-google.protobuf.EmptyImportDocumentsMetadataÚAname‚Óä“6"1/v1/{name=projects/*/databases/*}:importDocuments:*Ù
+google.protobuf.EmptyImportDocumentsMetadataÚAname‚Óä“6"1/v1/{name=projects/*/databases/*}:importDocuments:*ò
+BulkDeleteDocuments5.google.firestore.admin.v1.BulkDeleteDocumentsRequest.google.longrunning.Operation"„ÊA:
+BulkDeleteDocumentsResponseBulkDeleteDocumentsMetadataÚAname‚Óä“:"5/v1/{name=projects/*/databases/*}:bulkDeleteDocuments:*Ù
 CreateDatabase0.google.firestore.admin.v1.CreateDatabaseRequest.google.longrunning.Operation"vÊA"
 DatabaseCreateDatabaseMetadataÚAparent,database,database_id‚Óä“-"!/v1/{parent=projects/*}/databases:database“
 GetDatabase-.google.firestore.admin.v1.GetDatabaseRequest#.google.firestore.admin.v1.Database"0ÚAname‚Óä“#!/v1/{name=projects/*/databases/*}¦
@@ -123,7 +171,17 @@ ListFields,.google.firestore.admin.v1.ListFieldsRequest-.google.firestore.admi
 UpdateDatabase0.google.firestore.admin.v1.UpdateDatabaseRequest.google.longrunning.Operation"xÊA"
 DatabaseUpdateDatabaseMetadataÚAdatabase,update_mask‚Óä“62*/v1/{database.name=projects/*/databases/*}:database¸
 DeleteDatabase0.google.firestore.admin.v1.DeleteDatabaseRequest.google.longrunning.Operation"UÊA"
-DatabaseDeleteDatabaseMetadataÚAname‚Óä“#*!/v1/{name=projects/*/databases/*}vÊAfirestore.googleapis.comÒAXhttps://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/datastoreB¥
+DatabaseDeleteDatabaseMetadataÚAname‚Óä“#*!/v1/{name=projects/*/databases/*}—
+	GetBackup+.google.firestore.admin.v1.GetBackupRequest!.google.firestore.admin.v1.Backup":ÚAname‚Óä“-+/v1/{name=projects/*/locations/*/backups/*}ª
+ListBackups-.google.firestore.admin.v1.ListBackupsRequest..google.firestore.admin.v1.ListBackupsResponse"<ÚAparent‚Óä“-+/v1/{parent=projects/*/locations/*}/backups’
+DeleteBackup..google.firestore.admin.v1.DeleteBackupRequest.google.protobuf.Empty":ÚAname‚Óä“-*+/v1/{name=projects/*/locations/*/backups/*}¿
+RestoreDatabase1.google.firestore.admin.v1.RestoreDatabaseRequest.google.longrunning.Operation"ZÊA#
+DatabaseRestoreDatabaseMetadata‚Óä“.")/v1/{parent=projects/*}/databases:restore:*à
+CreateBackupSchedule6.google.firestore.admin.v1.CreateBackupScheduleRequest).google.firestore.admin.v1.BackupSchedule"eÚAparent,backup_schedule‚Óä“F"3/v1/{parent=projects/*/databases/*}/backupSchedules:backup_schedule·
+GetBackupSchedule3.google.firestore.admin.v1.GetBackupScheduleRequest).google.firestore.admin.v1.BackupSchedule"BÚAname‚Óä“53/v1/{name=projects/*/databases/*/backupSchedules/*}Ê
+ListBackupSchedules5.google.firestore.admin.v1.ListBackupSchedulesRequest6.google.firestore.admin.v1.ListBackupSchedulesResponse"DÚAparent‚Óä“53/v1/{parent=projects/*/databases/*}/backupSchedulesõ
+UpdateBackupSchedule6.google.firestore.admin.v1.UpdateBackupScheduleRequest).google.firestore.admin.v1.BackupSchedule"zÚAbackup_schedule,update_mask‚Óä“V2C/v1/{backup_schedule.name=projects/*/databases/*/backupSchedules/*}:backup_scheduleª
+DeleteBackupSchedule6.google.firestore.admin.v1.DeleteBackupScheduleRequest.google.protobuf.Empty"BÚAname‚Óä“5*3/v1/{name=projects/*/databases/*/backupSchedules/*}vÊAfirestore.googleapis.comÒAXhttps://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/datastoreB¥
 com.google.firestore.admin.v1BFirestoreAdminProtoPZ9cloud.google.com/go/firestore/apiv1/admin/adminpb;adminpb¢GCFSªGoogle.Cloud.Firestore.Admin.V1ÊGoogle\\Cloud\\Firestore\\Admin\\V1ê#Google::Cloud::Firestore::Admin::V1êAL
 !firestore.googleapis.com/Location\'projects/{project}/locations/{location}êAq
 (firestore.googleapis.com/CollectionGroupEprojects/{project}/databases/{database}/collectionGroups/{collection}bproto3'

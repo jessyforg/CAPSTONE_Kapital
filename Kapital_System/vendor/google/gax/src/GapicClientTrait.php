@@ -38,6 +38,7 @@ use Google\ApiCore\Middleware\FixedHeaderMiddleware;
 use Google\ApiCore\Middleware\OperationsMiddleware;
 use Google\ApiCore\Middleware\OptionsFilterMiddleware;
 use Google\ApiCore\Middleware\PagedMiddleware;
+use Google\ApiCore\Middleware\RequestAutoPopulationMiddleware;
 use Google\ApiCore\Middleware\RetryMiddleware;
 use Google\ApiCore\Options\CallOptions;
 use Google\ApiCore\Options\ClientOptions;
@@ -65,7 +66,7 @@ trait GapicClientTrait
     use GrpcSupportTrait;
 
     private ?TransportInterface $transport = null;
-    private ?CredentialsWrapper $credentialsWrapper = null;
+    private ?HeaderCredentialsInterface $credentialsWrapper = null;
     /** @var RetrySettings[] $retrySettings */
     private array $retrySettings = [];
     private string $serviceName = '';
@@ -237,6 +238,12 @@ trait GapicClientTrait
             'libName',
             'libVersion',
         ]);
+
+        // "hasEmulator" is not a supported Client Option, but is used
+        // internally to determine if the client is running in emulator mode.
+        // Therefore, we need to remove it from the $options array before
+        // creating the ClientOptions.
+        $hasEmulator = $this->pluck('hasEmulator', $options, false) ?? false;
         if ($this->isBackwardsCompatibilityMode()) {
             if (is_string($options['clientConfig'])) {
                 // perform validation for V1 surfaces which is done in the
@@ -286,11 +293,24 @@ trait GapicClientTrait
         $descriptors = require($options['descriptorsConfigPath']);
         $this->descriptors = $descriptors['interfaces'][$this->serviceName];
 
-        $this->credentialsWrapper = $this->createCredentialsWrapper(
-            $options['credentials'],
-            $options['credentialsConfig'],
-            $options['universeDomain']
-        );
+        if (isset($options['apiKey'], $options['credentials'])) {
+            throw new ValidationException(
+                'API Keys and Credentials are mutually exclusive authentication methods and cannot be used together.'
+            );
+        }
+        // Set the credentialsWrapper
+        if (isset($options['apiKey'])) {
+            $this->credentialsWrapper = new ApiKeyHeaderCredentials(
+                $options['apiKey'],
+                $options['credentialsConfig']['quotaProject'] ?? null
+            );
+        } else {
+            $this->credentialsWrapper = $this->createCredentialsWrapper(
+                $options['credentials'],
+                $options['credentialsConfig'],
+                $options['universeDomain']
+            );
+        }
 
         $transport = $options['transport'] ?: self::defaultTransport();
         $this->transport = $transport instanceof TransportInterface
@@ -299,7 +319,8 @@ trait GapicClientTrait
                 $options['apiEndpoint'],
                 $transport,
                 $options['transportConfig'],
-                $options['clientCertSource']
+                $options['clientCertSource'],
+                $hasEmulator
             );
     }
 
@@ -308,6 +329,7 @@ trait GapicClientTrait
      * @param string $transport
      * @param TransportOptions|array $transportConfig
      * @param callable $clientCertSource
+     * @param bool $hasEmulator
      * @return TransportInterface
      * @throws ValidationException
      */
@@ -315,7 +337,8 @@ trait GapicClientTrait
         string $apiEndpoint,
         $transport,
         $transportConfig,
-        ?callable $clientCertSource = null
+        ?callable $clientCertSource = null,
+        bool $hasEmulator = false
     ) {
         if (!is_string($transport)) {
             throw new ValidationException(
@@ -358,6 +381,8 @@ trait GapicClientTrait
                     );
                 }
                 $restConfigPath = $configForSpecifiedTransport['restClientConfigPath'];
+                $configForSpecifiedTransport['hasEmulator'] = $hasEmulator;
+
                 return RestTransport::build($apiEndpoint, $restConfigPath, $configForSpecifiedTransport);
             default:
                 throw new ValidationException(
@@ -514,7 +539,7 @@ trait GapicClientTrait
         ?Message $request = null,
         array $optionalArgs = []
     ) {
-        $methodDescriptors =$this->validateCallConfig($methodName);
+        $methodDescriptors = $this->validateCallConfig($methodName);
         $callType = $methodDescriptors['callType'];
 
         // Prepare request-based headers, merge with user-provided headers,
@@ -613,19 +638,27 @@ trait GapicClientTrait
      *
      *     @type RetrySettings $retrySettings [optional] A retry settings override
      *           For the call.
+     *     @type array<string, string> $autoPopulationSettings Settings for
+     *           auto population of particular request fields if unset.
      * }
      *
      * @return callable
      */
     private function createCallStack(array $callConstructionOptions)
     {
-        $quotaProject = $this->credentialsWrapper->getQuotaProject();
         $fixedHeaders = $this->agentHeader;
-        if ($quotaProject) {
+        if ($quotaProject = $this->credentialsWrapper->getQuotaProject()) {
             $fixedHeaders += [
                 'X-Goog-User-Project' => [$quotaProject]
             ];
         }
+
+        if (isset($this->apiVersion)) {
+            $fixedHeaders += [
+                'X-Goog-Api-Version' => [$this->apiVersion]
+            ];
+        }
+
         $callStack = function (Call $call, array $options) {
             $startCallMethod = $this->transportCallMethods[$call->getCallType()];
             return $this->transport->$startCallMethod($call, $options);
@@ -633,6 +666,10 @@ trait GapicClientTrait
         $callStack = new CredentialsWrapperMiddleware($callStack, $this->credentialsWrapper);
         $callStack = new FixedHeaderMiddleware($callStack, $fixedHeaders, true);
         $callStack = new RetryMiddleware($callStack, $callConstructionOptions['retrySettings']);
+        $callStack = new RequestAutoPopulationMiddleware(
+            $callStack,
+            $callConstructionOptions['autoPopulationSettings'],
+        );
         $callStack = new OptionsFilterMiddleware($callStack, [
             'headers',
             'timeoutMillis',
@@ -664,6 +701,7 @@ trait GapicClientTrait
     private function configureCallConstructionOptions(string $methodName, array $optionalArgs)
     {
         $retrySettings = $this->retrySettings[$methodName];
+        $autoPopulatedFields = $this->descriptors[$methodName]['autoPopulatedFields'] ?? [];
         // Allow for retry settings to be changed at call time
         if (isset($optionalArgs['retrySettings'])) {
             if ($optionalArgs['retrySettings'] instanceof RetrySettings) {
@@ -676,6 +714,7 @@ trait GapicClientTrait
         }
         return [
             'retrySettings' => $retrySettings,
+            'autoPopulationSettings' => $autoPopulatedFields,
         ];
     }
 
