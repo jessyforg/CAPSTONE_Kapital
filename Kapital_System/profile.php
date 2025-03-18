@@ -354,6 +354,31 @@ if ($user['role'] === 'entrepreneur') {
                 grid-template-columns: 1fr;
             }
         }
+
+        .delete-button {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            margin-left: 10px;
+        }
+
+        .cancel-button {
+            background: linear-gradient(45deg, #6c757d, #5a6268) !important;
+            margin-left: 10px;
+        }
+
+        .resume-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #updateResumeForm {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid rgba(243, 192, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -472,20 +497,79 @@ if ($user['role'] === 'entrepreneur') {
             </div>
         <?php endif; ?>
 
-        <?php if ($user['role'] === 'job_seeker' && $is_own_profile): ?>
+        <?php if ($user['role'] === 'job_seeker'): ?>
             <div class="profile-section">
-                <h2><i class="fas fa-file-alt"></i> Resume</h2>
-                <form method="POST" enctype="multipart/form-data" action="upload_resume.php">
-                    <div class="form-group">
-                        <label for="resume">Upload Resume (PDF, DOC, DOCX)</label>
-                        <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
-                    </div>
-                    <button type="submit" name="upload_resume" class="action-button">
-                        <i class="fas fa-upload"></i> Upload Resume
-                    </button>
-                </form>
-            </div>
+                <h2><i class="fas fa-file-alt"></i> Resume Management</h2>
+                
+                <?php
+                // Fetch current active resume
+                $resume_stmt = $conn->prepare("SELECT * FROM Resumes WHERE job_seeker_id = ? AND is_active = TRUE");
+                $resume_stmt->bind_param("i", $viewing_user_id);
+                $resume_stmt->execute();
+                $resume_result = $resume_stmt->get_result();
+                $current_resume = $resume_result->fetch_assoc();
+                ?>
 
+                <?php if ($current_resume): ?>
+                    <div class="current-resume">
+                        <h3>Current Resume</h3>
+                        <p><strong>File Name:</strong> <?php echo htmlspecialchars($current_resume['file_name']); ?></p>
+                        <p><strong>Uploaded:</strong> <?php echo date('F j, Y g:i A', strtotime($current_resume['uploaded_at'])); ?></p>
+                        <div class="resume-actions">
+                            <a href="download_resume.php?job_seeker_id=<?php echo $viewing_user_id; ?>" class="action-button">
+                                <i class="fas fa-download"></i> Download Resume
+                            </a>
+                            <?php if ($is_own_profile): ?>
+                                <form method="POST" action="delete_resume.php" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this resume?');">
+                                    <input type="hidden" name="resume_id" value="<?php echo $current_resume['resume_id']; ?>">
+                                    <button type="submit" class="action-button delete-button">
+                                        <i class="fas fa-trash"></i> Delete Resume
+                                    </button>
+                                </form>
+                                
+                                <button type="button" class="action-button" onclick="toggleUpdateForm()">
+                                    <i class="fas fa-edit"></i> Update Resume
+                                </button>
+
+                                <div id="updateResumeForm" style="display: none; margin-top: 20px;">
+                                    <form method="POST" action="upload_resume.php" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="resume">Select New Resume</label>
+                                            <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
+                                            <small>Supported formats: PDF, DOC, DOCX (Max size: 5MB)</small>
+                                        </div>
+                                        <button type="submit" class="action-button">
+                                            <i class="fas fa-upload"></i> Update Resume
+                                        </button>
+                                        <button type="button" class="action-button cancel-button" onclick="toggleUpdateForm()">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </button>
+                                    </form>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php elseif ($is_own_profile): ?>
+                    <div class="upload-resume">
+                        <p>You haven't uploaded a resume yet.</p>
+                        <form method="POST" action="upload_resume.php" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="resume">Upload Resume</label>
+                                <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
+                                <small>Supported formats: PDF, DOC, DOCX (Max size: 5MB)</small>
+                            </div>
+                            <button type="submit" class="action-button">
+                                <i class="fas fa-upload"></i> Upload Resume
+                            </button>
+                        </form>
+                    </div>
+                <?php else: ?>
+                    <p>No resume available.</p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($user['role'] === 'job_seeker' && $is_own_profile): ?>
             <div class="profile-section">
                 <h2><i class="fas fa-briefcase"></i> Job Applications</h2>
                 <div class="grid-container">
@@ -601,6 +685,16 @@ if ($user['role'] === 'entrepreneur') {
         <?php if (isset($_POST['change_password'])): ?>
             toggleSection('changePassword');
         <?php endif; ?>
+
+        function toggleUpdateForm() {
+            const form = document.getElementById('updateResumeForm');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                form.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
