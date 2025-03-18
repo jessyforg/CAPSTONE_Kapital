@@ -1,7 +1,14 @@
 {
     "require": {
-        "kreait/firebase-php": "^5.26",
         "grpc/grpc": "1.38",
-        "google/cloud-firestore": "^1.41"
+        "google/cloud-firestore": "^1.41",
+        "openai-php/client": "^0.8.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "symfony/http-client": "^6.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
