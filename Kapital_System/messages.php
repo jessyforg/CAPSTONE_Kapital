@@ -92,121 +92,286 @@ if ($search_query) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* General Layout */
+        /* Remove navbar search styling override since it's not needed */
+        body {
+            background-color: #2C2F33;
+            min-height: 100vh;
+        }
+
         .container {
             display: flex;
-            height: calc(100vh - 60px); /* Adjust for navbar height */
-            border-radius: 15px; /* Rounded corners for the entire container */
+            height: calc(100vh - 110px); /* 70px navbar + 40px padding */
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 1400px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for the container */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            background-color: #23272A;
+            border: 1px solid #40444B;
         }
 
-        /* Sidebar */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 0;
+                height: calc(100vh - 90px); /* 70px navbar + 20px margin */
+                border-radius: 0;
+                border: none;
+            }
+        }
+
+        /* Sidebar Styles */
         .sidebar {
-            width: 30%;
-            background-color: #f8f9fa;
-            overflow-y: auto;
-            border-right: 1px solid #ddd;
-            border-radius: 15px 0 0 15px; /* Rounded corners for the left sidebar */
-            padding: 20px 15px;
-        }
-
-        .chat-area {
-            width: 70%;
+            width: 350px;
+            background-color: #2C2F33;
+            border-right: 1px solid #40444B;
             display: flex;
             flex-direction: column;
-            border-radius: 0 15px 15px 0; /* Rounded corners for the right chat area */
+            overflow: hidden;
         }
 
-        /* Conversations and Search Results */
-        .conversation, .search-result {
-            padding: 12px 15px;
+        .search-container {
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #40444B;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background-color: #2C2F33;
+            color: #FFFFFF;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #7289DA;
+            box-shadow: 0 0 0 2px rgba(114, 137, 218, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: #72767D;
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #7289DA;
+            color: white;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
-            border-radius: 10px; /* Rounded corners for each conversation */
-            margin-bottom: 5px;
-            transition: background-color 0.3s;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #5b6eae;
+            transform: translateY(-2px);
+        }
+
+        /* Conversation List Styles */
+        .conversations-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .section-title {
+            padding: 15px;
+            color: #B9BBBE;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .conversation, .search-result {
+            padding: 15px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #DCDDDE;
         }
 
         .conversation:hover, .search-result:hover {
-            background-color: #e9ecef;
+            background-color: #40444B;
         }
 
         .conversation.active {
-            background-color: #007bff;
-            color: #fff;
+            background-color: #40444B;
+            border-left: 3px solid #7289DA;
         }
 
-        /* Message Styles */
+        .conversation i, .search-result i {
+            color: #7289DA;
+        }
+
+        /* Chat Area Styles */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #23272A;
+        }
+
+        .conversation-header {
+            padding: 20px;
+            background-color: #2C2F33;
+            border-bottom: 1px solid #40444B;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFFFFF;
+        }
+
+        .conversation-header i {
+            color: #7289DA;
+        }
+
         .messages {
-            flex-grow: 1;
+            flex: 1;
             padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+            gap: 15px;
+            background-color: #23272A;
         }
 
         .message {
             max-width: 70%;
-            padding: 12px 15px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            word-wrap: break-word;
-            display: inline-block;
-            font-size: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.4;
         }
 
         .message.sent {
-            background-color: #007bff;
+            background-color: #7289DA;
             color: white;
-            align-self: flex-end; /* Align to the right */
-            border-radius: 20px 20px 0 20px; /* Rounded corners for the right side */
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
         }
 
         .message.received {
-            background-color: #f1f1f1;
-            align-self: flex-start; /* Align to the left */
-            border-radius: 20px 20px 20px 0; /* Rounded corners for the left side */
+            background-color: #40444B;
+            color: #FFFFFF;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
         }
 
-        /* Message Input */
         .message-input {
+            padding: 20px;
+            background-color: #2C2F33;
+            border-top: 1px solid #40444B;
             display: flex;
-            padding: 10px;
-            border-top: 1px solid #ddd;
-            background-color: #fff;
+            gap: 10px;
+            align-items: center;
         }
 
         .message-input textarea {
-            flex-grow: 1;
-            border-radius: 15px;
+            flex: 1;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid #40444B;
+            border-radius: 6px;
+            resize: none;
+            font-size: 14px;
+            font-family: inherit;
+            height: 45px;
+            transition: all 0.3s ease;
+            background-color: #23272A;
+            color: #FFFFFF;
+        }
+
+        .message-input textarea:focus {
+            outline: none;
+            border-color: #7289DA;
+            box-shadow: 0 0 0 2px rgba(114, 137, 218, 0.1);
+        }
+
+        .message-input textarea::placeholder {
+            color: #72767D;
         }
 
         .message-input button {
-            margin-left: 10px;
-            border-radius: 15px;
-            padding: 10px 15px;
-            background-color: #007bff;
+            padding: 12px 24px;
+            background-color: #7289DA;
             color: white;
             border: none;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .message-input button:hover {
-            background-color: #0056b3;
+            background-color: #5b6eae;
+            transform: translateY(-2px);
         }
 
-        /* Conversation Header */
-        .conversation-header {
-            background-color: #f8f9fa;
-            padding: 15px;
-            font-size: 18px;
-            border-bottom: 1px solid #ddd;
-            border-radius: 15px 15px 0 0; /* Rounded top corners */
+        .no-chat-selected {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #B9BBBE;
             text-align: center;
+            padding: 20px;
+        }
+
+        .no-chat-selected i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #7289DA;
+        }
+
+        .no-results {
+            color: #B9BBBE;
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #2C2F33;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #40444B;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7289DA;
         }
     </style>
 </head>
@@ -215,54 +380,66 @@ if ($search_query) {
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <form method="GET" action="messages.php" class="p-3">
-                <input type="text" name="search" placeholder="Search users..." class="form-control mb-2" value="<?php echo htmlspecialchars($search_query); ?>">
-                <button type="submit" class="btn btn-primary w-100">Search</button>
-            </form>
+            <div class="search-container">
+                <form method="GET" action="messages.php" class="search-form">
+                    <input type="text" name="search" placeholder="Search users..." class="search-input" 
+                           value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
 
-            <?php if ($search_query): ?>
-                <h5 class="p-3">Search Results</h5>
-                <?php while ($user = $search_results->fetch_assoc()): ?>
-                    <div class="search-result" onclick="window.location.href='messages.php?chat_with=<?php echo $user['user_id']; ?>'">
-                        <?php echo htmlspecialchars($user['name']) . " (" . ucfirst($user['role']) . ")"; ?>
+            <div class="conversations-container">
+                <?php if (isset($_GET['search']) && $_GET['search']): ?>
+                    <h5 class="section-title">Search Results</h5>
+                    <?php if ($search_results && $search_results->num_rows > 0): ?>
+                        <?php while ($user = $search_results->fetch_assoc()): ?>
+                            <div class="search-result" onclick="window.location.href='messages.php?chat_with=<?php echo $user['user_id']; ?>'">
+                                <i class="fas fa-user"></i>
+                                <?php echo htmlspecialchars($user['name']) . " (" . ucfirst($user['role']) . ")"; ?>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p class="no-results">No users found</p>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <h5 class="section-title">Conversations</h5>
+                <?php while ($conversation = $conversations_result->fetch_assoc()): ?>
+                    <div class="conversation <?php echo ($chat_with == $conversation['user_id']) ? 'active' : ''; ?>" 
+                         onclick="window.location.href='messages.php?chat_with=<?php echo $conversation['user_id']; ?>'">
+                        <i class="fas fa-user"></i>
+                        <?php echo htmlspecialchars($conversation['name']) . " (" . ucfirst($conversation['role']) . ")"; ?>
                     </div>
                 <?php endwhile; ?>
-            <?php endif; ?>
-
-            <h5 class="p-3">Conversations</h5>
-            <?php while ($conversation = $conversations_result->fetch_assoc()): ?>
-                <div class="conversation <?php echo ($chat_with == $conversation['user_id']) ? 'active' : ''; ?>" 
-                     onclick="window.location.href='messages.php?chat_with=<?php echo $conversation['user_id']; ?>'">
-                    <?php echo htmlspecialchars($conversation['name']) . " (" . ucfirst($conversation['role']) . ")"; ?>
-                </div>
-            <?php endwhile; ?>
+            </div>
         </div>
 
         <!-- Chat Area -->
         <div class="chat-area">
             <?php if ($chat_with && $chat_user): ?>
                 <div class="conversation-header">
+                    <i class="fas fa-user"></i>
                     <?php echo htmlspecialchars($chat_user['name']) . " (" . ucfirst($chat_user['role']) . ")"; ?>
                 </div>
-            <?php endif; ?>
 
-            <div class="messages">
-                <?php if ($chat_with): ?>
+                <div class="messages">
                     <?php foreach ($messages as $message): ?>
                         <div class="message <?php echo ($message['sender_id'] == $user_id) ? 'sent' : 'received'; ?>">
                             <?php echo htmlspecialchars($message['content']); ?>
                         </div>
                     <?php endforeach; ?>
-                <?php else: ?>
-                    <p class="p-3">Select a conversation or search for a user to start chatting.</p>
-                <?php endif; ?>
-            </div>
-            <?php if ($chat_with): ?>
+                </div>
+
                 <form method="POST" class="message-input">
-                    <textarea name="message" class="form-control" rows="1" placeholder="Type a message..." required></textarea>
+                    <textarea name="message" placeholder="Type a message..." required></textarea>
                     <input type="hidden" name="receiver_id" value="<?php echo $chat_with; ?>">
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit">Send</button>
                 </form>
+            <?php else: ?>
+                <div class="no-chat-selected">
+                    <i class="fas fa-comments"></i>
+                    <p>Select a conversation or search for a user to start chatting</p>
+                </div>
             <?php endif; ?>
         </div>
     </div>
