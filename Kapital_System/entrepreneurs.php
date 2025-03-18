@@ -38,26 +38,30 @@ $startups_result = mysqli_query($conn, $startups_query);
 
     <h2>News Feed</h2>
     <?php while ($startup = mysqli_fetch_assoc($startups_result)): ?>
-        <!-- Check if the current user is the one who posted the startup -->
         <?php $is_entrepreneur_post = $startup['entrepreneur_id'] == $user_id; ?>
         <div class="startup-post">
-            <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
-            <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
-            <p><strong>Description:</strong> <?php echo htmlspecialchars($startup['description']); ?></p>
+            <div class="startup-header">
+                <div class="startup-logo">
+                    <?php if (!empty($startup['logo_url']) && file_exists($startup['logo_url'])): ?>
+                        <img src="<?php echo htmlspecialchars($startup['logo_url']); ?>" alt="<?php echo htmlspecialchars($startup['name']); ?> logo">
+                    <?php else: ?>
+                        <i class="fas fa-building"></i>
+                    <?php endif; ?>
+                </div>
+                <div class="startup-info">
+                    <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
+                    <p><strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
+                    <p><strong>Description:</strong> <?php echo htmlspecialchars($startup['description']); ?></p>
+                </div>
+            </div>
 
-            <!-- Show the edit button only if the logged-in entrepreneur posted the startup -->
-            <?php if ($is_entrepreneur_post): ?>
-                <a href="edit_startup.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-warning">Edit
-                    Startup</a>
-
-                <!-- View Applicants button -->
-                <a href="view_applicants.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View
-                    Applicants</a>
-            <?php endif; ?>
-
-            <!-- Show the view details button for everyone -->
-            <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View
-                Details</a>
+            <div class="startup-actions">
+                <?php if ($is_entrepreneur_post): ?>
+                    <a href="edit_startup.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-warning">Edit Startup</a>
+                    <a href="view_applicants.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View Applicants</a>
+                <?php endif; ?>
+                <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View Details</a>
+            </div>
         </div>
     <?php endwhile; ?>
 </div>
@@ -102,24 +106,65 @@ $startups_result = mysqli_query($conn, $startups_query);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
-    .startup-post h3 {
-        font-size: 1.5rem;
-        color: #333;
+    .startup-header {
+        display: flex;
+        gap: 20px;
         margin-bottom: 15px;
     }
 
-    .startup-post p {
+    .startup-logo {
+        width: 100px;
+        height: 100px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .startup-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .startup-logo i {
+        font-size: 40px;
+        color: #D8A25E;
+    }
+
+    .startup-info {
+        flex-grow: 1;
+    }
+
+    .startup-info h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+
+    .startup-info p {
         font-size: 1rem;
         color: #555;
         margin: 5px 0;
     }
 
+    .startup-actions {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
     .startup-post .btn {
         padding: 10px 15px;
-        margin-top: 15px;
         border-radius: 5px;
         text-decoration: none;
         display: inline-block;
+        font-size: 0.9rem;
     }
 
     .startup-post .btn-info {
@@ -129,10 +174,6 @@ $startups_result = mysqli_query($conn, $startups_query);
 
     .startup-post .btn-info:hover {
         background-color: #138496;
-    }
-
-    .startup-post .btn-info:focus {
-        outline: none;
     }
 
     .startup-post .btn-warning {
@@ -167,5 +208,26 @@ $startups_result = mysqli_query($conn, $startups_query);
 
     .btn-primary:hover {
         background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            width: 95%;
+        }
+
+        .startup-header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .startup-logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        .startup-actions {
+            justify-content: center;
+        }
     }
 </style>
