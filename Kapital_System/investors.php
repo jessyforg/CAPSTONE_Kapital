@@ -2,6 +2,7 @@
 ob_start();
 session_start();
 include('db_connection.php');
+include('verification_check.php');
 
 // Redirect if the user is not logged in or does not have the investor role
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'investor') {
@@ -12,6 +13,9 @@ include('navbar.php');
 
 $user_id = $_SESSION['user_id'];
 
+// Check verification status
+$verification_status = checkVerification(false);
+
 // Fetch saved startups for the investor, ensuring the startup is approved
 $saved_startups_query = "
     SELECT Startups.* 
@@ -21,6 +25,258 @@ $saved_startups_query = "
     AND Startups.approval_status = 'approved' 
     ORDER BY Matches.created_at DESC";
 $saved_startups_result = mysqli_query($conn, $saved_startups_query);
+
+// Define industries
+$industries = [
+    'Technology' => [
+        'Software Development',
+        'E-commerce',
+        'FinTech',
+        'EdTech',
+        'HealthTech',
+        'AI/ML',
+        'Cybersecurity',
+        'Cloud Computing',
+        'Digital Marketing',
+        'Mobile Apps'
+    ],
+    'Healthcare' => [
+        'Medical Services',
+        'Healthcare Technology',
+        'Wellness & Fitness',
+        'Mental Health',
+        'Telemedicine',
+        'Medical Devices',
+        'Healthcare Analytics'
+    ],
+    'Finance' => [
+        'Banking',
+        'Insurance',
+        'Investment',
+        'Financial Services',
+        'Payment Solutions',
+        'Cryptocurrency',
+        'Financial Planning'
+    ],
+    'Education' => [
+        'Online Learning',
+        'Educational Technology',
+        'Skills Training',
+        'Language Learning',
+        'Professional Development',
+        'Educational Content'
+    ],
+    'Retail' => [
+        'E-commerce',
+        'Fashion',
+        'Food & Beverage',
+        'Consumer Goods',
+        'Marketplace',
+        'Retail Technology'
+    ],
+    'Manufacturing' => [
+        'Industrial Manufacturing',
+        'Clean Technology',
+        '3D Printing',
+        'Supply Chain',
+        'Smart Manufacturing'
+    ],
+    'Agriculture' => [
+        'AgTech',
+        'Organic Farming',
+        'Food Processing',
+        'Agricultural Services',
+        'Sustainable Agriculture'
+    ],
+    'Transportation' => [
+        'Logistics',
+        'Ride-sharing',
+        'Delivery Services',
+        'Transportation Technology',
+        'Smart Mobility'
+    ],
+    'Real Estate' => [
+        'Property Technology',
+        'Real Estate Services',
+        'Property Management',
+        'Real Estate Investment',
+        'Smart Homes'
+    ],
+    'Other' => [
+        'Social Impact',
+        'Environmental',
+        'Creative Industries',
+        'Sports & Entertainment',
+        'Other Services'
+    ]
+];
+
+// Define Philippine regions and cities
+$locations = [
+    'National Capital Region (NCR)' => [
+        'Manila',
+        'Quezon City',
+        'Caloocan',
+        'Las Piñas',
+        'Makati',
+        'Malabon',
+        'Mandaluyong',
+        'Marikina',
+        'Muntinlupa',
+        'Navotas',
+        'Parañaque',
+        'Pasay',
+        'Pasig',
+        'Pateros',
+        'San Juan',
+        'Taguig',
+        'Valenzuela',
+        'Pateros'
+    ],
+    'Cordillera Administrative Region (CAR)' => [
+        'Baguio City',
+        'Tabuk City',
+        'La Trinidad',
+        'Bangued',
+        'Lagawe',
+        'Bontoc'
+    ],
+    'Ilocos Region (Region I)' => [
+        'San Fernando City',
+        'Laoag City',
+        'Vigan City',
+        'Dagupan City',
+        'San Carlos City',
+        'Urdaneta City'
+    ],
+    'Cagayan Valley (Region II)' => [
+        'Tuguegarao City',
+        'Cauayan City',
+        'Santiago City',
+        'Ilagan City'
+    ],
+    'Central Luzon (Region III)' => [
+        'San Fernando City',
+        'Angeles City',
+        'Olongapo City',
+        'Malolos City',
+        'Cabanatuan City',
+        'San Jose City',
+        'Science City of Muñoz',
+        'Palayan City'
+    ],
+    'CALABARZON (Region IV-A)' => [
+        'Calamba City',
+        'San Pablo City',
+        'Antipolo City',
+        'Batangas City',
+        'Cavite City',
+        'Lipa City',
+        'San Pedro',
+        'Santa Rosa',
+        'Tagaytay City',
+        'Trece Martires City'
+    ],
+    'MIMAROPA (Region IV-B)' => [
+        'Calapan City',
+        'Puerto Princesa City',
+        'San Jose',
+        'Romblon'
+    ],
+    'Bicol Region (Region V)' => [
+        'Naga City',
+        'Legazpi City',
+        'Iriga City',
+        'Ligao City',
+        'Tabaco City',
+        'Sorsogon City'
+    ],
+    'Western Visayas (Region VI)' => [
+        'Iloilo City',
+        'Bacolod City',
+        'Roxas City',
+        'Passi City',
+        'Silay City',
+        'Talisay City',
+        'Escalante City',
+        'Sagay City',
+        'Cadiz City',
+        'Bago City',
+        'La Carlota City',
+        'Kabankalan City',
+        'San Carlos City',
+        'Sipalay City',
+        'Himamaylan City'
+    ],
+    'Central Visayas (Region VII)' => [
+        'Cebu City',
+        'Mandaue City',
+        'Lapu-Lapu City',
+        'Talisay City',
+        'Toledo City',
+        'Dumaguete City',
+        'Bais City',
+        'Bayawan City',
+        'Canlaon City',
+        'Guihulngan City',
+        'Tanjay City'
+    ],
+    'Eastern Visayas (Region VIII)' => [
+        'Tacloban City',
+        'Ormoc City',
+        'Calbayog City',
+        'Catbalogan City',
+        'Maasin City',
+        'Baybay City',
+        'Borongan City'
+    ],
+    'Zamboanga Peninsula (Region IX)' => [
+        'Zamboanga City',
+        'Dipolog City',
+        'Dapitan City',
+        'Isabela City',
+        'Pagadian City'
+    ],
+    'Northern Mindanao (Region X)' => [
+        'Cagayan de Oro City',
+        'Iligan City',
+        'Oroquieta City',
+        'Ozamiz City',
+        'Tangub City',
+        'Gingoog City',
+        'El Salvador',
+        'Malaybalay City',
+        'Valencia City'
+    ],
+    'Davao Region (Region XI)' => [
+        'Davao City',
+        'Digos City',
+        'Mati City',
+        'Panabo City',
+        'Samal City',
+        'Tagum City'
+    ],
+    'SOCCSKSARGEN (Region XII)' => [
+        'Koronadal City',
+        'Cotabato City',
+        'General Santos City',
+        'Kidapawan City',
+        'Tacurong City'
+    ],
+    'Caraga (Region XIII)' => [
+        'Butuan City',
+        'Surigao City',
+        'Bislig City',
+        'Tandag City',
+        'Bayugan City',
+        'Cabadbaran City'
+    ],
+    'Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)' => [
+        'Cotabato City',
+        'Marawi City',
+        'Lamitan City'
+    ]
+];
 
 // Fetch all startups by default (without filters)
 $filter_conditions = "";
@@ -136,6 +392,15 @@ if (isset($_POST['unmatch_startup_id'])) {
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
+            color: #D8A25E; /* Updated color */
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #D8A25E; /* Updated color */
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .investor-name {
@@ -178,38 +443,41 @@ if (isset($_POST['unmatch_startup_id'])) {
 
         .startup-post .btn {
             padding: 10px 15px;
-            font-size: 1rem;
             border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
         }
 
-        .btn-info {
+        .startup-post .btn-info {
             background-color: #17a2b8;
             color: white;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
         }
 
-        .btn-info:hover {
-            text-decoration: none;
+        .startup-post .btn-info:hover {
+            background-color: #138496;
         }
 
-        .btn-success {
-            background-color: #28a745;
+        .startup-post .btn-primary {
+            background-color: #007bff;
             color: white;
-            border: none;
-            cursor: pointer;
         }
 
-        .btn-danger {
+        .startup-post .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .startup-post .btn-danger {
             background-color: #dc3545;
             color: white;
-            border: none;
-            cursor: pointer;
+        }
+
+        .startup-post .btn-danger:hover {
+            background-color: #c82333;
         }
 
         .btn-secondary {
-            background-color: #6c757d;
+            background-color: #6c757d; /* Remains the same */
             color: white;
             border: none;
             cursor: pointer;
@@ -489,6 +757,85 @@ if (isset($_POST['unmatch_startup_id'])) {
         *, *:before, *:after {
             box-sizing: border-box;
         }
+
+        .verification-notice {
+            background: #23272A;
+            border: 1px solid #40444B;
+            color: #FFFFFF;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .verification-notice h3 {
+            color: #7289DA;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verification-notice h3 i {
+            color: #7289DA;
+            font-size: 1.8rem;
+        }
+
+        .verification-notice p {
+            color: #B9BBBE;
+            margin-bottom: 15px;
+        }
+
+        .verification-notice ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .verification-notice ul li {
+            color: #B9BBBE;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verification-notice ul li:before {
+            content: "•";
+            color: #7289DA;
+            font-size: 1.2rem;
+        }
+
+        .verification-notice .btn-warning {
+            background: #7289DA;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .verification-notice .btn-warning:hover {
+            background: #5b6eae;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .verification-notice {
+                padding: 20px;
+                margin: 15px;
+            }
+
+            .verification-notice h3 {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 
@@ -497,26 +844,61 @@ if (isset($_POST['unmatch_startup_id'])) {
     <div class="container">
         <h1>Welcome, <span class="investor-name">Investor!</span></h1>
 
+        <?php if ($verification_status !== 'verified'): ?>
+            <div class="verification-notice">
+                <h3><i class="fas fa-exclamation-triangle"></i> Account Verification Required</h3>
+                <p>Your account needs to be verified to access the following features:</p>
+                <ul>
+                    <li>Matching with startups</li>
+                    <li>Viewing startup details</li>
+                    <li>Communicating with entrepreneurs</li>
+                    <li>Accessing investment opportunities</li>
+                </ul>
+                <a href="verify_account.php" class="btn btn-warning">Verify Your Account</a>
+            </div>
+        <?php endif; ?>
+
         <div class="search-section">
             <h2><i class="fas fa-search"></i> Search & Filter Startups</h2>
             <form id="search-filter-form" method="GET" action="investors.php">
                 <div class="search-grid">
                     <div class="form-group">
                         <label for="industry"><i class="fas fa-industry"></i> Industry</label>
-                        <input type="text" id="industry" name="industry" placeholder="Enter industry type" class="form-control"
-                            value="<?php echo isset($_GET['industry']) ? htmlspecialchars($_GET['industry']) : ''; ?>">
+                        <select id="industry" name="industry" class="form-control">
+                            <option value="">All Industries</option>
+                            <?php foreach ($industries as $category => $subcategories): ?>
+                                <optgroup label="<?php echo htmlspecialchars($category); ?>">
+                                    <?php foreach ($subcategories as $subcategory): ?>
+                                        <option value="<?php echo htmlspecialchars($subcategory); ?>" <?php echo isset($_GET['industry']) && $_GET['industry'] == $subcategory ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($subcategory); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </optgroup>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
-                        <input type="text" id="location" name="location" placeholder="Enter location" class="form-control"
-                            value="<?php echo isset($_GET['location']) ? htmlspecialchars($_GET['location']) : ''; ?>">
+                        <select id="location" name="location" class="form-control">
+                            <option value="">All Locations</option>
+                            <?php foreach ($locations as $region => $cities): ?>
+                                <optgroup label="<?php echo htmlspecialchars($region); ?>">
+                                    <?php foreach ($cities as $city): ?>
+                                        <option value="<?php echo htmlspecialchars($city); ?>" <?php echo isset($_GET['location']) && $_GET['location'] == $city ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($city); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </optgroup>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="funding_stage"><i class="fas fa-chart-line"></i> Funding Stage</label>
                         <select id="funding_stage" name="funding_stage" class="form-control">
                             <option value="">All Stages</option>
+                            <option value="startup" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'startup' ? 'selected' : ''; ?>>Startup Stage</option>
                             <option value="seed" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'seed' ? 'selected' : ''; ?>>Seed</option>
                             <option value="series_a" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_a' ? 'selected' : ''; ?>>Series A</option>
                             <option value="series_b" <?php echo isset($_GET['funding_stage']) && $_GET['funding_stage'] == 'series_b' ? 'selected' : ''; ?>>Series B</option>
@@ -560,10 +942,12 @@ if (isset($_POST['unmatch_startup_id'])) {
 
                     <div class="startup-actions">
                         <a href="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup['startup_id']); ?>" class="btn btn-info">View Details</a>
-                        <form method="POST" action="investors.php" style="display:inline;">
-                            <input type="hidden" name="unmatch_startup_id" value="<?php echo htmlspecialchars($startup['startup_id']); ?>">
-                            <button type="submit" class="btn btn-danger">Unmatch</button>
-                        </form>
+                        <?php if ($verification_status === 'verified'): ?>
+                            <form method="POST" action="investors.php" style="display:inline;" class="match-form" data-startup-id="<?php echo htmlspecialchars($startup['startup_id']); ?>">
+                                <input type="hidden" name="unmatch_startup_id" value="<?php echo htmlspecialchars($startup['startup_id']); ?>">
+                                <button type="submit" class="btn btn-danger">Unmatch</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endwhile; ?>
@@ -592,10 +976,12 @@ if (isset($_POST['unmatch_startup_id'])) {
                     </div>
 
                     <div class="startup-actions">
-                        <form method="POST" action="investors.php" style="display:inline;">
-                            <input type="hidden" name="match_startup_id" value="<?php echo htmlspecialchars($startup['startup_id']); ?>">
-                            <button type="submit" class="btn btn-success">Match</button>
-                        </form>
+                        <?php if ($verification_status === 'verified'): ?>
+                            <form method="POST" action="investors.php" style="display:inline;" class="match-form" data-startup-id="<?php echo htmlspecialchars($startup['startup_id']); ?>">
+                                <input type="hidden" name="match_startup_id" value="<?php echo htmlspecialchars($startup['startup_id']); ?>">
+                                <button type="submit" class="btn btn-primary">Match</button>
+                            </form>
+                        <?php endif; ?>
                         <a href="startup_detail.php?startup_id=<?php echo htmlspecialchars($startup['startup_id']); ?>" class="btn btn-info">View Details</a>
                     </div>
                 </div>
@@ -605,6 +991,35 @@ if (isset($_POST['unmatch_startup_id'])) {
         <?php endif; ?>
     </div>
 
+    <script>
+        // Store scroll position before form submission
+        document.querySelectorAll('.match-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                // Store the current scroll position
+                localStorage.setItem('scrollPosition', window.scrollY);
+                // Store the startup ID to scroll to after reload
+                localStorage.setItem('scrollToStartup', this.dataset.startupId);
+            });
+        });
+
+        // Restore scroll position after page load
+        window.addEventListener('load', function() {
+            const scrollPosition = localStorage.getItem('scrollPosition');
+            const scrollToStartup = localStorage.getItem('scrollToStartup');
+            
+            if (scrollPosition && scrollToStartup) {
+                // Clear the stored values
+                localStorage.removeItem('scrollPosition');
+                localStorage.removeItem('scrollToStartup');
+                
+                // Find the startup element and scroll to it
+                const startupElement = document.querySelector(`[data-startup-id="${scrollToStartup}"]`).closest('.startup-post');
+                if (startupElement) {
+                    startupElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

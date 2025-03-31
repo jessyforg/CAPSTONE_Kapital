@@ -42,6 +42,258 @@ function uploadFile($file, $upload_dir, $allowed_types)
     return ["success" => true, "path" => ""]; // No file uploaded
 }
 
+// Define industries
+$industries = [
+    'Technology' => [
+        'Software Development',
+        'E-commerce',
+        'FinTech',
+        'EdTech',
+        'HealthTech',
+        'AI/ML',
+        'Cybersecurity',
+        'Cloud Computing',
+        'Digital Marketing',
+        'Mobile Apps'
+    ],
+    'Healthcare' => [
+        'Medical Services',
+        'Healthcare Technology',
+        'Wellness & Fitness',
+        'Mental Health',
+        'Telemedicine',
+        'Medical Devices',
+        'Healthcare Analytics'
+    ],
+    'Finance' => [
+        'Banking',
+        'Insurance',
+        'Investment',
+        'Financial Services',
+        'Payment Solutions',
+        'Cryptocurrency',
+        'Financial Planning'
+    ],
+    'Education' => [
+        'Online Learning',
+        'Educational Technology',
+        'Skills Training',
+        'Language Learning',
+        'Professional Development',
+        'Educational Content'
+    ],
+    'Retail' => [
+        'E-commerce',
+        'Fashion',
+        'Food & Beverage',
+        'Consumer Goods',
+        'Marketplace',
+        'Retail Technology'
+    ],
+    'Manufacturing' => [
+        'Industrial Manufacturing',
+        'Clean Technology',
+        '3D Printing',
+        'Supply Chain',
+        'Smart Manufacturing'
+    ],
+    'Agriculture' => [
+        'AgTech',
+        'Organic Farming',
+        'Food Processing',
+        'Agricultural Services',
+        'Sustainable Agriculture'
+    ],
+    'Transportation' => [
+        'Logistics',
+        'Ride-sharing',
+        'Delivery Services',
+        'Transportation Technology',
+        'Smart Mobility'
+    ],
+    'Real Estate' => [
+        'Property Technology',
+        'Real Estate Services',
+        'Property Management',
+        'Real Estate Investment',
+        'Smart Homes'
+    ],
+    'Other' => [
+        'Social Impact',
+        'Environmental',
+        'Creative Industries',
+        'Sports & Entertainment',
+        'Other Services'
+    ]
+];
+
+// Define Philippine regions and cities
+$locations = [
+    'National Capital Region (NCR)' => [
+        'Manila',
+        'Quezon City',
+        'Caloocan',
+        'Las Piñas',
+        'Makati',
+        'Malabon',
+        'Mandaluyong',
+        'Marikina',
+        'Muntinlupa',
+        'Navotas',
+        'Parañaque',
+        'Pasay',
+        'Pasig',
+        'Pateros',
+        'San Juan',
+        'Taguig',
+        'Valenzuela',
+        'Pateros'
+    ],
+    'Cordillera Administrative Region (CAR)' => [
+        'Baguio City',
+        'Tabuk City',
+        'La Trinidad',
+        'Bangued',
+        'Lagawe',
+        'Bontoc'
+    ],
+    'Ilocos Region (Region I)' => [
+        'San Fernando City',
+        'Laoag City',
+        'Vigan City',
+        'Dagupan City',
+        'San Carlos City',
+        'Urdaneta City'
+    ],
+    'Cagayan Valley (Region II)' => [
+        'Tuguegarao City',
+        'Cauayan City',
+        'Santiago City',
+        'Ilagan City'
+    ],
+    'Central Luzon (Region III)' => [
+        'San Fernando City',
+        'Angeles City',
+        'Olongapo City',
+        'Malolos City',
+        'Cabanatuan City',
+        'San Jose City',
+        'Science City of Muñoz',
+        'Palayan City'
+    ],
+    'CALABARZON (Region IV-A)' => [
+        'Calamba City',
+        'San Pablo City',
+        'Antipolo City',
+        'Batangas City',
+        'Cavite City',
+        'Lipa City',
+        'San Pedro',
+        'Santa Rosa',
+        'Tagaytay City',
+        'Trece Martires City'
+    ],
+    'MIMAROPA (Region IV-B)' => [
+        'Calapan City',
+        'Puerto Princesa City',
+        'San Jose',
+        'Romblon'
+    ],
+    'Bicol Region (Region V)' => [
+        'Naga City',
+        'Legazpi City',
+        'Iriga City',
+        'Ligao City',
+        'Tabaco City',
+        'Sorsogon City'
+    ],
+    'Western Visayas (Region VI)' => [
+        'Iloilo City',
+        'Bacolod City',
+        'Roxas City',
+        'Passi City',
+        'Silay City',
+        'Talisay City',
+        'Escalante City',
+        'Sagay City',
+        'Cadiz City',
+        'Bago City',
+        'La Carlota City',
+        'Kabankalan City',
+        'San Carlos City',
+        'Sipalay City',
+        'Himamaylan City'
+    ],
+    'Central Visayas (Region VII)' => [
+        'Cebu City',
+        'Mandaue City',
+        'Lapu-Lapu City',
+        'Talisay City',
+        'Toledo City',
+        'Dumaguete City',
+        'Bais City',
+        'Bayawan City',
+        'Canlaon City',
+        'Guihulngan City',
+        'Tanjay City'
+    ],
+    'Eastern Visayas (Region VIII)' => [
+        'Tacloban City',
+        'Ormoc City',
+        'Calbayog City',
+        'Catbalogan City',
+        'Maasin City',
+        'Baybay City',
+        'Borongan City'
+    ],
+    'Zamboanga Peninsula (Region IX)' => [
+        'Zamboanga City',
+        'Dipolog City',
+        'Dapitan City',
+        'Isabela City',
+        'Pagadian City'
+    ],
+    'Northern Mindanao (Region X)' => [
+        'Cagayan de Oro City',
+        'Iligan City',
+        'Oroquieta City',
+        'Ozamiz City',
+        'Tangub City',
+        'Gingoog City',
+        'El Salvador',
+        'Malaybalay City',
+        'Valencia City'
+    ],
+    'Davao Region (Region XI)' => [
+        'Davao City',
+        'Digos City',
+        'Mati City',
+        'Panabo City',
+        'Samal City',
+        'Tagum City'
+    ],
+    'SOCCSKSARGEN (Region XII)' => [
+        'Koronadal City',
+        'Cotabato City',
+        'General Santos City',
+        'Kidapawan City',
+        'Tacurong City'
+    ],
+    'Caraga (Region XIII)' => [
+        'Butuan City',
+        'Surigao City',
+        'Bislig City',
+        'Tandag City',
+        'Bayugan City',
+        'Cabadbaran City'
+    ],
+    'Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)' => [
+        'Cotabato City',
+        'Marawi City',
+        'Lamitan City'
+    ]
+];
+
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Sanitize and retrieve the form data
@@ -219,11 +471,93 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 16px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            width: 100%;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23f3c000' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 15px) center;
+            padding-right: 40px;
+            transition: all 0.3s ease;
         }
 
         select option {
             background-color: #333;
-            color: white;
+            color: #fff;
+            padding: 10px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #f3c000;
+            box-shadow: 0 0 0 2px rgba(243, 192, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        select:hover {
+            border-color: #f3c000;
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Style for optgroups */
+        select optgroup {
+            background-color: #2a2a2a;
+            color: #f3c000;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+
+        /* Style for options within optgroups */
+        select optgroup option {
+            background-color: #333;
+            color: #fff;
+            font-weight: normal;
+            padding: 8px 10px;
+            margin-left: 10px;
+        }
+
+        /* Hover effect for options */
+        select option:hover {
+            background-color: #f3c000;
+            color: #333;
+        }
+
+        /* Style for disabled options */
+        select option:disabled {
+            background-color: #444;
+            color: #888;
+        }
+
+        /* Custom scrollbar for dropdowns */
+        select::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        select::-webkit-scrollbar-track {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        select::-webkit-scrollbar-thumb {
+            background: #f3c000;
+            border-radius: 4px;
+        }
+
+        select::-webkit-scrollbar-thumb:hover {
+            background: #d8a25e;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            select {
+                font-size: 16px; /* Prevent zoom on iOS */
+                padding: 12px 35px 12px 12px; /* Adjust padding for mobile */
+            }
+
+            select option {
+                padding: 12px;
+                font-size: 16px;
+            }
         }
 
         .success {
@@ -321,13 +655,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="industry">Industry</label>
-                <input type="text" id="industry" name="industry"
-                    placeholder="Enter your industry (e.g., Technology, Health)" required>
+                <select id="industry" name="industry" required>
+                    <option value="">Select Industry</option>
+                    <?php foreach ($industries as $category => $subcategories): ?>
+                        <optgroup label="<?php echo htmlspecialchars($category); ?>">
+                            <?php foreach ($subcategories as $subcategory): ?>
+                                <option value="<?php echo htmlspecialchars($subcategory); ?>">
+                                    <?php echo htmlspecialchars($subcategory); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="funding_stage">Funding Stage</label>
                 <select id="funding_stage" name="funding_stage" required>
+                    <option value="startup">Startup Stage</option>
                     <option value="seed">Seed</option>
                     <option value="series_a">Series A</option>
                     <option value="series_b">Series B</option>
@@ -344,7 +689,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="location">Location</label>
-                <input type="text" id="location" name="location" placeholder="Enter your location">
+                <select id="location" name="location" required>
+                    <option value="">Select Location</option>
+                    <?php foreach ($locations as $region => $cities): ?>
+                        <optgroup label="<?php echo htmlspecialchars($region); ?>">
+                            <?php foreach ($cities as $city): ?>
+                                <option value="<?php echo htmlspecialchars($city); ?>">
+                                    <?php echo htmlspecialchars($city); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group">
