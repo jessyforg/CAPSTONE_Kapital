@@ -440,7 +440,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status'])) {
                 <option value="reviewed" <?php if ($application_status == 'reviewed') echo 'selected'; ?>>Reviewed</option>
                 <option value="interviewed" <?php if ($application_status == 'interviewed') echo 'selected'; ?>>Interviewed</option>
                 <option value="hired" <?php if ($application_status == 'hired') echo 'selected'; ?>>Hired</option>
-                <option value="rejected" <?php if ($application_status == 'rejected') echo 'selected'; ?>>Rejected</option>
+<option value="not approved" <?php if ($application_status == 'rejected') echo 'selected'; ?>>Not Approved</option>
+
             </select>
             <button type="submit" class="btn-update">Update Status</button>
         </form>
