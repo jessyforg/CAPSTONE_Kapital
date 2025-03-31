@@ -256,6 +256,17 @@ if (isset($_SESSION['user_id'])) {
             align-items: center;
         }
 
+        /* Add Taraki logo styling */
+        .taraki-logo {
+            height: 30px;
+            margin-right: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .taraki-logo:hover {
+            transform: scale(1.1);
+        }
+
         .profile-dropdown {
             position: relative;
             display: inline-block;
@@ -432,6 +443,9 @@ if (isset($_SESSION['user_id'])) {
         </nav>
         <div class="cta-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="https://taraki.vercel.app" target="_blank">
+                    <img src="imgs/taraki logo.png" alt="Taraki Logo" class="taraki-logo">
+                </a>
                 <div class="dropdown-container">
                     <a class="icon-btn">
                         <i class="fas fa-bell"></i>
