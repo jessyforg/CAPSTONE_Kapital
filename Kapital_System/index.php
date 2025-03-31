@@ -27,7 +27,6 @@ session_start(); // Start session to check login status
             background: url('imgs/bg.png') no-repeat center center/cover;
             color: #fff;
             min-height: 80vh;
-            /* Ensures the section takes up at least 80% of the viewport height */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -44,9 +43,7 @@ session_start(); // Start session to check login status
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            /* Semi-transparent overlay */
             z-index: -1;
-            /* Places the overlay behind the text */
         }
 
         /* Heading Styling */
@@ -123,6 +120,47 @@ session_start(); // Start session to check login status
             color: #000;
         }
 
+        /* Analytics Section */
+        .analytics-section {
+            background-color: #23272A;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .analytics-section h2 {
+            color: #f3c000;
+            margin-bottom: 20px;
+        }
+
+        .analytics-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .analytics-card {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .analytics-card h3 {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .analytics-card p {
+            margin: 5px 0 0;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-5px);
+        }
+
         /* Responsive Design for Mobile */
         @media (max-width: 768px) {
             .hero-section h1 {
@@ -157,7 +195,58 @@ session_start(); // Start session to check login status
             <!-- Hero Text -->
             <h1>Your Path To Financial Freedom Starts Here.</h1>
             <p>Empowering Entrepreneurs, Investors, and Job Seekers.</p>
-            <a href="#join" class="btn">Join Us</a>
+            <a href="sign_up.php" class="btn">Join Us</a>
+
+            <!-- Analytics Section -->
+            <section class="analytics-section">
+                <div class="container">
+                    <h2>Success Stories</h2>
+                    <div class="analytics-cards">
+                        <div class="analytics-card">
+                            <h3><?php 
+                                // Fetch analytics data
+                                include 'db_connection.php';
+                                $active_startups = 0; 
+                                $matched_investors = 0; 
+                                $hired_job_seekers = 0; 
+
+                                // Query to get the number of active startups
+                                $result = mysqli_query($conn, "SELECT COUNT(*) as count FROM Startups");
+                                if ($row = mysqli_fetch_assoc($result)) {
+                                    $active_startups = $row['count'];
+                                }
+                                echo $active_startups; 
+                            ?></h3>
+                            <p>Active Startups</p>
+                        </div>
+                        <div class="analytics-card">
+                            <h3><?php 
+                                // Query to get the number of matched investors (unique investors who have matches)
+                                $result = mysqli_query($conn, "SELECT COUNT(DISTINCT investor_id) as count FROM Matches");
+                                if ($row = mysqli_fetch_assoc($result)) {
+                                    $matched_investors = $row['count'];
+                                }
+                                echo $matched_investors; 
+                            ?></h3>
+                            <p>Matched Investors</p>
+                        </div>
+
+                        <div class="analytics-card">
+                            <h3><?php 
+                                // Query to get the number of hired job seekers
+                                $result = mysqli_query($conn, "SELECT COUNT(*) as count FROM job_seekers");
+
+                                if ($row = mysqli_fetch_assoc($result)) {
+                                    $hired_job_seekers = $row['count'];
+                                }
+                                echo $hired_job_seekers; 
+                            ?></h3>
+                            <p>Hired Job Seekers</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
 
             <!-- Features Cards -->
             <div class="features">
@@ -174,6 +263,7 @@ session_start(); // Start session to check login status
                     <p>Network with potential backers who believe in your vision.</p>
                 </div>
             </div>
+
         </div>
     </section>
 
