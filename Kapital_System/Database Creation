@@ -10,6 +10,7 @@ CREATE TABLE Users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('entrepreneur', 'investor', 'job_seeker', 'admin') NOT NULL,
+    verification_status ENUM('pending', 'verified', 'not approved') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -36,7 +37,6 @@ CREATE TABLE Investors (
 
 CREATE TABLE Job_Seekers (
     job_seeker_id INT PRIMARY KEY,
-    resume_url VARCHAR(255),
     skills JSON,
     preferred_industries JSON,
     desired_role VARCHAR(255),
@@ -46,6 +46,18 @@ CREATE TABLE Job_Seekers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (job_seeker_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Resumes (
+    resume_id INT AUTO_INCREMENT PRIMARY KEY,
+    job_seeker_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    file_type VARCHAR(50) NOT NULL,
+    file_size INT NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (job_seeker_id) REFERENCES Job_Seekers(job_seeker_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Startups (
@@ -134,6 +146,23 @@ CREATE TABLE Notifications (
     FOREIGN KEY (match_id) REFERENCES Matches(match_id) ON DELETE SET NULL
 );
 
+CREATE TABLE Verification_Documents (
+    document_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    document_type ENUM('government_id', 'business_registration', 'professional_license') NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    file_type VARCHAR(50) NOT NULL,
+    file_size INT NOT NULL,
+    status ENUM('pending', 'approved', 'not approved') DEFAULT 'pending',
+    rejection_reason TEXT,
+    reviewed_by INT,
+    reviewed_at TIMESTAMP NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (reviewed_by) REFERENCES Users(user_id) ON DELETE SET NULL
+);
+
 DELIMITER $$
 
 CREATE TRIGGER job_application_notification
@@ -184,6 +213,124 @@ BEGIN
             CONCAT('Your startup ', NEW.name, ' has been updated to: ', NEW.approval_status),
             'unread'
         );
+    END IF;
+END $$
+
+DELIMITER ;
+
+
+ALTER TABLE Job_Seekers 
+DROP COLUMN IF EXISTS resume_url;
+
+-- Create the Resumes table if it doesn't exist
+CREATE TABLE IF NOT EXISTS Resumes (
+    resume_id INT AUTO_INCREMENT PRIMARY KEY,
+    job_seeker_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    file_type VARCHAR(50) NOT NULL,
+    file_size INT NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (job_seeker_id) REFERENCES Job_Seekers(job_seeker_id) ON DELETE CASCADE
+);
+
+-- Add indexes for better performance
+CREATE INDEX idx_job_seeker_active ON Resumes(job_seeker_id, is_active);
+
+-- Modify the Users table verification_status enum
+ALTER TABLE Users 
+MODIFY COLUMN verification_status ENUM('pending', 'verified', 'not approved') DEFAULT 'pending';
+
+-- Modify the Verification_Documents table status enum
+ALTER TABLE Verification_Documents 
+MODIFY COLUMN status ENUM('pending', 'approved', 'not approved') DEFAULT 'pending';
+
+-- Update any existing 'rejected' statuses to 'not approved'
+UPDATE Users SET verification_status = 'not approved' WHERE verification_status = 'rejected';
+UPDATE Verification_Documents SET status = 'not approved' WHERE status = 'rejected';
+
+-- First, add the columns to Messages table if they don't exist
+ALTER TABLE Messages 
+ADD COLUMN IF NOT EXISTS request_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+ADD COLUMN IF NOT EXISTS is_intro_message BOOLEAN DEFAULT FALSE;
+
+-- Create Conversation_Requests table
+CREATE TABLE IF NOT EXISTS Conversation_Requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+-- Drop existing triggers if they exist
+DROP TRIGGER IF EXISTS create_conversation_request;
+DROP TRIGGER IF EXISTS update_message_visibility;
+
+-- Create triggers
+DELIMITER $$
+
+CREATE TRIGGER create_conversation_request
+AFTER INSERT ON Messages
+FOR EACH ROW
+BEGIN
+    IF NEW.is_intro_message = TRUE THEN
+        INSERT INTO Conversation_Requests (sender_id, receiver_id)
+        VALUES (NEW.sender_id, NEW.receiver_id)
+        ON DUPLICATE KEY UPDATE status = 'pending';
+    END IF;
+END $$
+
+CREATE TRIGGER update_message_visibility
+AFTER UPDATE ON Conversation_Requests
+FOR EACH ROW
+BEGIN
+    IF OLD.status != NEW.status THEN
+        UPDATE Messages 
+        SET request_status = NEW.status
+        WHERE sender_id = NEW.sender_id 
+        AND receiver_id = NEW.receiver_id
+        AND is_intro_message = TRUE;
+    END IF;
+END $$
+
+DELIMITER ;
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS idx_conversation_request_status ON Conversation_Requests(status);
+CREATE INDEX IF NOT EXISTS idx_message_request_status ON Messages(request_status);
+CREATE INDEX IF NOT EXISTS idx_message_intro ON Messages(is_intro_message);
+
+-- Create view
+DROP VIEW IF EXISTS UserVisibleMessages;
+CREATE VIEW UserVisibleMessages AS
+SELECT m.*
+FROM Messages m
+LEFT JOIN Conversation_Requests cr ON 
+    (m.sender_id = cr.sender_id AND m.receiver_id = cr.receiver_id)
+WHERE m.request_status = 'approved'
+   OR (m.is_intro_message = TRUE AND m.request_status = 'pending')
+   OR (m.sender_id = m.receiver_id);
+
+-- Create a trigger to enforce unique conversations
+DELIMITER $$
+
+CREATE TRIGGER enforce_unique_conversation
+BEFORE INSERT ON Conversation_Requests
+FOR EACH ROW
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM Conversation_Requests 
+        WHERE ((sender_id = NEW.sender_id AND receiver_id = NEW.receiver_id)
+        OR (sender_id = NEW.receiver_id AND receiver_id = NEW.sender_id))
+        AND status != 'rejected'
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Conversation already exists between these users';
     END IF;
 END $$
 
