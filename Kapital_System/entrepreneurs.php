@@ -2,6 +2,7 @@
 session_start();
 include('navbar.php');
 include('db_connection.php');
+include('verification_check.php');
 
 // Redirect if the user is not logged in or does not have the entrepreneur role
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'entrepreneur') {
@@ -10,6 +11,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'entrepreneur') {
 }
 
 $user_id = $_SESSION['user_id'];
+
+// Check verification status
+$verification_status = checkVerification(false);
 
 // Retrieve the entrepreneur details
 $query = "SELECT * FROM Entrepreneurs WHERE entrepreneur_id = '$user_id'";
@@ -31,10 +35,26 @@ $startups_result = mysqli_query($conn, $startups_query);
             class="entrepreneur-name"><?php echo isset($entrepreneur['name']) ? $entrepreneur['name'] : 'Entrepreneur'; ?></span>!
     </h1>
 
-    <a href="create_startup.php" class="btn btn-secondary">Create New Startup</a>
+    <?php if ($verification_status !== 'verified'): ?>
+        <div class="verification-notice">
+            <h3><i class="fas fa-exclamation-triangle"></i> Account Verification Required</h3>
+            <p>Your account needs to be verified to access the following features:</p>
+            <ul>
+                <li>Creating new startups</li>
+                <li>Posting jobs</li>
+                <li>Managing startup profiles</li>
+                <li>Viewing applicant details</li>
+            </ul>
+            <a href="verify_account.php" class="btn btn-warning">Verify Your Account</a>
+        </div>
+    <?php endif; ?>
 
-    <!-- Link to post job (only visible to entrepreneurs) -->
-    <a href="post-job.php" class="btn btn-primary">Post a Job</a>
+    <div class="action-buttons">
+        <?php if ($verification_status === 'verified'): ?>
+            <a href="create_startup.php" class="btn btn-secondary">Create New Startup</a>
+            <a href="post-job.php" class="btn btn-primary">Post a Job</a>
+        <?php endif; ?>
+    </div>
 
     <h2>News Feed</h2>
     <?php while ($startup = mysqli_fetch_assoc($startups_result)): ?>
@@ -56,7 +76,7 @@ $startups_result = mysqli_query($conn, $startups_query);
             </div>
 
             <div class="startup-actions">
-                <?php if ($is_entrepreneur_post): ?>
+                <?php if ($is_entrepreneur_post && $verification_status === 'verified'): ?>
                     <a href="edit_startup.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-warning">Edit Startup</a>
                     <a href="view_applicants.php?startup_id=<?php echo $startup['startup_id']; ?>" class="btn btn-info">View Applicants</a>
                 <?php endif; ?>
@@ -228,6 +248,101 @@ $startups_result = mysqli_query($conn, $startups_query);
 
         .startup-actions {
             justify-content: center;
+        }
+    }
+
+    .verification-notice {
+        background: #23272A;
+        border: 1px solid #40444B;
+        color: #FFFFFF;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .verification-notice h3 {
+        color: #7289DA;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .verification-notice h3 i {
+        color: #7289DA;
+        font-size: 1.8rem;
+    }
+
+    .verification-notice p {
+        color: #B9BBBE;
+        margin-bottom: 15px;
+    }
+
+    .verification-notice ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+    }
+
+    .verification-notice ul li {
+        color: #B9BBBE;
+        padding: 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .verification-notice ul li:before {
+        content: "•";
+        color: #7289DA;
+        font-size: 1.2rem;
+    }
+
+    .verification-notice .btn-warning {
+        background: #7289DA;
+        color: #FFFFFF;
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .verification-notice .btn-warning:hover {
+        background: #5b6eae;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .verification-notice {
+            padding: 20px;
+            margin: 15px;
+        }
+
+        .verification-notice h3 {
+            font-size: 1.3rem;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-buttons .btn {
+            width: 100%;
+            text-align: center;
         }
     }
 </style>

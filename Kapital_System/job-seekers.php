@@ -1,6 +1,7 @@
 <?php
 // Include the database connection file
 include 'db_connection.php';
+include 'verification_check.php';
 
 // Start the session
 session_start();
@@ -10,6 +11,17 @@ $currentPage = 'job-seekers';
 
 // Include the navbar
 include 'navbar.php';
+
+// Check if user is logged in and is a job seeker
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'job_seeker') {
+    header("Location: sign_in.php");
+    exit("Redirecting to login page...");
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Check verification status
+$verification_status = checkVerification(false);
 ?>
 
 <!DOCTYPE html>
@@ -95,12 +107,105 @@ include 'navbar.php';
         .btn-apply:hover {
             background-color: #ffab00;
         }
+
+        .verification-notice {
+            background: #23272A;
+            border: 1px solid #40444B;
+            color: #FFFFFF;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .verification-notice h3 {
+            color: #7289DA;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verification-notice h3 i {
+            color: #7289DA;
+            font-size: 1.8rem;
+        }
+
+        .verification-notice p {
+            color: #B9BBBE;
+            margin-bottom: 15px;
+        }
+
+        .verification-notice ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .verification-notice ul li {
+            color: #B9BBBE;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verification-notice ul li:before {
+            content: "•";
+            color: #7289DA;
+            font-size: 1.2rem;
+        }
+
+        .verification-notice .btn-warning {
+            background: #7289DA;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .verification-notice .btn-warning:hover {
+            background: #5b6eae;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .verification-notice {
+                padding: 20px;
+                margin: 15px;
+            }
+
+            .verification-notice h3 {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Available Jobs</h1>
+
+        <?php if ($verification_status !== 'verified'): ?>
+            <div class="verification-notice">
+                <h3><i class="fas fa-exclamation-triangle"></i> Account Verification Required</h3>
+                <p>Your account needs to be verified to access the following features:</p>
+                <ul>
+                    <li>Applying for jobs</li>
+                    <li>Viewing detailed job information</li>
+                    <li>Tracking your applications</li>
+                    <li>Receiving job notifications</li>
+                </ul>
+                <a href="verify_account.php" class="btn btn-warning">Verify Your Account</a>
+            </div>
+        <?php endif; ?>
 
         <!-- Filter Form -->
         <form class="filter-form" method="GET" action="job-seekers.php">
@@ -158,7 +263,9 @@ include 'navbar.php';
                         ₱<?php echo number_format($job['salary_range_max'], 2); ?></p>
                     <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($job['description'])); ?></p>
                     <p><strong>Requirements:</strong> <?php echo nl2br(htmlspecialchars($job['requirements'])); ?></p>
-                    <a href="apply_job.php?job_id=<?php echo $job['job_id']; ?>" class="btn-apply">Apply</a>
+                    <?php if ($verification_status === 'verified'): ?>
+                        <a href="apply_job.php?job_id=<?php echo $job['job_id']; ?>" class="btn-apply">Apply</a>
+                    <?php endif; ?>
                 </div>
             <?php endwhile;
         } else {
