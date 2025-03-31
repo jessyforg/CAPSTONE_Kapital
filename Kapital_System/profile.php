@@ -182,6 +182,46 @@ if ($user['role'] === 'entrepreneur') {
             margin-top: 10px;
         }
 
+        .verification-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .verify-link {
+            color: inherit;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            transition: opacity 0.3s ease;
+        }
+
+        .verify-link:hover {
+            opacity: 0.8;
+        }
+
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .status-verified {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .status-not-approved {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
         .profile-actions {
             margin-top: 20px;
             display: flex;
@@ -405,6 +445,28 @@ if ($user['role'] === 'entrepreneur') {
                 <?php echo ucfirst(htmlspecialchars($user['role'])); ?>
             </div>
             
+            <div class="verification-badge status-<?php echo strtolower($user['verification_status']); ?>">
+                <i class="fas <?php
+                    switch($user['verification_status']) {
+                        case 'pending':
+                            echo 'fa-clock';
+                            break;
+                        case 'verified':
+                            echo 'fa-check-circle';
+                            break;
+                        case 'not approved':
+                            echo 'fa-times-circle';
+                            break;
+                    }
+                ?>"></i>
+                <?php echo ucfirst($user['verification_status']); ?>
+                <?php if ($is_own_profile): ?>
+                    <a href="verify_account.php" class="verify-link">
+                        <i class="fas fa-arrow-right"></i> Verify Account
+                    </a>
+                <?php endif; ?>
+            </div>
+            
             <?php if ($is_own_profile): ?>
             <div class="profile-actions">
                 <button class="action-button" onclick="toggleSection('editProfile')">
@@ -416,6 +478,11 @@ if ($user['role'] === 'entrepreneur') {
                 <?php if ($user['role'] === 'entrepreneur'): ?>
                 <a href="startup_ai_advisor.php" class="action-button">
                     <i class="fas fa-robot"></i> AI Startup Advisor
+                </a>
+                <?php endif; ?>
+                <?php if ($user['role'] === 'job_seeker'): ?>
+                <a href="resume_builder.php" class="action-button">
+                    <i class="fas fa-file-alt"></i> Resume Builder
                 </a>
                 <?php endif; ?>
             </div>
