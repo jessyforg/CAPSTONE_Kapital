@@ -40,6 +40,7 @@ $users_result = mysqli_query($conn, $users_query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -177,6 +178,93 @@ $users_result = mysqli_query($conn, $users_query);
             max-height: 150px;
             object-fit: contain;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #2C2F33;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #f3c000;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ffab00;
+        }
+
+        .document-details {
+            margin-top: 20px;
+        }
+
+        .document-details p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .document-details strong {
+            color: #f3c000;
+            margin-right: 10px;
+        }
+
+        .document-preview-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .document-preview-container img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .document-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .rejection-reason {
+            margin-top: 20px;
+        }
+
+        .rejection-reason textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #23272A;
+            border: 1px solid #40444B;
+            color: #fff;
+            margin-top: 10px;
+            resize: vertical;
+            min-height: 100px;
+        }
     </style>
 </head>
 
@@ -239,24 +327,73 @@ $users_result = mysqli_query($conn, $users_query);
                     <?php while ($verification = mysqli_fetch_assoc($verification_result)): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($verification['user_name']); ?></td>
-                            <td><?php echo htmlspecialchars($verification['role']); ?></td>
-                            <td><?php echo htmlspecialchars($verification['document_type']); ?></td>
+                            <td><?php 
+                                $role = htmlspecialchars($verification['role']);
+                                switch($role) {
+                                    case 'entrepreneur':
+                                        echo 'Entrepreneur';
+                                        break;
+                                    case 'job_seeker':
+                                        echo 'Job Seeker';
+                                        break;
+                                    case 'investor':
+                                        echo 'Investor';
+                                        break;
+                                    case 'admin':
+                                        echo 'Admin';
+                                        break;
+                                    default:
+                                        echo ucfirst($role);
+                                }
+                            ?></td>
+                            <td><?php echo ucwords(str_replace('_', ' ', $verification['document_type'])); ?></td>
                             <td>
                                 <img src="<?php echo htmlspecialchars($verification['file_path']); ?>" 
                                      alt="Document Preview" class="document-preview">
                             </td>
                             <td><?php echo date('M j, Y', strtotime($verification['uploaded_at'])); ?></td>
                             <td>
-                                <form action="process_verification.php" method="post" style="display: inline;">
-                                    <input type="hidden" name="document_id" value="<?php echo $verification['document_id']; ?>">
-                                    <button type="submit" name="action" value="approve" class="btn approve">Approve</button>
-                                    <button type="submit" name="action" value="reject" class="btn reject">Reject</button>
-                                </form>
+                                <button class="btn view-details" onclick="openVerificationModal(<?php echo htmlspecialchars(json_encode($verification)); ?>)">
+                                    View Details
+                                </button>
                             </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
+        </div>
+
+        <!-- Verification Details Modal -->
+        <div id="verificationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeVerificationModal()">&times;</span>
+                <h2>Verification Details</h2>
+                <div class="document-details">
+                    <p><strong>User Name:</strong> <span id="modal-user-name"></span></p>
+                    <p><strong>Email:</strong> <span id="modal-email"></span></p>
+                    <p><strong>Role:</strong> <span id="modal-role"></span></p>
+                    <p><strong>Document Type:</strong> <span id="modal-document-type"></span></p>
+                    <p><strong>Document Number:</strong> <span id="modal-document-number"></span></p>
+                    <p><strong>Issue Date:</strong> <span id="modal-issue-date"></span></p>
+                    <p><strong>Expiry Date:</strong> <span id="modal-expiry-date"></span></p>
+                    <p><strong>Issuing Authority:</strong> <span id="modal-issuing-authority"></span></p>
+                    <p><strong>Uploaded:</strong> <span id="modal-uploaded"></span></p>
+                    <div class="document-preview-container">
+                        <img id="modal-document-preview" src="" alt="Document Preview">
+                    </div>
+                    <form action="process_verification.php" method="post" id="verification-form">
+                        <input type="hidden" name="document_id" id="modal-document-id">
+                        <div class="rejection-reason">
+                            <label for="rejection_reason">Rejection Reason (if applicable):</label>
+                            <textarea name="rejection_reason" id="rejection_reason"></textarea>
+                        </div>
+                        <div class="document-actions">
+                            <button type="submit" name="action" value="approve" class="btn approve">Approve</button>
+                            <button type="submit" name="action" value="reject" class="btn reject">Reject</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <!-- Users List Tab -->
@@ -278,7 +415,25 @@ $users_result = mysqli_query($conn, $users_query);
                         <tr>
                             <td><?php echo htmlspecialchars($user['name']); ?></td>
                             <td><?php echo htmlspecialchars($user['email']); ?></td>
-                            <td><?php echo htmlspecialchars($user['role']); ?></td>
+                            <td><?php 
+                                $role = htmlspecialchars($user['role']);
+                                switch($role) {
+                                    case 'entrepreneur':
+                                        echo 'Entrepreneur';
+                                        break;
+                                    case 'job_seeker':
+                                        echo 'Job Seeker';
+                                        break;
+                                    case 'investor':
+                                        echo 'Investor';
+                                        break;
+                                    case 'admin':
+                                        echo 'Admin';
+                                        break;
+                                    default:
+                                        echo ucfirst($role);
+                                }
+                            ?></td>
                             <td>
                                 <span class="status-badge status-<?php echo $user['verification_status']; ?>">
                                     <?php echo ucfirst($user['verification_status']); ?>
@@ -312,6 +467,34 @@ $users_result = mysqli_query($conn, $users_query);
 
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
+        }
+
+        function openVerificationModal(verification) {
+            document.getElementById('modal-user-name').textContent = verification.user_name;
+            document.getElementById('modal-email').textContent = verification.email;
+            document.getElementById('modal-role').textContent = verification.role;
+            document.getElementById('modal-document-type').textContent = verification.document_type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            document.getElementById('modal-document-number').textContent = verification.document_number || 'N/A';
+            document.getElementById('modal-issue-date').textContent = verification.issue_date || 'N/A';
+            document.getElementById('modal-expiry-date').textContent = verification.expiry_date || 'N/A';
+            document.getElementById('modal-issuing-authority').textContent = verification.issuing_authority || 'N/A';
+            document.getElementById('modal-uploaded').textContent = new Date(verification.uploaded_at).toLocaleDateString();
+            document.getElementById('modal-document-preview').src = verification.file_path;
+            document.getElementById('modal-document-id').value = verification.document_id;
+            
+            document.getElementById('verificationModal').style.display = 'block';
+        }
+
+        function closeVerificationModal() {
+            document.getElementById('verificationModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('verificationModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
         }
     </script>
 </body>

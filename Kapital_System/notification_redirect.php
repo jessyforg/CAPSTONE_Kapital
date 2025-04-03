@@ -49,6 +49,14 @@ if ($result->num_rows > 0) {
     $update_stmt->bind_param("i", $notification_id);
     $update_stmt->execute();
 
+    // Check if this is a verification status notification
+    if (strpos($notification['message'], 'verification status') !== false || 
+        strpos($notification['message'], 'Verification Status') !== false) {
+        // Redirect to verify_account.php for verification status notifications
+        header("Location: verify_account.php");
+        exit;
+    }
+
     // Role-based redirection
     if ($role == 'entrepreneur') {
         // If it's a system alert, redirect to index.php
@@ -69,6 +77,11 @@ if ($result->num_rows > 0) {
             header("Location: application_status.php?application_id=" . $application_id);
             exit;
         } else {
+            // If no specific redirect, go to verify_account.php for verification notifications
+            if (strpos($notification['message'], 'verification') !== false) {
+                header("Location: verify_account.php");
+                exit;
+            }
             echo "No application ID for this notification.";
             exit;
         }
@@ -79,6 +92,11 @@ if ($result->num_rows > 0) {
             header("Location: job-details.php?job_id=" . $job_id);
             exit;
         } else {
+            // If no specific redirect, go to verify_account.php for verification notifications
+            if (strpos($notification['message'], 'verification') !== false) {
+                header("Location: verify_account.php");
+                exit;
+            }
             echo "No job ID for this notification.";
             exit;
         }
@@ -150,6 +168,11 @@ if ($result->num_rows > 0) {
             if (!empty($notification['url'])) {
                 header("Location: " . $notification['url']);
             } else {
+                // If no specific redirect, go to verify_account.php for verification notifications
+                if (strpos($notification['message'], 'verification') !== false) {
+                    header("Location: verify_account.php");
+                    exit;
+                }
                 header("Location: index.php");
             }
             break;
