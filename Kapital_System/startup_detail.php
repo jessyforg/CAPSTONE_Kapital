@@ -11,7 +11,11 @@ if (!isset($_GET['startup_id'])) {
 $startup_id = $_GET['startup_id'];
 
 // Fetch startup details from the database
-$query_startup = "SELECT * FROM Startups WHERE startup_id = ?";
+$query_startup = "SELECT s.*, u.name as entrepreneur_name, u.public_email as entrepreneur_email, 
+                         u.contact_number as entrepreneur_contact 
+                  FROM Startups s 
+                  JOIN Users u ON s.entrepreneur_id = u.user_id 
+                  WHERE s.startup_id = ?";
 $stmt = $conn->prepare($query_startup);
 $stmt->bind_param("i", $startup_id);
 $stmt->execute();
@@ -300,6 +304,19 @@ if ($user_role === 'entrepreneur') {
             <div class="detail-item">
                 <strong>Industry</strong>
                 <p><?php echo htmlspecialchars($startup['industry']); ?></p>
+            </div>
+
+            <div class="detail-item">
+                <strong>Entrepreneur</strong>
+                <p><?php echo htmlspecialchars($startup['entrepreneur_name']); ?></p>
+                <?php if ($startup['approval_status'] === 'approved'): ?>
+                    <?php if ($startup['entrepreneur_email']): ?>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:<?php echo htmlspecialchars($startup['entrepreneur_email']); ?>"><?php echo htmlspecialchars($startup['entrepreneur_email']); ?></a></p>
+                    <?php endif; ?>
+                    <?php if ($startup['entrepreneur_contact']): ?>
+                        <p><i class="fas fa-phone"></i> <?php echo htmlspecialchars($startup['entrepreneur_contact']); ?></p>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
 
             <div class="detail-item">

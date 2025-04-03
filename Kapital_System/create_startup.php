@@ -378,6 +378,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Startup Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         body {
             margin: 0;
@@ -631,6 +633,86 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 height: 120px;
             }
         }
+
+        /* Select2 Custom Styles */
+        .select2-container--default .select2-selection--single {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(243, 192, 0, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            height: 42px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #fff;
+            line-height: 42px;
+            padding-left: 15px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 40px;
+        }
+
+        .select2-container--default .select2-results__option {
+            background-color: #2C2F33;
+            color: #fff;
+            padding: 10px 15px;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #f3c000;
+            color: #000;
+        }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            background-color: #2C2F33;
+            color: #fff;
+            border: 1px solid rgba(243, 192, 0, 0.3);
+            border-radius: 4px;
+            padding: 8px;
+        }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field:focus {
+            outline: none;
+            border-color: #f3c000;
+        }
+
+        .select2-dropdown {
+            background-color: #2C2F33;
+            border: 1px solid rgba(243, 192, 0, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .select2-container--default .select2-results__option[aria-selected=true] {
+            background-color: rgba(243, 192, 0, 0.2);
+            color: #f3c000;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            border-color: #f3c000 transparent transparent transparent;
+        }
+
+        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent #f3c000 transparent;
+        }
+
+        /* Style for optgroups */
+        .select2-results__group {
+            background-color: #23272A;
+            color: #f3c000;
+            font-weight: bold;
+            padding: 8px 10px;
+        }
+
+        /* Style for options within optgroups */
+        .select2-results__option {
+            padding-left: 20px;
+        }
     </style>
 </head>
 
@@ -655,7 +737,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="industry">Industry</label>
-                <select id="industry" name="industry" required>
+                <select id="industry" name="industry" class="select2" required>
                     <option value="">Select Industry</option>
                     <?php foreach ($industries as $category => $subcategories): ?>
                         <optgroup label="<?php echo htmlspecialchars($category); ?>">
@@ -689,7 +771,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="location">Location</label>
-                <select id="location" name="location" required>
+                <select id="location" name="location" class="select2" required>
                     <option value="">Select Location</option>
                     <?php foreach ($locations as $region => $cities): ?>
                         <optgroup label="<?php echo htmlspecialchars($region); ?>">
@@ -730,7 +812,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            // Initialize Select2 on industry and location dropdowns
+            $('#industry, #location').select2({
+                theme: 'default',
+                width: '100%',
+                placeholder: 'Search or select an option',
+                allowClear: true,
+                minimumInputLength: 1
+            });
+        });
+
         function previewLogo(input) {
             const preview = document.getElementById('logoPreview');
             const defaultIcon = preview.querySelector('.default-logo-icon');

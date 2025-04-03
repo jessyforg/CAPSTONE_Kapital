@@ -93,8 +93,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     throw new Exception("Error uploading resume file");
                 }
             }
+        } elseif ($role === 'entrepreneur') {
+            // Insert into Entrepreneurs table
+            $stmt = $conn->prepare("INSERT INTO Entrepreneurs (entrepreneur_id) VALUES (?)");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+        } elseif ($role === 'investor') {
+            // Insert into Investors table with default values
+            $stmt = $conn->prepare("INSERT INTO Investors (investor_id, investment_range_min, investment_range_max) VALUES (?, 0, 0)");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
         }
-        // Add other role-specific handling here (entrepreneur, investor)
 
         // Commit transaction
         $conn->commit();

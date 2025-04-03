@@ -12,7 +12,9 @@ CREATE TABLE Users (
     role ENUM('entrepreneur', 'investor', 'job_seeker', 'admin') NOT NULL,
     verification_status ENUM('pending', 'verified', 'not approved') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    contact_number VARCHAR(20) DEFAULT NULL,
+    public_email VARCHAR(255) DEFAULT NULL
 );
 
 CREATE TABLE Entrepreneurs (
@@ -149,7 +151,20 @@ CREATE TABLE Notifications (
 CREATE TABLE Verification_Documents (
     document_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    document_type ENUM('government_id', 'business_registration', 'professional_license') NOT NULL,
+    document_type ENUM(
+        'government_id',
+        'passport',
+        'drivers_license',
+        'business_registration',
+        'professional_license',
+        'tax_certificate',
+        'bank_statement',
+        'utility_bill',
+        'proof_of_address',
+        'employment_certificate',
+        'educational_certificate',
+        'other'
+    ) NOT NULL,
     file_name VARCHAR(255) NOT NULL,
     file_path VARCHAR(255) NOT NULL,
     file_type VARCHAR(50) NOT NULL,
@@ -159,8 +174,42 @@ CREATE TABLE Verification_Documents (
     reviewed_by INT,
     reviewed_at TIMESTAMP NULL,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    document_number VARCHAR(100),
+    issue_date DATE,
+    expiry_date DATE,
+    issuing_authority VARCHAR(100),
+    additional_info TEXT,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (reviewed_by) REFERENCES Users(user_id) ON DELETE SET NULL
+);
+
+CREATE INDEX idx_document_type ON Verification_Documents(document_type);
+
+CREATE TABLE IF NOT EXISTS Document_Validation_Rules (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    document_type VARCHAR(50) NOT NULL,
+    rule_name VARCHAR(100) NOT NULL,
+    rule_description TEXT,
+    validation_regex VARCHAR(255),
+    is_required BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Document_Validation_Rules (document_type, rule_name, rule_description, validation_regex) VALUES
+('passport', 'passport_number', 'Passport number format validation', '^[A-Z]{2}[0-9]{7}$'),
+('drivers_license', 'license_number', 'Driver\'s license number format', '^[A-Z0-9]{8,12}$'),
+('tax_certificate', 'tax_number', 'Tax certificate number format', '^[0-9]{9,12}$');
+
+CREATE TABLE IF NOT EXISTS Document_Verification_History (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    document_id INT NOT NULL,
+    previous_status VARCHAR(20),
+    new_status VARCHAR(20),
+    changed_by INT,
+    change_reason TEXT,
+    changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (document_id) REFERENCES Verification_Documents(document_id) ON DELETE CASCADE,
+    FOREIGN KEY (changed_by) REFERENCES Users(user_id) ON DELETE SET NULL
 );
 
 DELIMITER $$
@@ -335,3 +384,74 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- Add new columns to Users table
+ALTER TABLE Users
+ADD COLUMN profile_picture_url VARCHAR(255) DEFAULT NULL,
+ADD COLUMN location VARCHAR(255) DEFAULT NULL,
+ADD COLUMN introduction TEXT DEFAULT NULL,
+ADD COLUMN accomplishments TEXT DEFAULT NULL,
+ADD COLUMN education TEXT DEFAULT NULL,
+ADD COLUMN employment TEXT DEFAULT NULL,
+ADD COLUMN gender ENUM('male', 'female', 'other', 'prefer_not_to_say') DEFAULT NULL,
+ADD COLUMN birthdate DATE DEFAULT NULL;
+
+-- Create table for social media links
+CREATE TABLE User_Social_Links (
+    user_id INT PRIMARY KEY,
+    facebook_url VARCHAR(255) DEFAULT NULL,
+    twitter_url VARCHAR(255) DEFAULT NULL,
+    instagram_url VARCHAR(255) DEFAULT NULL,
+    linkedin_url VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+-- Create trigger to automatically create social links entry for new users
+DELIMITER $$
+
+CREATE TRIGGER create_user_social_links
+AFTER INSERT ON Users
+FOR EACH ROW
+BEGIN
+    INSERT INTO User_Social_Links (user_id)
+    VALUES (NEW.user_id);
+END $$
+
+DELIMITER ;
+
+-- Create a trigger to track document status changes
+DELIMITER $$
+
+CREATE TRIGGER track_document_status_changes
+AFTER UPDATE ON Verification_Documents
+FOR EACH ROW
+BEGIN
+    IF OLD.status != NEW.status THEN
+        INSERT INTO Document_Verification_History (
+            document_id,
+            previous_status,
+            new_status,
+            changed_by,
+            change_reason
+        ) VALUES (
+            NEW.document_id,
+            OLD.status,
+            NEW.status,
+            NEW.reviewed_by,
+            NEW.rejection_reason
+        );
+    END IF;
+END $$
+
+DELIMITER ;
+
+-- Update existing users to set public_email same as their current email
+UPDATE Users 
+SET public_email = email 
+WHERE public_email IS NULL;
+
+-- Add indexes for better performance
+CREATE INDEX idx_contact_number ON Users(contact_number);
+CREATE INDEX idx_public_email ON Users(public_email);
