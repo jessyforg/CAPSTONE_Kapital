@@ -56,28 +56,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['document_id']) && isse
             $stmt->execute();
 
         } elseif ($action === 'reject') {
+            $rejection_reason = isset($_POST['rejection_reason']) ? $_POST['rejection_reason'] : '';
+            
             // Update document status
             $update_doc = "UPDATE Verification_Documents 
-                          SET status = 'rejected', 
+                          SET status = 'not approved', 
                               reviewed_by = ?, 
-                              reviewed_at = CURRENT_TIMESTAMP 
+                              reviewed_at = CURRENT_TIMESTAMP,
+                              rejection_reason = ?
                           WHERE document_id = ?";
             $stmt = $conn->prepare($update_doc);
-            $stmt->bind_param("ii", $admin_id, $document_id);
+            $stmt->bind_param("isi", $admin_id, $rejection_reason, $document_id);
             $stmt->execute();
 
             // Update user verification status
             $update_user = "UPDATE Users 
-                          SET verification_status = 'rejected' 
+                          SET verification_status = 'not approved' 
                           WHERE user_id = ?";
             $stmt = $conn->prepare($update_user);
             $stmt->bind_param("i", $document['user_id']);
             $stmt->execute();
 
             // Create notification
-            $notification_message = "Your verification document has been rejected. Please upload a valid document.";
-            $notification_query = "INSERT INTO Notifications (user_id, sender_id, type, message, status) 
-                                 VALUES (?, ?, 'system_alert', ?, 'unread')";
+            $notification_message = "Your verification document was not approved." . 
+                                  (!empty($rejection_reason) ? " Reason: " . $rejection_reason : " Please upload a valid document.");
+            $notification_query = "INSERT INTO Notifications (user_id, sender_id, type, message, status, url) 
+                                 VALUES (?, ?, 'system_alert', ?, 'unread', 'verify_account.php')";
             $stmt = $conn->prepare($notification_query);
             $stmt->bind_param("iis", $document['user_id'], $admin_id, $notification_message);
             $stmt->execute();
