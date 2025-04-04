@@ -66,7 +66,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 40px;
+            padding: 10px 25px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -230,22 +230,22 @@ if (isset($_SESSION['user_id'])) {
         /* Notifications and Messaging */
         .icon-btn {
             position: relative;
-            margin-left: 20px;
+            margin-left: 15px;
             cursor: pointer;
             color: #fff;
             text-decoration: none;
-            font-size: 1.5em;
+            font-size: 1.2em;
         }
 
         .icon-btn .badge {
             position: absolute;
             top: -5px;
-            right: -10px;
+            right: -8px;
             background: #f3c000;
             color: #000;
             border-radius: 50%;
-            padding: 3px 6px;
-            font-size: 0.7em;
+            padding: 2px 5px;
+            font-size: 0.65em;
             font-weight: bold;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transform: scale(0.85);
@@ -257,14 +257,15 @@ if (isset($_SESSION['user_id'])) {
         }
 
         /* Add Taraki logo styling */
-        .taraki-logo {
-            height: 30px;
-            margin-right: 15px;
+        .navbar-taraki-logo {
+            height: 28px;
+            width: auto;
+            margin-right: 10px;
             transition: transform 0.2s ease;
         }
 
-        .taraki-logo:hover {
-            transform: scale(1.1);
+        .navbar-taraki-logo:hover {
+            transform: scale(1.05);
         }
 
         .profile-dropdown {
@@ -274,23 +275,23 @@ if (isset($_SESSION['user_id'])) {
 
         .dropdown-btn,
         .cta-buttons a.cta-btn {
-            background: linear-gradient(90deg, #f3c000, #ffab00);
+            background-color: #f3c000;
             color: #000;
             font-weight: 600;
-            padding: 10px 20px;
+            padding: 8px 15px;
             margin-left: 10px;
             text-decoration: none;
             border-radius: 5px;
-            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
+            font-size: 0.95em;
         }
 
         .dropdown-btn:hover,
         .cta-buttons a.cta-btn:hover {
-            background: linear-gradient(90deg, #ffab00, #f3c000);
-            transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            background-color: #ffab00;
+            transform: scale(1.03);
         }
 
         .dropdown-btn:active,
@@ -427,29 +428,31 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <nav>
             <ul>
-                <li><a href="index.php" class="active">Home</a></li>
+                <li><a href="index.php" <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'class="active"' : ''; ?>>Home</a></li>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'entrepreneur'): ?>
-                    <li><a href="entrepreneurs.php">For Entrepreneurs</a></li>
+                    <li><a href="entrepreneurs.php" <?php echo basename($_SERVER['PHP_SELF']) == 'entrepreneurs.php' ? 'class="active"' : ''; ?>>For Entrepreneurs</a></li>
                 <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'investor'): ?>
-                    <li><a href="investors.php">For Investors</a></li>
+                    <li><a href="investors.php" <?php echo basename($_SERVER['PHP_SELF']) == 'investors.php' ? 'class="active"' : ''; ?>>For Investors</a></li>
                 <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'job_seeker'): ?>
-                    <li><a href="job-seekers.php">For Job Seekers</a></li>
+                    <li><a href="job-seekers.php" <?php echo basename($_SERVER['PHP_SELF']) == 'job-seekers.php' ? 'class="active"' : ''; ?>>For Job Seekers</a></li>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                    <li><a href="admin-panel.php">Admin Panel</a></li>
+                    <li><a href="admin-panel.php" <?php echo basename($_SERVER['PHP_SELF']) == 'admin-panel.php' ? 'class="active"' : ''; ?>>Admin Panel</a></li>
                 <?php endif; ?>
-                <li><a href="about-us.php">About Us</a></li>
+                <li><a href="about-us.php" <?php echo basename($_SERVER['PHP_SELF']) == 'about-us.php' ? 'class="active"' : ''; ?>>About Us</a></li>
             </ul>
         </nav>
         <div class="cta-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="https://taraki.vercel.app" target="_blank">
-                    <img src="imgs/taraki logo.png" alt="Taraki Logo" class="taraki-logo">
+                    <img src="imgs/logo.png" alt="Taraki Logo" class="navbar-taraki-logo">
                 </a>
                 <div class="dropdown-container">
                     <a class="icon-btn">
                         <i class="fas fa-bell"></i>
+                        <?php if ($notification_count > 0): ?>
                         <span class="badge"><?php echo $notification_count; ?></span>
+                        <?php endif; ?>
                     </a>
                     <div class="dropdown-content">
                         <?php if (!empty($notifications)): ?>
@@ -468,7 +471,9 @@ if (isset($_SESSION['user_id'])) {
                 <div class="dropdown-container">
                     <a href="messages.php" class="icon-btn">
                         <i class="fas fa-envelope"></i>
+                        <?php if ($unread_sender_count > 0): ?>
                         <span class="badge"><?php echo $unread_sender_count; ?></span>
+                        <?php endif; ?>
                     </a>
                     <div class="dropdown-content">
                         <?php if (!empty($messages)): ?>
