@@ -481,6 +481,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-position: calc(100% - 15px) center;
             padding-right: 40px;
             transition: all 0.3s ease;
+            box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
         }
 
         select option {
@@ -636,69 +637,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         /* Select2 Custom Styles */
         .select2-container--default .select2-selection--single {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(243, 192, 0, 0.3);
-            border-radius: 8px;
-            color: #fff;
+            background-color: #2C2F33;
+            border: 1px solid #40444B;
+            border-radius: 6px;
+            color: #FFFFFF;
             height: 42px;
+            overflow: hidden;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #fff;
+            color: #FFFFFF;
             line-height: 42px;
             padding-left: 15px;
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .select2-container--default .select2-results__option {
             background-color: #2C2F33;
-            color: #fff;
+            color: #FFFFFF;
             padding: 10px 15px;
+            text-align: left;
         }
 
         .select2-container--default .select2-results__option--highlighted[aria-selected] {
-            background-color: #f3c000;
-            color: #000;
+            background-color: #7289DA;
+            color: #FFFFFF;
         }
 
         .select2-container--default .select2-search--dropdown .select2-search__field {
             background-color: #2C2F33;
-            color: #fff;
-            border: 1px solid rgba(243, 192, 0, 0.3);
+            color: #FFFFFF;
+            border: 1px solid #40444B;
             border-radius: 4px;
             padding: 8px;
         }
 
         .select2-container--default .select2-search--dropdown .select2-search__field:focus {
             outline: none;
-            border-color: #f3c000;
+            border-color: #7289DA;
         }
 
         .select2-dropdown {
             background-color: #2C2F33;
-            border: 1px solid rgba(243, 192, 0, 0.3);
-            border-radius: 8px;
+            border: 1px solid #40444B;
+            border-radius: 6px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .select2-container--default .select2-results__option[aria-selected=true] {
-            background-color: rgba(243, 192, 0, 0.2);
-            color: #f3c000;
+            overflow: auto;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: #B9BBBE;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__arrow b {
-            border-color: #f3c000 transparent transparent transparent;
+            border-color: #7289DA transparent transparent transparent;
         }
 
         .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-            border-color: transparent transparent #f3c000 transparent;
+            border-color: transparent transparent #7289DA transparent;
         }
 
         /* Style for optgroups */
@@ -816,13 +814,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Initialize Select2 on industry and location dropdowns
-            $('#industry, #location').select2({
+            // Reinitialize Select2 on industry and location dropdowns
+            $('#industry, #location').select2('destroy').select2({
                 theme: 'default',
                 width: '100%',
                 placeholder: 'Search or select an option',
                 allowClear: true,
-                minimumInputLength: 1
+                minimumInputLength: 0, // Allow search with no minimum input
+                dropdownAutoWidth: true, // Adjust dropdown width automatically
             });
         });
 
