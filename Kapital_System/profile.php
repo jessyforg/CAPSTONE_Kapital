@@ -192,6 +192,130 @@ $locations = [
     ]
 ];
 
+// Define industries array
+$industries = [
+    'Technology' => [
+        'Software Development',
+        'Artificial Intelligence',
+        'Mobile App Development',
+        'Cloud Computing',
+        'Cybersecurity',
+        'E-commerce',
+        'Fintech',
+        'Internet of Things (IoT)',
+        'Blockchain',
+        'Big Data'
+    ],
+    'Healthcare' => [
+        'Medical Devices',
+        'Healthcare IT',
+        'Biotechnology',
+        'Pharmaceuticals',
+        'Telemedicine',
+        'Mental Health',
+        'Healthcare Services',
+        'Medical Research',
+        'Digital Health',
+        'Wellness & Fitness'
+    ],
+    'Education' => [
+        'EdTech',
+        'Online Learning',
+        'Educational Services',
+        'Professional Training',
+        'Language Learning',
+        'Educational Content',
+        'Learning Management Systems',
+        'Educational Apps',
+        'STEM Education',
+        'Early Childhood Education'
+    ],
+    'Financial Services' => [
+        'Banking',
+        'Insurance',
+        'Investment Management',
+        'Payment Processing',
+        'Cryptocurrency',
+        'Personal Finance',
+        'Lending',
+        'Financial Advisory',
+        'Asset Management',
+        'Risk Management'
+    ],
+    'Retail & E-commerce' => [
+        'Online Retail',
+        'Mobile Commerce',
+        'Retail Technology',
+        'Fashion & Apparel',
+        'Consumer Goods',
+        'Marketplace Platforms',
+        'Subscription Services',
+        'Retail Analytics',
+        'Supply Chain Management',
+        'Customer Experience'
+    ],
+    'Manufacturing' => [
+        'Advanced Manufacturing',
+        'Industrial Automation',
+        '3D Printing',
+        'Smart Manufacturing',
+        'Electronics Manufacturing',
+        'Food Processing',
+        'Textile Manufacturing',
+        'Automotive Manufacturing',
+        'Chemical Manufacturing',
+        'Green Manufacturing'
+    ],
+    'Energy & Sustainability' => [
+        'Renewable Energy',
+        'Clean Technology',
+        'Energy Efficiency',
+        'Solar Power',
+        'Wind Energy',
+        'Energy Storage',
+        'Green Building',
+        'Waste Management',
+        'Environmental Services',
+        'Sustainable Transportation'
+    ],
+    'Agriculture' => [
+        'AgTech',
+        'Smart Farming',
+        'Organic Farming',
+        'Precision Agriculture',
+        'Aquaculture',
+        'Vertical Farming',
+        'Agricultural Biotechnology',
+        'Farm Management',
+        'Agricultural Supply Chain',
+        'Food Technology'
+    ],
+    'Transportation & Logistics' => [
+        'Logistics Technology',
+        'Fleet Management',
+        'Last-Mile Delivery',
+        'Transportation Services',
+        'Autonomous Vehicles',
+        'Shipping & Freight',
+        'Urban Mobility',
+        'Warehouse Management',
+        'Supply Chain Solutions',
+        'Delivery Optimization'
+    ],
+    'Real Estate & Construction' => [
+        'PropTech',
+        'Construction Technology',
+        'Real Estate Services',
+        'Property Management',
+        'Smart Buildings',
+        'Construction Management',
+        'Architecture & Design',
+        'Building Materials',
+        'Real Estate Investment',
+        'Facility Management'
+    ]
+];
+
 // Handle profile updates - only if it's the user's own profile
 if ($is_own_profile && isset($_POST['update_profile'])) {
     $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -199,6 +323,7 @@ if ($is_own_profile && isset($_POST['update_profile'])) {
     $public_email = !empty($_POST['public_email']) ? mysqli_real_escape_string($conn, $_POST['public_email']) : $email;
     $contact_number = mysqli_real_escape_string($conn, $_POST['contact_number']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
+    $industry = mysqli_real_escape_string($conn, $_POST['industry']);
     $introduction = mysqli_real_escape_string($conn, $_POST['introduction']);
     $accomplishments = mysqli_real_escape_string($conn, $_POST['accomplishments']);
     $education = mysqli_real_escape_string($conn, $_POST['education']);
@@ -210,16 +335,22 @@ if ($is_own_profile && isset($_POST['update_profile'])) {
     $profile_picture_url = $user['profile_picture_url'];
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        $max_size = 5 * 1024 * 1024; // 5MB
         $file_type = $_FILES['profile_picture']['type'];
+        $file_size = $_FILES['profile_picture']['size'];
         
-        if (in_array($file_type, $allowed_types)) {
+        if (!in_array($file_type, $allowed_types)) {
+            $error_message = "Invalid file type. Please upload a JPEG, PNG, or GIF image.";
+        } elseif ($file_size > $max_size) {
+            $error_message = "File is too large. Maximum size is 5MB.";
+        } else {
             $upload_dir = 'uploads/profile_pictures/';
             if (!file_exists($upload_dir)) {
                 mkdir($upload_dir, 0777, true);
             }
             
-            $file_extension = pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION);
-            $new_filename = uniqid() . '.' . $file_extension;
+            $file_extension = strtolower(pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION));
+            $new_filename = uniqid('profile_') . '.' . $file_extension;
             $target_path = $upload_dir . $new_filename;
             
             if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_path)) {
@@ -228,6 +359,8 @@ if ($is_own_profile && isset($_POST['update_profile'])) {
                     unlink($profile_picture_url);
                 }
                 $profile_picture_url = $target_path;
+            } else {
+                $error_message = "Failed to upload profile picture. Please try again.";
             }
         }
     }
@@ -243,11 +376,11 @@ if ($is_own_profile && isset($_POST['update_profile'])) {
     } else {
         // Update user profile
         $query_update = "UPDATE Users SET name = ?, email = ?, public_email = ?, contact_number = ?, location = ?, 
-                        introduction = ?, accomplishments = ?, education = ?, employment = ?, gender = ?, 
+                        industry = ?, introduction = ?, accomplishments = ?, education = ?, employment = ?, gender = ?, 
                         birthdate = ?, profile_picture_url = ? WHERE user_id = ?";
         $update_stmt = $conn->prepare($query_update);
-        $update_stmt->bind_param("ssssssssssssi", $name, $email, $public_email, $contact_number, $location, 
-                               $introduction, $accomplishments, $education, $employment, $gender, 
+        $update_stmt->bind_param("sssssssssssssi", $name, $email, $public_email, $contact_number, $location, 
+                               $industry, $introduction, $accomplishments, $education, $employment, $gender, 
                                $birthdate, $profile_picture_url, $viewing_user_id);
         
         if ($update_stmt->execute()) {
@@ -266,11 +399,11 @@ if ($is_own_profile && isset($_POST['update_profile'])) {
                                    $instagram_url, $linkedin_url, $viewing_user_id);
             
             if ($social_stmt->execute()) {
-                $success_message = "Profile updated successfully!";
-                // Update session variables
-                $_SESSION['name'] = $name;
-                $_SESSION['email'] = $email;
-                header("Refresh:2"); // Refresh after 2 seconds
+            $success_message = "Profile updated successfully!";
+            // Update session variables
+            $_SESSION['name'] = $name;
+            $_SESSION['email'] = $email;
+            header("Refresh:2"); // Refresh after 2 seconds
             } else {
                 $error_message = "Error updating social media links: " . $conn->error;
             }
@@ -306,6 +439,55 @@ if ($is_own_profile && isset($_POST['change_password'])) {
         }
     } else {
         $error_message = "Current password is incorrect.";
+    }
+}
+
+// Handle profile picture upload
+if ($is_own_profile && isset($_POST['update_profile_picture']) && isset($_FILES['profile_picture'])) {
+    $file = $_FILES['profile_picture'];
+    
+    if ($file['error'] === UPLOAD_ERR_OK) {
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        $max_size = 5 * 1024 * 1024; // 5MB
+        
+        if (!in_array($file['type'], $allowed_types)) {
+            $error_message = "Invalid file type. Please upload a JPEG, PNG, or GIF image.";
+        } elseif ($file['size'] > $max_size) {
+            $error_message = "File is too large. Maximum size is 5MB.";
+        } else {
+            $upload_dir = 'uploads/profile_pictures/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            
+            $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $new_filename = 'profile_' . $viewing_user_id . '_' . uniqid() . '.' . $file_extension;
+            $target_path = $upload_dir . $new_filename;
+            
+            if (move_uploaded_file($file['tmp_name'], $target_path)) {
+                // Delete old profile picture if exists
+                if ($user['profile_picture_url'] && file_exists($user['profile_picture_url'])) {
+                    unlink($user['profile_picture_url']);
+                }
+                
+                // Update database with new profile picture URL
+                $update_query = "UPDATE Users SET profile_picture_url = ? WHERE user_id = ?";
+                $stmt = $conn->prepare($update_query);
+                $stmt->bind_param("si", $target_path, $viewing_user_id);
+                
+                if ($stmt->execute()) {
+                    $success_message = "Profile picture updated successfully!";
+                    $user['profile_picture_url'] = $target_path; // Update current user data
+                    header("Refresh:2"); // Refresh after 2 seconds
+                } else {
+                    $error_message = "Failed to update profile picture in database.";
+                }
+            } else {
+                $error_message = "Failed to upload profile picture. Please try again.";
+            }
+        }
+    } else {
+        $error_message = "Error uploading file. Please try again.";
     }
 }
 
@@ -397,11 +579,13 @@ if ($user['role'] === 'entrepreneur') {
 
         .profile-header-content {
             flex: 1;
+            padding-top: 10px;
         }
 
         .profile-picture-container {
             flex-shrink: 0;
             text-align: center;
+            width: 200px;
         }
 
         .profile-picture {
@@ -495,6 +679,11 @@ if ($user['role'] === 'entrepreneur') {
             flex-wrap: wrap;
         }
 
+        .profile-actions .action-button {
+            min-width: 160px;
+            justify-content: center;
+        }
+
         .action-button {
             background: linear-gradient(45deg, #f3c000, #ffab00);
             color: #000;
@@ -508,15 +697,12 @@ if ($user['role'] === 'entrepreneur') {
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
 
         .action-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(243, 192, 0, 0.3);
-        }
-
-        .action-button i {
-            font-size: 1.1em;
         }
 
         .profile-section {
@@ -607,7 +793,6 @@ if ($user['role'] === 'entrepreneur') {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.2em;
         }
 
         .info-section p {
@@ -693,10 +878,25 @@ if ($user['role'] === 'entrepreneur') {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                padding: 20px;
             }
 
             .profile-picture-container {
                 margin-bottom: 20px;
+            }
+
+            .profile-actions {
+                justify-content: center;
+            }
+
+            .profile-actions .action-button,
+            #profilePictureForm .action-button {
+                width: 100%;
+                min-width: unset;
+            }
+
+            #profilePictureForm {
+                width: 100%;
             }
 
             h1 {
@@ -967,83 +1167,85 @@ if ($user['role'] === 'entrepreneur') {
 
         /* Select2 Custom Styles */
         .select2-container--default .select2-selection--single {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(243, 192, 0, 0.3);
-            border-radius: 8px;
-            color: #fff;
-            height: 42px;
+            background-color: #2C2F33 !important;
+            border: 1px solid #f3c000 !important;
+            border-radius: 8px !important;
+            height: 42px !important;
+            color: #FFFFFF !important;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #fff;
-            line-height: 42px;
-            padding-left: 15px;
+            color: #FFFFFF !important;
+            line-height: 42px !important;
+            padding-left: 15px !important;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__arrow {
-            height: 40px;
-        }
-
-        .select2-container--default .select2-results__option {
-            background-color: #2C2F33;
-            color: #fff;
-            padding: 10px 15px;
-        }
-
-        .select2-container--default .select2-results__option--highlighted[aria-selected] {
-            background-color: #f3c000;
-            color: #000;
-        }
-
-        .select2-container--default .select2-search--dropdown .select2-search__field {
-            background-color: #2C2F33;
-            color: #fff;
-            border: 1px solid rgba(243, 192, 0, 0.3);
-            border-radius: 4px;
-            padding: 8px;
-        }
-
-        .select2-container--default .select2-search--dropdown .select2-search__field:focus {
-            outline: none;
-            border-color: #f3c000;
+            height: 40px !important;
         }
 
         .select2-dropdown {
-            background-color: #2C2F33;
-            border: 1px solid rgba(243, 192, 0, 0.3);
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #2C2F33 !important;
+            border: 1px solid #f3c000 !important;
+            border-radius: 8px !important;
+        }
+
+        .select2-container--default .select2-results__option {
+            background-color: #2C2F33 !important;
+            color: #FFFFFF !important;
+            padding: 10px 15px !important;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #f3c000 !important;
+            color: #000000 !important;
+        }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            background-color: #2C2F33 !important;
+            color: #FFFFFF !important;
+            border: 1px solid #f3c000 !important;
+            padding: 8px !important;
+        }
+
+        .select2-container--default .select2-results__group {
+            background-color: #202225 !important;
+            color: #f3c000 !important;
+            font-weight: 600 !important;
+            padding: 10px 15px !important;
         }
 
         .select2-container--default .select2-results__option[aria-selected=true] {
-            background-color: rgba(243, 192, 0, 0.2);
-            color: #f3c000;
+            background-color: rgba(243, 192, 0, 0.2) !important;
+            color: #f3c000 !important;
+        }
+
+        .select2-container--open .select2-dropdown {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.6) !important;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__arrow b {
-            border-color: #f3c000 transparent transparent transparent;
+            border-color: #f3c000 transparent transparent transparent !important;
         }
 
         .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-            border-color: transparent transparent #f3c000 transparent;
+            border-color: transparent transparent #f3c000 transparent !important;
         }
 
-        /* Style for optgroups */
-        .select2-results__group {
-            background-color: #23272A;
-            color: #f3c000;
-            font-weight: bold;
-            padding: 8px 10px;
-        }
-
-        /* Style for options within optgroups */
-        .select2-results__option {
-            padding-left: 20px;
-        }
+        /* Initialize both location and industry dropdowns with Select2 */
+        $(document).ready(function() {
+            $('#location, #industry').select2({
+                theme: 'default',
+                width: '100%',
+                placeholder: 'Search or select',
+                allowClear: true,
+                minimumInputLength: 0
+            });
+        });
     </style>
 </head>
 
@@ -1060,84 +1262,87 @@ if ($user['role'] === 'entrepreneur') {
                 <?php endif; ?>
                 
                 <?php if ($is_own_profile): ?>
-                    <form method="POST" enctype="multipart/form-data" class="profile-picture-form">
+                    <form method="POST" enctype="multipart/form-data" id="profilePictureForm">
                         <input type="file" name="profile_picture" id="profile_picture" accept="image/*" style="display: none;">
                         <button type="button" class="action-button" onclick="document.getElementById('profile_picture').click()">
                             <i class="fas fa-camera"></i> Change Picture
+                        </button>
+                        <button type="submit" name="update_profile_picture" class="action-button" id="uploadButton" style="display: none;">
+                            <i class="fas fa-upload"></i> Upload Picture
                         </button>
                     </form>
                 <?php endif; ?>
             </div>
 
             <div class="profile-header-content">
-                <h1><?php echo $is_own_profile ? "Your Profile" : htmlspecialchars($user['name']) . "'s Profile"; ?></h1>
-                <div class="role-badge">
-                    <i class="fas <?php
-                        switch($user['role']) {
-                            case 'entrepreneur':
-                                echo 'fa-lightbulb';
-                                break;
-                            case 'investor':
-                                echo 'fa-chart-line';
-                                break;
-                            case 'job_seeker':
-                                echo 'fa-briefcase';
-                                break;
-                            default:
-                                echo 'fa-user';
-                        }
-                    ?>"></i>
-                    <?php echo ucfirst(htmlspecialchars($user['role'])); ?>
-                </div>
-                
-                <div class="verification-badge status-<?php echo strtolower($user['verification_status']); ?>">
-                    <i class="fas <?php
-                        switch($user['verification_status']) {
-                            case 'pending':
-                                echo 'fa-clock';
-                                break;
-                            case 'verified':
-                                echo 'fa-check-circle';
-                                break;
-                            case 'not approved':
-                                echo 'fa-times-circle';
-                                break;
-                        }
-                    ?>"></i>
-                    <?php echo ucfirst($user['verification_status']); ?>
-                    <?php if ($is_own_profile): ?>
-                        <a href="verify_account.php" class="verify-link">
-                            <i class="fas fa-arrow-right"></i> Verify Account
-                        </a>
-                    <?php endif; ?>
-                </div>
-                
+            <h1><?php echo $is_own_profile ? "Your Profile" : htmlspecialchars($user['name']) . "'s Profile"; ?></h1>
+            <div class="role-badge">
+                <i class="fas <?php
+                    switch($user['role']) {
+                        case 'entrepreneur':
+                            echo 'fa-lightbulb';
+                            break;
+                        case 'investor':
+                            echo 'fa-chart-line';
+                            break;
+                        case 'job_seeker':
+                            echo 'fa-briefcase';
+                            break;
+                        default:
+                            echo 'fa-user';
+                    }
+                ?>"></i>
+                <?php echo ucfirst(htmlspecialchars($user['role'])); ?>
+            </div>
+            
+            <div class="verification-badge status-<?php echo strtolower($user['verification_status']); ?>">
+                <i class="fas <?php
+                    switch($user['verification_status']) {
+                        case 'pending':
+                            echo 'fa-clock';
+                            break;
+                        case 'verified':
+                            echo 'fa-check-circle';
+                            break;
+                        case 'not approved':
+                            echo 'fa-times-circle';
+                            break;
+                    }
+                ?>"></i>
+                <?php echo ucfirst($user['verification_status']); ?>
                 <?php if ($is_own_profile): ?>
-                <div class="profile-actions">
-                    <button class="action-button" onclick="toggleSection('editProfile')">
-                        <i class="fas fa-user-edit"></i> Edit Profile
-                    </button>
-                    <button class="action-button" onclick="toggleSection('changePassword')">
-                        <i class="fas fa-key"></i> Change Password
-                    </button>
-                    <?php if ($user['role'] === 'entrepreneur'): ?>
-                    <a href="startup_ai_advisor.php" class="action-button">
-                        <i class="fas fa-robot"></i> AI Startup Advisor
+                    <a href="verify_account.php" class="verify-link">
+                        <i class="fas fa-arrow-right"></i> Verify Account
                     </a>
-                    <?php endif; ?>
-                    <?php if ($user['role'] === 'job_seeker'): ?>
-                    <a href="resume_builder.php" class="action-button">
-                        <i class="fas fa-file-alt"></i> Resume Builder
-                    </a>
-                    <?php endif; ?>
-                </div>
+                <?php endif; ?>
+            </div>
+            
+            <?php if ($is_own_profile): ?>
+            <div class="profile-actions">
+                <button class="action-button" onclick="toggleSection('editProfile')">
+                    <i class="fas fa-user-edit"></i> Edit Profile
+                </button>
+                <button class="action-button" onclick="toggleSection('changePassword')">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+                <?php if ($user['role'] === 'entrepreneur'): ?>
+                <a href="startup_ai_advisor.php" class="action-button">
+                    <i class="fas fa-robot"></i> AI Startup Advisor
+                </a>
+                <?php endif; ?>
+                <?php if ($user['role'] === 'job_seeker'): ?>
+                <a href="resume_builder.php" class="action-button">
+                    <i class="fas fa-file-alt"></i> Resume Builder
+                </a>
+                <?php endif; ?>
+            </div>
                 <?php else: ?>
                 <div class="profile-actions">
-                    <a href="messages.php?user_id=<?php echo $viewing_user_id; ?>" class="action-button">
+                    <a href="messages.php?recipient_id=<?php echo $viewing_user_id; ?>" class="action-button">
                         <i class="fas fa-comments"></i> Send Message
                     </a>
                 </div>
-                <?php endif; ?>
+            <?php endif; ?>
             </div>
         </div>
 
@@ -1183,6 +1388,21 @@ if ($user['role'] === 'entrepreneur') {
                                     <?php foreach ($cities as $city): ?>
                                         <option value="<?php echo htmlspecialchars($city); ?>" <?php echo isset($user['location']) && $user['location'] == $city ? 'selected' : ''; ?>>
                                             <?php echo htmlspecialchars($city); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </optgroup>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <select id="industry" name="industry" class="select2" required>
+                            <option value="">Select Industry</option>
+                            <?php foreach ($industries as $category => $subcategories): ?>
+                                <optgroup label="<?php echo htmlspecialchars($category); ?>">
+                                    <?php foreach ($subcategories as $industry): ?>
+                                        <option value="<?php echo htmlspecialchars($industry); ?>" <?php echo isset($user['industry']) && $user['industry'] == $industry ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($industry); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </optgroup>
@@ -1271,6 +1491,11 @@ if ($user['role'] === 'entrepreneur') {
             </div>
 
             <div class="info-section">
+                <h3><i class="fas fa-industry"></i> Industry</h3>
+                <p><?php echo $user['industry'] ? htmlspecialchars($user['industry']) : 'Not specified'; ?></p>
+            </div>
+
+            <div class="info-section">
                 <h3><i class="fas fa-user-circle"></i> About Me</h3>
                 <p><?php echo $user['introduction'] ? nl2br(htmlspecialchars($user['introduction'])) : 'No introduction provided.'; ?></p>
             </div>
@@ -1347,23 +1572,23 @@ if ($user['role'] === 'entrepreneur') {
                         <?php foreach ($startups as $startup): ?>
                             <div class="grid-item">
                                 <div class="startup-header">
-                                    <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
+                                <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
                                 </div>
                                 <div class="startup-details">
                                     <p><i class="fas fa-industry"></i> <strong>Industry:</strong> <?php echo htmlspecialchars($startup['industry']); ?></p>
                                     <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> <?php echo htmlspecialchars($startup['location']); ?></p>
                                 </div>
                                 <div class="startup-actions">
-                                    <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="view-more">
+                                <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="view-more">
                                         <i class="fas fa-eye"></i> View Details
-                                    </a>
+                                </a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="empty-state">
                             <i class="fas fa-handshake"></i>
-                            <p>No matched startups yet.</p>
+                        <p>No matched startups yet.</p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -1387,7 +1612,7 @@ if ($user['role'] === 'entrepreneur') {
                     <div class="current-resume">
                         <div class="resume-header">
                             <i class="fas fa-file-pdf"></i>
-                            <h3>Current Resume</h3>
+                        <h3>Current Resume</h3>
                         </div>
                         <div class="resume-details">
                             <p><i class="fas fa-file-name"></i> <strong>File Name:</strong> <?php echo htmlspecialchars($current_resume['file_name']); ?></p>
@@ -1425,7 +1650,7 @@ if ($user['role'] === 'entrepreneur') {
                 <?php else: ?>
                     <div class="empty-state">
                         <i class="fas fa-file-alt"></i>
-                        <p>No resume available.</p>
+                    <p>No resume available.</p>
                     </div>
                 <?php endif; ?>
             </div>
@@ -1439,7 +1664,7 @@ if ($user['role'] === 'entrepreneur') {
                         <?php foreach ($applications as $application): ?>
                             <div class="grid-item">
                                 <div class="application-header">
-                                    <h3><?php echo htmlspecialchars($application['role']); ?></h3>
+                                <h3><?php echo htmlspecialchars($application['role']); ?></h3>
                                     <span class="status-badge status-<?php echo strtolower($application['status']); ?>">
                                         <?php echo ucfirst(htmlspecialchars($application['status'])); ?>
                                     </span>
@@ -1450,16 +1675,16 @@ if ($user['role'] === 'entrepreneur') {
                                     <p><i class="fas fa-money-bill-wave"></i> <strong>Salary Range:</strong> ₱<?php echo number_format($application['salary_range_min'], 2); ?> - ₱<?php echo number_format($application['salary_range_max'], 2); ?></p>
                                 </div>
                                 <div class="application-actions">
-                                    <a href="job-details.php?job_id=<?php echo $application['job_id']; ?>" class="view-more">
+                                <a href="job-details.php?job_id=<?php echo $application['job_id']; ?>" class="view-more">
                                         <i class="fas fa-eye"></i> View Details
-                                    </a>
+                                </a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="empty-state">
                             <i class="fas fa-briefcase"></i>
-                            <p>No job applications yet.</p>
+                        <p>No job applications yet.</p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -1480,7 +1705,7 @@ if ($user['role'] === 'entrepreneur') {
                         <?php foreach ($display_startups as $startup): ?>
                             <div class="grid-item">
                                 <div class="startup-header">
-                                    <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
+                                <h3><?php echo htmlspecialchars($startup['name']); ?></h3>
                                     <?php if ($is_own_profile): ?>
                                     <span class="status-badge status-<?php echo strtolower($startup['approval_status']); ?>">
                                         <?php echo ucfirst(htmlspecialchars($startup['approval_status'])); ?>
@@ -1492,16 +1717,16 @@ if ($user['role'] === 'entrepreneur') {
                                     <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> <?php echo htmlspecialchars($startup['location']); ?></p>
                                 </div>
                                 <div class="startup-actions">
-                                    <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="view-more">
+                                <a href="startup_detail.php?startup_id=<?php echo $startup['startup_id']; ?>" class="view-more">
                                         <i class="fas fa-eye"></i> View Details
-                                    </a>
+                                </a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="empty-state">
                             <i class="fas fa-lightbulb"></i>
-                            <p>No startups listed yet.</p>
+                        <p>No startups listed yet.</p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -1575,22 +1800,51 @@ if ($user['role'] === 'entrepreneur') {
             }
         }
 
-        // Add this to handle profile picture preview
+        // Profile picture handling
         document.getElementById('profile_picture').addEventListener('change', function(e) {
             if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                const maxSize = 5 * 1024 * 1024; // 5MB
+
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Please upload a JPEG, PNG, or GIF image.');
+                    this.value = '';
+                    return;
+                }
+
+                if (file.size > maxSize) {
+                    alert('File is too large. Maximum size is 5MB.');
+                    this.value = '';
+                    return;
+                }
+
+                // Show upload button
+                document.getElementById('uploadButton').style.display = 'inline-block';
+
+                // Preview image
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const profilePicture = document.querySelector('.profile-picture') || 
-                                         document.querySelector('.profile-picture-placeholder');
-                    if (profilePicture) {
-                        if (profilePicture.classList.contains('profile-picture-placeholder')) {
-                            profilePicture.innerHTML = `<img src="${e.target.result}" alt="Profile Picture" class="profile-picture">`;
-                        } else {
-                            profilePicture.src = e.target.result;
-                        }
+                    const container = document.querySelector('.profile-picture-container');
+                    const existingImage = container.querySelector('.profile-picture');
+                    const placeholder = container.querySelector('.profile-picture-placeholder');
+
+                    if (existingImage) {
+                        existingImage.src = e.target.result;
+                    } else if (placeholder) {
+                        placeholder.innerHTML = `<img src="${e.target.result}" alt="Profile Picture" class="profile-picture">`;
                     }
                 };
-                reader.readAsDataURL(this.files[0]);
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('profilePictureForm').addEventListener('submit', function(e) {
+            const fileInput = document.getElementById('profile_picture');
+            if (!fileInput.files || !fileInput.files[0]) {
+                e.preventDefault();
+                alert('Please select a file first.');
             }
         });
 
@@ -1599,9 +1853,9 @@ if ($user['role'] === 'entrepreneur') {
             $('#location').select2({
                 theme: 'default',
                 width: '100%',
-                placeholder: 'Search or select a location',
+                placeholder: 'Search or select',
                 allowClear: true,
-                minimumInputLength: 1
+                minimumInputLength: 0
             });
         });
     </script>
