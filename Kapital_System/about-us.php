@@ -243,7 +243,7 @@ include('navbar.php');
                 </div>
                 <div class="team-member">
                     <div class="member-photo">
-                        <img src="uploads/team/placeholder.jpg" alt="Eugene Jherico P. Naval">
+                        <img src="imgs/eug.jpg" alt="Eugene Jherico P. Naval">
                     </div>
                     <div class="member-info">
                         <h3>Eugene Jherico P. Naval</h3>

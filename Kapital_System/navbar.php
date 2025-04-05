@@ -440,6 +440,7 @@ if (isset($_SESSION['user_id'])) {
                     <li><a href="admin-panel.php" <?php echo basename($_SERVER['PHP_SELF']) == 'admin-panel.php' ? 'class="active"' : ''; ?>>Admin Panel</a></li>
                 <?php endif; ?>
                 <li><a href="about-us.php" <?php echo basename($_SERVER['PHP_SELF']) == 'about-us.php' ? 'class="active"' : ''; ?>>About Us</a></li>
+                <li><a href="discover_users.php" <?php echo basename($_SERVER['PHP_SELF']) == 'discover_users.php' ? 'class="active"' : ''; ?>>Discover Users</a></li>
             </ul>
         </nav>
         <div class="cta-buttons">
