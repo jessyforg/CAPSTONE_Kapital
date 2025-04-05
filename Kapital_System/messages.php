@@ -168,13 +168,30 @@ $conversations_query = "
         Users.role
     FROM Messages
     JOIN Users ON (Messages.sender_id = Users.user_id OR Messages.receiver_id = Users.user_id)
-    WHERE Messages.sender_id = ? OR Messages.receiver_id = ?
+    WHERE (Messages.sender_id = ? OR Messages.receiver_id = ?) AND Users.user_id != ?
     ORDER BY (SELECT MAX(Messages.sent_at) FROM Messages 
-              WHERE Messages.sender_id = Users.user_id OR Messages.receiver_id = Users.user_id) DESC";
+              WHERE (Messages.sender_id = Users.user_id AND Messages.receiver_id = ?) 
+              OR (Messages.sender_id = ? AND Messages.receiver_id = Users.user_id)) DESC";
 $conversations_stmt = $conn->prepare($conversations_query);
-$conversations_stmt->bind_param('ii', $user_id, $user_id);
+$conversations_stmt->bind_param('iiiii', $user_id, $user_id, $user_id, $user_id, $user_id);
 $conversations_stmt->execute();
 $conversations_result = $conversations_stmt->get_result();
+
+// Check if recipient_id is provided in URL parameters
+if (isset($_GET['recipient_id']) && !empty($_GET['recipient_id'])) {
+    $chat_with = (int)$_GET['recipient_id'];
+    
+    // Check if the user exists
+    $check_user = $conn->prepare("SELECT user_id FROM Users WHERE user_id = ?");
+    $check_user->bind_param("i", $chat_with);
+    $check_user->execute();
+    $user_exists = $check_user->get_result()->num_rows > 0;
+    
+    if ($user_exists) {
+        // If valid recipient, use it as chat_with
+        $_GET['chat_with'] = $chat_with;
+    }
+}
 
 // Fetch chat messages and user details for the selected conversation
 $chat_with = isset($_GET['chat_with']) ? (int)$_GET['chat_with'] : null;
